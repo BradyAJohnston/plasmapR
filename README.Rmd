@@ -1,0 +1,55 @@
+---
+title: "plasmapR"
+author: "Brady Johnston"
+output: github_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## About
+
+Extension on the {ggplot2} graphics library for generating
+quick plasmid maps from FASTA / genbank files.
+
+Example below:
+
+```{r, echo = FALSE, warning=FALSE, error=FALSE, message=FALSE}
+library(tidyverse)
+library(gggenes)
+library(ggrepel)
+
+
+example_genes %>% 
+  filter(molecule == "Genome5") %>% 
+  ggplot(aes(colour = gene)) + 
+  geom_hline(aes(yintercept = 1)) +
+  geom_segment(
+    aes(x = start, xend = end-100, y = 1, yend = 1, fill = gene), 
+    size = 5
+  ) + 
+  geom_segment(
+    aes(x = start, xend = end, y = 1, yend = 1, fill = gene), 
+    arrow = arrow(type = "closed")
+  ) + 
+  # geom_segment(
+  #   aes(x = start, xend = end-100, y = 0.8, yend = 0.8, fill = gene), 
+  #   size = 5
+  # ) + 
+  # geom_segment(
+  #   aes(x = start, xend = end, y = 0.8, yend = 0.8, fill = gene), 
+  #   arrow = arrow(type = "closed")
+  # ) + 
+  coord_polar() + 
+  ylim(c(0,1.1)) + 
+  geom_label_repel(aes(x = (end - start) / 2 + start, y = 1, label = gene), 
+                   # hjust = 0.5, vjust = 0.5, 
+                   force = 0.5, 
+                   nudge_y = 0.2) + 
+  theme_void() + 
+  annotate(geom = "text", x = -Inf, y = 0, label = "pETM-20-dsnPPR10", 
+           hjust = 0.5, vjust = 0.5) + 
+  theme(legend.position = "")
+```
+

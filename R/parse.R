@@ -96,6 +96,8 @@ create_feature_df <- function(input) {
 
   }
 
+  features$start <- as.numeric(features$start)
+  features$end <- as.numeric(features$end)
   features
 
 }
@@ -134,23 +136,5 @@ for (i in seq_along(plasmid)) {
 
 sequence <- str_c(sequence, collapse = "")
 sequence
-
-
-ggplot() +
-  geom_hline(yintercept = 2) +
-  xlim(c(0, nchar(sequence))) +
-  ylim(c(0,2.3)) +
-  coord_polar() +
-  geom_segment(
-    data = feat_df %>% filter(type != "source"),
-    aes(x = as.numeric(start),
-        xend = as.numeric(end),
-        y = 2,
-        yend = 2,
-        colour = type
-  ),
-  size = 4,
-  arrow = arrow()
-  )
 
 

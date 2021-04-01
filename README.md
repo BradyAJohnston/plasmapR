@@ -9,4 +9,4 @@ maps from FASTA / genbank files.
 
 Example below:
 
-<img src="data/map_example.png" width="2468" />
+<img src="data/map_example.png" width="3000" />

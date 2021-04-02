@@ -5,6 +5,7 @@ create_labels <-
            plasmid_length,
            label_hjust = 0.5,
            label_length_cutoff = 0.9,
+           rotation = 0,
            spacing_scale) {
     
     annotation_list <- list()
@@ -33,6 +34,11 @@ create_labels <-
         annotation_list[[i]] <- temp_annotation
 
       } else {
+        rotation_ratio  <- rotation / 360
+        circle_pos <- circle_pos + rotation_ratio
+
+
+
         if (circle_pos > 0.25 && circle_pos < 0.75) {
           reverse <- TRUE
           angle_adjustment <- 180

@@ -1,0 +1,152 @@
+---
+title: "Shiny Demonstartion"
+author: "Brady Johnston"
+date: "02/04/2021"
+output: html_document
+runtime: shiny
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
+```
+
+
+```{r echo = TRUE, attr.source = c('.numberlines', 'startFrom=12')}
+library(shiny)
+library(stringr)
+library(ggplot2)
+library(dplyr)
+library(plasmapR)
+
+`%>%` <- magrittr::`%>%`
+
+plasmid <- readLines("../data/petm20.gb")
+
+sequence <- extract_sequence(plasmid)
+
+sequence <- paste0(sequence, collapse = "")
+
+feat_df <- create_feature_df(get_features(plasmid))
+```
+
+
+```{r plasmap, echo=FALSE, fig.height=10, fig.width=7, fig.dim=1}
+inputPanel(
+  sliderInput(
+    inputId = "rotation", 
+    label = "Rotation Angle (Degrees)", 
+    min = 0, 
+    max = 360, 
+    value = 0, 
+    step = 1
+  ), 
+  sliderInput(
+    inputId = "repelBox", 
+    label = "Label Spacing Size", 
+    min = 0, 
+    max = 1, 
+    value = 0.3
+  ), 
+  sliderInput(
+    inputId = "labelNudge", 
+    label = "Nudge Label Distance", 
+    min = 0, 
+    max = 2, 
+    value = 0.3, 
+    step = 0.1
+  )
+)
+
+renderPlot({
+  arrow_df <- create_arrow_plotting_df(
+  df = feat_df,
+  middle = 2,
+  width = 0.1,
+  arrowhead_size = 4,
+  # arrow_cutoff = 0.,
+  plasmid_length = nchar(sequence)
+)
+
+angle_adjustment <- input$rotation
+
+labels <- create_labels(feat_df,
+              plasmid_length = nchar(sequence),
+              spacing_scale = 0.006,
+              label_hjust = 0.4,
+              rotation = angle_adjustment,
+              label_length_cutoff = 0.85)
+labels
+# split_text_df(100, 50, "testing", 2)
+
+
+
+ggplot() +
+  geom_hline(yintercept = 2) +
+  coord_polar(start = angle_adjustment / 360 * 2 * pi) +
+  xlim(c(0, nchar(sequence))) +
+  ylim(c(0, 2.4)) +
+  geom_polygon(data = arrow_df,
+               aes(
+                 x = x,
+                 y = y,
+                 fill = type,
+                 group = index
+               ),
+               colour = "black") +
+  theme_void() +
+  theme(legend.position = "") +
+  annotate(geom = "text",
+           x = 0,
+           y = 0,
+           label = "Plasmid Name",
+           family = "mono") +
+  geom_text(
+    data = labels$curved,
+    mapping = aes(
+      x = pos,
+      y = 2,
+      angle = angle - angle_adjustment,
+      label = char
+    ),f
+    family = "mono"
+  ) +
+  ggrepel::geom_label_repel(
+    data = labels$annotations,
+    mapping = aes(
+      x = middle,
+      y = 2.1,
+      label = name
+    ),
+    nudge_y = input$labelNudge,
+    ylim = c(2.2, 5),
+    box.padding = input$repelBox,
+    max.overlaps = 20,
+    hjust = 1) +
+  geom_polygon(
+    data = create_arrow_positions(5209, 7503, 1.6, 0.1, 7800),
+     aes(x = x,
+         y = y),
+    fill = "#b1fc03",
+    colour = "black"
+  ) +
+  geom_text(
+    data = plasmapR::create_labels(
+      df = data.frame(
+        name = "Expressed Construct",
+        start = 5209,
+        end = 7503
+      ),
+      plasmid_length = 7800,
+      spacing_scale = 0.007
+    )$curved,
+    aes(
+      x = pos,
+      y = 1.6,
+      angle = angle - angle_adjustment,
+      label = char
+    )
+  )
+})
+```
+
+

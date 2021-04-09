@@ -30,13 +30,13 @@ feat_df <- create_feature_df(get_features(plasmid))
 ```
 
 
-```{r plasmap, echo=FALSE, fig.height=10, fig.width=7, fig.dim=1}
+```{r plasmap, echo=FALSE}
 inputPanel(
   sliderInput(
     inputId = "rotation", 
     label = "Rotation Angle (Degrees)", 
-    min = 0, 
-    max = 360, 
+    min = -180, 
+    max = 180, 
     value = 0, 
     step = 1
   ), 
@@ -52,12 +52,65 @@ inputPanel(
     label = "Nudge Label Distance", 
     min = 0, 
     max = 2, 
-    value = 0.3, 
+    value = 0.8, 
     step = 0.1
+  ), 
+  sliderInput(
+    inputId = "curve", 
+    label = "Label Line Curvature", 
+    min = 0, 
+    max = 30, 
+    value = 10, 
+    step = 1
+  ), 
+  colourpicker::colourInput(
+    inputId = "labelTextColour", 
+    label = "Label Text Colour", 
+    value = "black", 
+    showColour = "background"
+  ), 
+  sliderInput(
+    inputId = "zoom", 
+    label = "Plasmid Zoom", 
+    min = 0, 
+    max = 5, 
+    value = 3
+  ), 
+  sliderInput(
+    inputId = "textSize", 
+    label = "Text Size", 
+    min = 1, 
+    value = 10,
+    max = 20, 
+    step = 0.2
+  ), 
+  selectInput(
+    inputId = "features", 
+    label = "Feature Types Shown", 
+    choices = unique(feat_df$type), 
+    selected = unique(feat_df$type), 
+    multiple = TRUE
+  ), 
+  textInput(
+    inputId = "plasmidName", 
+    label = "Plasmid Name", 
+    value = "Plasmid Name Here"
+  ), 
+  sliderInput(
+    inputId = "nameSize", 
+    label = "Plasmid Name Size", 
+    min = 1, 
+    max = 10, 
+    step = 0.2, 
+    value = 3
   )
 )
 
 renderPlot({
+  
+  feat_df <- feat_df %>% 
+    dplyr::filter(type %in% input$features)
+  
   arrow_df <- create_arrow_plotting_df(
   df = feat_df,
   middle = 2,
@@ -78,13 +131,14 @@ labels <- create_labels(feat_df,
 labels
 # split_text_df(100, 50, "testing", 2)
 
+curve <- input$curve
 
 
 ggplot() +
   geom_hline(yintercept = 2) +
   coord_polar(start = angle_adjustment / 360 * 2 * pi) +
   xlim(c(0, nchar(sequence))) +
-  ylim(c(0, 2.4)) +
+  ylim(c(0, input$zoom)) +
   geom_polygon(data = arrow_df,
                aes(
                  x = x,
@@ -98,7 +152,8 @@ ggplot() +
   annotate(geom = "text",
            x = 0,
            y = 0,
-           label = "Plasmid Name",
+           label = input$plasmidName,
+           size = input$nameSize,
            family = "mono") +
   geom_text(
     data = labels$curved,
@@ -107,7 +162,7 @@ ggplot() +
       y = 2,
       angle = angle - angle_adjustment,
       label = char
-    ),f
+    ),
     family = "mono"
   ) +
   ggrepel::geom_label_repel(
@@ -115,13 +170,22 @@ ggplot() +
     mapping = aes(
       x = middle,
       y = 2.1,
-      label = name
+      label = name, 
+      fill = type
     ),
+    colour = input$labelTextColour,
+    segment.color = "black",
+    size = input$textSize/.pt,
     nudge_y = input$labelNudge,
     ylim = c(2.2, 5),
     box.padding = input$repelBox,
     max.overlaps = 20,
-    hjust = 1) +
+    segment.curvature = 1 * 10 ^ (-curve),
+    segment.inflect = FALSE,
+    segment.square = TRUE,
+    # direction = "y",
+    hjust = 0.5
+    ) +
   geom_polygon(
     data = create_arrow_positions(5209, 7503, 1.6, 0.1, 7800),
      aes(x = x,
@@ -129,6 +193,10 @@ ggplot() +
     fill = "#b1fc03",
     colour = "black"
   ) +
+  # scale_color_discrete(
+  #   name = "type", 
+  #   aesthetics = c("segment.color")
+  # )
   geom_text(
     data = plasmapR::create_labels(
       df = data.frame(
@@ -146,7 +214,10 @@ ggplot() +
       label = char
     )
   )
-})
+}, 
+width = 800, 
+height = 1000, 
+res = 75)
 ```
 
 

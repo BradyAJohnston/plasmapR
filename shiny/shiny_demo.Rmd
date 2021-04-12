@@ -2,7 +2,9 @@
 title: "Shiny Demonstartion"
 author: "Brady Johnston"
 date: "02/04/2021"
-output: html_document
+output: 
+  html_document:
+    code_folding: hide
 runtime: shiny
 ---
 
@@ -17,6 +19,7 @@ library(stringr)
 library(ggplot2)
 library(dplyr)
 library(plasmapR)
+library(shinyWidgets)
 
 `%>%` <- magrittr::`%>%`
 
@@ -30,16 +33,24 @@ feat_df <- create_feature_df(get_features(plasmid))
 ```
 
 
-```{r plasmap, echo=FALSE}
+```{r inputs, echo=FALSE}
 inputPanel(
-  sliderInput(
+  knobInput(
     inputId = "rotation", 
-    label = "Rotation Angle (Degrees)", 
-    min = -180, 
-    max = 180, 
-    value = 0, 
+    label = "Rotate Map (Degrees)", 
+    value = 90, 
+    min = 0, 
+    max = 360, 
     step = 1
-  ), 
+  ),
+  # sliderInput(
+  #   inputId = "rotation", 
+  #   label = "Rotation Angle (Degrees)", 
+  #   min = -180, 
+  #   max = 180, 
+  #   value = 0, 
+  #   step = 1
+  # ), 
   sliderInput(
     inputId = "repelBox", 
     label = "Label Spacing Size", 
@@ -105,6 +116,10 @@ inputPanel(
     value = 3
   )
 )
+```
+
+
+```{r plasmap, echo=FALSE}
 
 renderPlot({
   
@@ -120,7 +135,7 @@ renderPlot({
   plasmid_length = nchar(sequence)
 )
 
-angle_adjustment <- input$rotation
+angle_adjustment <- ifelse(input$rotation < 180, input$rotation, -(360 - input$rotation))
 
 labels <- create_labels(feat_df,
               plasmid_length = nchar(sequence),

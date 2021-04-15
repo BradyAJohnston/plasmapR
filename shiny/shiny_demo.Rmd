@@ -37,11 +37,11 @@ feat_df <- create_feature_df(get_features(plasmid))
 inputPanel(
   knobInput(
     inputId = "rotation", 
-    label = "Rotate Map (Degrees)", 
+    label = "Rotate Map", 
     value = 90, 
     min = 0, 
     max = 360, 
-    step = 1
+    step = 1, lineCap = "round", width = "100" 
   ),
   # sliderInput(
   #   inputId = "rotation", 
@@ -95,13 +95,19 @@ inputPanel(
     max = 20, 
     step = 0.2
   ), 
-  selectInput(
+  checkboxGroupButtons(
     inputId = "features", 
-    label = "Feature Types Shown", 
+    label = "Features Displayed", 
     choices = unique(feat_df$type), 
-    selected = unique(feat_df$type), 
-    multiple = TRUE
-  ), 
+    selected = unique(feat_df$type)
+  ),
+  # selectInput(
+  #   inputId = "features", 
+  #   label = "Feature Types Shown", 
+  #   choices = unique(feat_df$type), 
+  #   selected = unique(feat_df$type), 
+  #   multiple = TRUE
+  # ), 
   textInput(
     inputId = "plasmidName", 
     label = "Plasmid Name", 
@@ -122,116 +128,51 @@ inputPanel(
 ```{r plasmap, echo=FALSE}
 
 renderPlot({
-  
-  feat_df <- feat_df %>% 
-    dplyr::filter(type %in% input$features)
+  feat_df <- feat_df[feat_df$type %in% input$features, ]
   
   arrow_df <- create_arrow_plotting_df(
-  df = feat_df,
-  middle = 2,
-  width = 0.1,
-  arrowhead_size = 4,
-  # arrow_cutoff = 0.,
-  plasmid_length = nchar(sequence)
-)
-
-angle_adjustment <- ifelse(input$rotation < 180, input$rotation, -(360 - input$rotation))
-
-labels <- create_labels(feat_df,
-              plasmid_length = nchar(sequence),
-              spacing_scale = 0.006,
-              label_hjust = 0.4,
-              rotation = angle_adjustment,
-              label_length_cutoff = 0.85)
-labels
-# split_text_df(100, 50, "testing", 2)
-
-curve <- input$curve
-
-
-ggplot() +
-  geom_hline(yintercept = 2) +
-  coord_polar(start = angle_adjustment / 360 * 2 * pi) +
-  xlim(c(0, nchar(sequence))) +
-  ylim(c(0, input$zoom)) +
-  geom_polygon(data = arrow_df,
-               aes(
-                 x = x,
-                 y = y,
-                 fill = type,
-                 group = index
-               ),
-               colour = "black") +
-  theme_void() +
-  theme(legend.position = "") +
-  annotate(geom = "text",
-           x = 0,
-           y = 0,
-           label = input$plasmidName,
-           size = input$nameSize,
-           family = "mono") +
-  geom_text(
-    data = labels$curved,
-    mapping = aes(
-      x = pos,
-      y = 2,
-      angle = angle - angle_adjustment,
-      label = char
-    ),
-    family = "mono"
-  ) +
-  ggrepel::geom_label_repel(
-    data = labels$annotations,
-    mapping = aes(
-      x = middle,
-      y = 2.1,
-      label = name, 
-      fill = type
-    ),
-    colour = input$labelTextColour,
-    segment.color = "black",
-    size = input$textSize/.pt,
-    nudge_y = input$labelNudge,
-    ylim = c(2.2, 5),
-    box.padding = input$repelBox,
-    max.overlaps = 20,
-    segment.curvature = 1 * 10 ^ (-curve),
-    segment.inflect = FALSE,
-    segment.square = TRUE,
-    # direction = "y",
-    hjust = 0.5
-    ) +
-  geom_polygon(
-    data = create_arrow_positions(5209, 7503, 1.6, 0.1, 7800),
-     aes(x = x,
-         y = y),
-    fill = "#b1fc03",
-    colour = "black"
-  ) +
-  # scale_color_discrete(
-  #   name = "type", 
-  #   aesthetics = c("segment.color")
-  # )
-  geom_text(
-    data = plasmapR::create_labels(
-      df = data.frame(
-        name = "Expressed Construct",
-        start = 5209,
-        end = 7503
-      ),
-      plasmid_length = 7800,
-      spacing_scale = 0.007
-    )$curved,
-    aes(
-      x = pos,
-      y = 1.6,
-      angle = angle - angle_adjustment,
-      label = char
-    )
+    df = feat_df,
+    middle = 2,
+    width = 0.1,
+    arrowhead_size = 4,
+    # arrow_cutoff = 0.,
+    plasmid_length = nchar(sequence)
   )
-}, 
-width = 800, 
-height = 1000, 
+  
+  angle_adjustment <-
+    ifelse(input$rotation < 180, input$rotation, -(360 - input$rotation))
+  
+  labels <- create_labels(
+    feat_df,
+    plasmid_length = nchar(sequence),
+    spacing_scale = 0.006,
+    label_hjust = 0.4,
+    rotation = angle_adjustment,
+    label_length_cutoff = 0.85
+  )
+  labels
+  # split_text_df(100, 50, "testing", 2)
+  
+  curve <- input$curve
+  
+  
+  plasmid_plot(
+    feat_df,
+    features = input$features,
+    zoom_y = input$zoom,
+    plasmidName = input$plasmidName,
+    nameSize = input$nameSize,
+    curve = input$curve,
+    rotation = input$rotation,
+    labelNudge = input$labelNudge,
+    labelSize = input$textSize,
+    repelBox = input$repelBox,
+    plasmid_length = nchar(sequence)
+    
+  )
+},
+width = 800,
+height = 1000,
 res = 75)
 ```
 

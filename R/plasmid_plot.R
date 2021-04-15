@@ -1,3 +1,7 @@
+#' Plasmid Plotting Function
+#'
+#' @export
+
 plasmid_plot <-
   function(feature_df,
            features = NULL,
@@ -5,10 +9,7 @@ plasmid_plot <-
            plasmidName,
            nameSize,
            curve,
-           angle_adjustment,
            rotation,
-           angle,
-           annotations,
            labelNudge,
            labelSize,
            repelBox,
@@ -51,7 +52,8 @@ plasmid_plot <-
         spacing_scale = spacing_scale,
         label_hjust = label_hjust,
         rotation = angle_adjustment,
-        label_length_cutoff = label_length_cutoff
+        label_length_cutoff = label_length_cutoff,
+        plasmid_length = plasmid_length
       )
 
     # The actual ggplot call for plotting
@@ -59,7 +61,7 @@ plasmid_plot <-
     ggplot2::ggplot() +
 
       # Add line that becomes the central plasmid line
-      ggplot2::geom_hline(yintercept = middle) +
+      ggplot2::geom_hline(yintercept = plasmid_y) +
 
       # Turn plot into circular, do rotation depending on the angle adjustment
       # that was specified to rotate the plot (in radians).
@@ -105,7 +107,7 @@ plasmid_plot <-
       # Add the curved labels to the features
       ggplot2::geom_text(
         data = labels$curved,
-        mapping = aes(
+        mapping = ggplot2::aes(
           x = pos,
           y = 2,
           angle = angle - angle_adjustment,
@@ -117,7 +119,7 @@ plasmid_plot <-
       # Add the repelled feature labels to the plasmid
       ggrepel::geom_label_repel(
         data = labels$annotations,
-        mapping = aes(
+        mapping = ggplot2::aes(
           x = middle,
           y = plasmid_y + plasmid_width,
           label = name,
@@ -125,7 +127,7 @@ plasmid_plot <-
         ),
         colour = "black",
         segment.color = "black",
-        size = labelSize / .pt,
+        size = labelSize / ggplot2::.pt,
         nudge_y = labelNudge,
         ylim = c(2.2, 5),
         box.padding = repelBox,
@@ -137,3 +139,4 @@ plasmid_plot <-
         hjust = 0.5
       )
   }
+

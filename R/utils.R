@@ -1,0 +1,4 @@
+#' Export Pipe
+#'
+#'  @export
+`%>%` <- magrittr::`%>%`

@@ -1,5 +1,5 @@
 #' Extract Lines that Contain Feature Information
-#' 
+#'
 #' @export
 get_features <- function(plasmid) {
 
@@ -13,11 +13,11 @@ get_features <- function(plasmid) {
     # line <- i
     # print(i)
 
-    if (str_detect(substr(line, 1, 10), "ORIGIN")) {
+    if (stringr::str_detect(substr(line, 1, 10), "ORIGIN")) {
       is_feature <- FALSE
     }
 
-    if (str_detect(substr(line, 1, 10), "BASE COUNT")) {
+    if (stringr::str_detect(substr(line, 1, 10), "BASE COUNT")) {
       is_feature <- FALSE
     }
 
@@ -26,7 +26,7 @@ get_features <- function(plasmid) {
       line
     }
 
-    if (str_detect(substr(line, 1,10), "FEATURES")) {
+    if (stringr::str_detect(substr(line, 1,10), "FEATURES")) {
       is_feature <- TRUE
     }
   }

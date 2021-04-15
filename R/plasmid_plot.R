@@ -77,18 +77,6 @@ plasmid_plot <-
 
       ggplot2::ylim(c(0, zoom_y)) +
 
-      # Add the arrows to the plot
-
-      ggplot2::geom_polygon(
-        data = arrow_df,
-        ggplot2::aes(
-          x = x,
-          y = y,
-          fill = type,
-          group = index
-        ),
-        colour = "black"
-      ) +
 
       # Remove basically everything from the plot
       ggplot2::theme_void() +
@@ -137,6 +125,19 @@ plasmid_plot <-
         segment.square = TRUE,
         # direction = "y",
         hjust = 0.5
+      ) +
+
+      # Add the arrows to the plot
+
+      ggplot2::geom_polygon(
+        data = arrow_df,
+        ggplot2::aes(
+          x = x,
+          y = y,
+          fill = type,
+          group = index
+        ),
+        colour = "black"
       )
   }
 

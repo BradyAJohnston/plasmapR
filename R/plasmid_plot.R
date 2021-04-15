@@ -92,17 +92,6 @@ plasmid_plot <-
         family = "mono"
       ) +
 
-      # Add the curved labels to the features
-      ggplot2::geom_text(
-        data = labels$curved,
-        mapping = ggplot2::aes(
-          x = pos,
-          y = 2,
-          angle = angle - angle_adjustment,
-          label = char
-        ),
-        family = "mono"
-      ) +
 
       # Add the repelled feature labels to the plasmid
       ggrepel::geom_label_repel(
@@ -138,6 +127,18 @@ plasmid_plot <-
           group = index
         ),
         colour = "black"
+      ) +
+
+      # Add the curved labels to the features
+      ggplot2::geom_text(
+        data = labels$curved,
+        mapping = ggplot2::aes(
+          x = pos,
+          y = 2,
+          angle = angle - angle_adjustment,
+          label = char
+        ),
+        family = "mono"
       )
   }
 

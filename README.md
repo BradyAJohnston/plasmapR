@@ -19,11 +19,7 @@ p <-
   render_plasmap(
     plasmid,
     rotation = 45,
-    repelBox = 0.2,
-    plasmid_name = "pETM20-dsnPPR10",
-    nameSize = 6, 
-    labelNudge = 1, 
-    curve = 10
+    plasmid_name = "pETM20-dsnPPR10"
   )
 
 p

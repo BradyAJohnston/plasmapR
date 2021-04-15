@@ -13,11 +13,11 @@ render_plasmap <- function(plasmid,
                            label_curve = 0,
                            zoom_y = 3,
                            plasmid_name = "plasmid_name",
-                           nameSize = 10,
-                           curve = 0,
-                           labelNudge = 0.5,
+                           nameSize = 6,
+                           curve = 10,
+                           labelNudge = 0.8,
                            labelSize = 10,
-                           repelBox = 0.5
+                           repelBox = 0.2
                            ) {
   arrow_df <-
     create_arrow_plotting_df(

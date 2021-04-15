@@ -26,7 +26,6 @@ p <-
     plasmid,
     rotation = 45,
     plasmid_name = "pETM20_dsnPPR10"
-    
   )
 
 p
@@ -41,5 +40,3 @@ colour scheme.
 p + ggplot2::scale_fill_brewer(palette = 8, 
                                type = "qual")
 ```
-
-

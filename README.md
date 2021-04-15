@@ -20,8 +20,8 @@ p <-
     plasmid,
     rotation = 45,
     plasmid_name = "pETM20_dsnPPR10"
-    
   )
+
 p
 ```
 

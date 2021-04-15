@@ -21,14 +21,16 @@ create_arrow_positions <- function(start,
   phlange_inner <- middle - width
 
   df <- data.frame(
-    x = c(start,
-          start,
-          phlange,
-          phlange,
-          end,
-          phlange,
-          phlange,
-          start),
+    x = c(
+      start,
+      start,
+      phlange,
+      phlange,
+      end,
+      phlange,
+      phlange,
+      start
+    ),
     y = c(
       phlange_outer,
       phlange_inner,

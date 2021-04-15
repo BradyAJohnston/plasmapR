@@ -2,7 +2,6 @@
 #'
 #' @export
 get_features <- function(plasmid) {
-
   is_feature <- FALSE
   feature_list <- c()
 
@@ -26,7 +25,7 @@ get_features <- function(plasmid) {
       line
     }
 
-    if (stringr::str_detect(substr(line, 1,10), "FEATURES")) {
+    if (stringr::str_detect(substr(line, 1, 10), "FEATURES")) {
       is_feature <- TRUE
     }
   }

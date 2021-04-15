@@ -17,8 +17,7 @@ render_plasmap <- function(plasmid,
                            curve = 10,
                            labelNudge = 0.8,
                            labelSize = 10,
-                           repelBox = 0.2
-                           ) {
+                           repelBox = 0.2) {
   arrow_df <-
     create_arrow_plotting_df(
       df = plasmid$features,
@@ -55,10 +54,7 @@ render_plasmap <- function(plasmid,
     labelSize = labelSize,
     repelBox = repelBox,
     plasmid_length = plasmid$length
-
   )
 
   p
-
 }
-

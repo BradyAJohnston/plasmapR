@@ -36,27 +36,26 @@ create_feature_df <- function(input) {
       feat_pos[2] <-
         paste0(stringr::str_extract_all(feat_pos, "\\d")[[2]], collapse = "")
 
-      features[counter,] <- features[counter, 1]
+      features[counter, ] <- features[counter, 1]
       features$type[counter] <- feature_type
       features$start[counter] <- as.numeric(feat_pos[1])
       features$end[counter] <- as.numeric(feat_pos[2])
       features$index[counter] <- counter
-
     }
 
     if (!new_feature) {
-      if (stringr::str_detect(line, "/label"))
+      if (stringr::str_detect(line, "/label")) {
         features$name[counter] <-
           stringr::str_split(line, "=")[[1]][2]
+      }
 
       if (stringr::str_detect(line, "direction=")) {
         direction <- stringr::str_split(line, "direction=")[[1]][2]
         direction <- stringr::str_trim(direction)
       }
-
     }
 
-    features$direction[counter]  <- direction
+    features$direction[counter] <- direction
   }
 
   features$start <- as.numeric(features$start)
@@ -71,5 +70,4 @@ create_feature_df <- function(input) {
     ))
 
   features
-
 }

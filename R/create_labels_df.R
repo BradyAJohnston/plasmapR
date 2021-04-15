@@ -7,7 +7,6 @@ create_labels <-
            label_length_cutoff = 0.9,
            rotation = 0,
            spacing_scale) {
-    
     annotation_list <- list()
     curved_text_list <- list()
 
@@ -20,21 +19,20 @@ create_labels <-
       feat_middle <- df[i, "start"] + feat_length / 2
 
       circle_pos <- feat_middle / plasmid_length
-      #ratio_of_map <- feat_length / plasmid_length * label_length
+      # ratio_of_map <- feat_length / plasmid_length * label_length
 
       char_spacing <- plasmid_length * spacing_scale
-      
-      text_overflow  <- ((label_length + 1) * char_spacing) > (label_length_cutoff * feat_length)
 
-      
+      text_overflow <- ((label_length + 1) * char_spacing) > (label_length_cutoff * feat_length)
+
+
       if (text_overflow) {
-          temp_annotation <- df[i, ]
-          temp_annotation$middle <- feat_middle
+        temp_annotation <- df[i, ]
+        temp_annotation$middle <- feat_middle
 
         annotation_list[[i]] <- temp_annotation
-
       } else {
-        rotation_ratio  <- rotation / 360
+        rotation_ratio <- rotation / 360
         circle_pos <- circle_pos + rotation_ratio
 
 
@@ -65,13 +63,10 @@ create_labels <-
 
         curved_text_list[[i]] <- curved_text
       }
-
     }
 
     list(
       annotations = do.call(rbind, annotation_list),
       curved = do.call(rbind, curved_text_list)
     )
-
-
   }

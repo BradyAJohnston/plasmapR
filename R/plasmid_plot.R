@@ -78,7 +78,7 @@ plasmid_plot <-
         ylim = c(2.2, 5),
         box.padding = repelBox,
         max.overlaps = 20,
-        segment.curvature = 1 * 10 ^ (-curve),
+        segment.curvature = 1 * 10^(-curve),
         segment.inflect = FALSE,
         segment.square = TRUE,
         # direction = "y",
@@ -110,4 +110,3 @@ plasmid_plot <-
         family = "mono"
       )
   }
-

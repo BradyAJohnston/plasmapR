@@ -28,6 +28,7 @@ p <-
     plasmid_name = "pETM20_dsnPPR10"
     
   )
+
 p
 ```
 

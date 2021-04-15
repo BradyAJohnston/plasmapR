@@ -16,5 +16,3 @@ parse_plasmid <- function(file) {
     sequence = sequence
   )
 }
-
-

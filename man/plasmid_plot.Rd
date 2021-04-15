@@ -6,6 +6,9 @@
 \usage{
 plasmid_plot(
   feature_df,
+  arrow_df,
+  labels,
+  angle_adjustment,
   features = NULL,
   zoom_y,
   plasmidName,

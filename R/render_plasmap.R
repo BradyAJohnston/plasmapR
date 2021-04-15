@@ -1,5 +1,8 @@
 #' Render Plasmap
 #'
+#' @param plasmid A list containing at least a dataframe of features and the
+#'   plasmid length.
+#'
 #' @export
 
 render_plasmap <- function(plasmid,

@@ -40,8 +40,11 @@ render_plasmap <- function(plasmid,
     label_length_cutoff = label_length_cutoff
   )
 
-  plasmid_plot(
+  p <- plasmid_plot(
     plasmid$features,
+    arrow_df = arrow_df,
+    labels = labels,
+    angle_adjustment = angle_adjustment,
     features = NULL,
     zoom_y = zoom_y,
     plasmidName = plasmid_name,
@@ -54,6 +57,8 @@ render_plasmap <- function(plasmid,
     plasmid_length = plasmid$length
 
   )
+
+  p
 
 }
 

@@ -52,6 +52,7 @@ FEATURES             Location/Qualifiers
                      /translation="MTKQEKTALNMARFIRSQTLTLLEKLNELDADEQADICESLHDHA
                      DELYRSCLARFGDDGENL"
      CDS             complement(3648..4730)
+                     /direction=RIGHT
                      /codon_start=1
                      /gene="lacI"
                      /product="lac repressor"
@@ -68,6 +69,7 @@ FEATURES             Location/Qualifiers
                      YIPPLTTIKQDFRLLGQTSVDRLLQLSQGQAVKGNQLLPVSLVKRKTTLAPNTQTASPR
                      ALADSLMQLARQVSRLESGQ"
      promoter        complement(4731..4808)
+                     /direction=RIGHT
                      /gene="lacI"
                      /label=lacI promoter
      promoter        5121..5139

@@ -4,6 +4,9 @@
 
 plasmid_plot <-
   function(feature_df,
+           arrow_df,
+           labels,
+           angle_adjustment,
            features = NULL,
            zoom_y,
            plasmidName,
@@ -20,41 +23,7 @@ plasmid_plot <-
            spacing_scale = 0.006,
            label_hjust = 0.4,
            label_length_cutoff = 0.85) {
-    #Filter features for those selected inside features
 
-    if (is.null(features)) {
-      feat_df <- feature_df
-    }  else {
-      feat_df <- feature_df[feature_df$type %in% features,]
-    }
-
-    # Create arrow shapes from the features
-
-    arrow_df <- create_arrow_plotting_df(
-      df = feat_df,
-      middle = plasmid_y,
-      width = plasmid_width,
-      arrowhead_size = arrowhead_size,
-      plasmid_length = plasmid_length
-    )
-
-    # Angle adjustment for rotation of plot
-
-    angle_adjustment <-
-      ifelse(rotation < 180, rotation,-(360 - rotation))
-
-    # Create curved text labels from feature dataframe, taking into account the
-    # angle_adjustment for rotation and direction of the text
-
-    labels <-
-      create_labels(
-        df = feat_df,
-        spacing_scale = spacing_scale,
-        label_hjust = label_hjust,
-        rotation = angle_adjustment,
-        label_length_cutoff = label_length_cutoff,
-        plasmid_length = plasmid_length
-      )
 
     # The actual ggplot call for plotting
 

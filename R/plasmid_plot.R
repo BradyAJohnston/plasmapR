@@ -10,6 +10,7 @@ plasmid_plot <-
            features = NULL,
            zoom_y,
            plasmidName,
+           font_family = "mono",
            nameSize,
            curve,
            rotation,
@@ -58,7 +59,7 @@ plasmid_plot <-
         y = 0,
         label = plasmidName,
         size = nameSize,
-        family = "mono"
+        family = font_family
       ) +
 
 
@@ -71,6 +72,7 @@ plasmid_plot <-
           label = name,
           fill = type
         ),
+        family = font_family,
         colour = "black",
         segment.color = "black",
         size = labelSize / ggplot2::.pt,
@@ -107,6 +109,6 @@ plasmid_plot <-
           angle = angle - angle_adjustment,
           label = char
         ),
-        family = "mono"
+        family = font_family
       )
   }

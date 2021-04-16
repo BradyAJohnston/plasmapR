@@ -1,6 +1,4 @@
 ---
-title: "plasmapR"
-author: "Brady Johnston"
 output: github_document
 ---
 
@@ -16,7 +14,7 @@ This is an R package for making plasmid maps using `{ggplot2}`.
 ## Installation 
 
 > This package is still very early in development and the API may change. The 
-> parses for .gb files works most of the time but has not been tested 
+> parser for `.gb` files works most of the time but has not been tested 
 > extensively.
 
 ```{r, eval=FALSE}

@@ -1,33 +1,57 @@
-#' #' Gadget Function
+#' Gadget Function
 #'
-#' plasmid_gadget <- function(data, xvar, yvar) {
-#'   ui <- miniUI::miniPage(
-#'     miniUI::gadgetTitleBar("Drag to select points"),
-#'     miniUI::miniContentPanel(
-#'       # The brush="brush" argument means we can listen for
-#'       # brush events on the plot using input$brush.
-#'       shiny::plotOutput("plot", height = "100%", brush = "brush")
-#'     )
-#'   )
-#'
-#'   server <- function(input, output, session) {
-#'
-#'     # Render the plot
-#'     output$plot <- shiny::renderPlot({
-#'       # Plot the data with x/y vars indicated by the caller.
-#'       ggplot2::ggplot(data, ggplot2::aes_string(xvar, yvar)) +
-#'         ggplot2::geom_point()
-#'     })
-#'
-#'     # Handle the Done button being pressed.
-#'     shiny::observeEvent(input$done, {
-#'       # Return the brushed points. See ?shiny::brushedPoints.
-#'       shiny::stopApp(shiny::brushedPoints(data, input$brush))
-#'     })
-#'   }
-#'
-#'   shiny::runGadget(ui, server)
-#' }
-#'
-#' plasmid_gadget(mtcars, "hp", "mpg")
-#'
+#' @export
+plasmid_gadget <- function(plasmid) {
+  ui <- miniUI::miniPage(
+    miniUI::gadgetTitleBar("Drag to select points"),
+    miniUI::miniButtonBlock(
+      shiny::sliderInput(
+        inputId = "rotation",
+        label = "Rotate Plot",
+        min = -180,
+        max = 180,
+        value = 0,
+        step = 1
+      ),
+      shiny::sliderInput(
+        inputId = "nudge",
+        label = "Nudge Labels",
+        min = 0,
+        max = 3,
+        value = 0.4,
+        step = 0.1
+      )
+    ),
+    miniUI::miniContentPanel(
+      # The brush="brush" argument means we can listen for
+      # brush events on the plot using input$brush.
+      shiny::plotOutput("plot", height = "100%")
+    )
+  )
+
+  server <- function(input, output, session) {
+
+    # Render the plot
+    output$plot <- shiny::renderPlot({
+      # Plot the data with x/y vars indicated by the caller.
+      plasmapR::render_plasmap(plasmid,
+                               rotation = input$rotation,
+                               labelNudge = input$nudge)
+    })
+
+    # Handle the Done button being pressed.
+    shiny::observeEvent(input$done, {
+      # Return the brushed points. See ?shiny::brushedPoints.
+      shiny::stopApp(
+        plasmapR::render_plasmap(plasmid, rotation = input$rotation)
+      )
+    })
+  }
+
+  shiny::runGadget(ui, server, viewer = dialogViewer("plasmap",
+                                                     width = 1000,
+                                                     height = 1000))
+}
+#
+# plasmid_gadget(mtcars, "hp", "mpg")
+

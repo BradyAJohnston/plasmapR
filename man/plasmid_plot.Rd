@@ -12,6 +12,7 @@ plasmid_plot(
   features = NULL,
   zoom_y,
   plasmidName,
+  font_family = "mono",
   nameSize,
   curve,
   rotation,

@@ -35,7 +35,7 @@ p <- render_plasmap(plasmid,
 p
 ```
 
-<img src="README_files/figure-gfm/example-1.png" style="display: block; margin: auto;" />
+<img src="man/figures/example-1.png" style="display: block; margin: auto;" />
 
 ## Under the Hood
 
@@ -49,7 +49,7 @@ p <- p + ggplot2::scale_fill_brewer(palette = 8, type = "qual")
 p
 ```
 
-![](README_files/figure-gfm/colouring-1.png)<!-- -->
+![](man/figures/colouring-1.png)<!-- -->
 
 Coordinates have been transformed with `coord_polar()` but everything
 else remains the same.
@@ -60,7 +60,7 @@ p +
   ggplot2::theme(legend.position = "top")
 ```
 
-<img src="README_files/figure-gfm/example2-1.png" style="display: block; margin: auto;" />
+<img src="man/figures/example2-1.png" style="display: block; margin: auto;" />
 
 ## Major Limitations
 
@@ -81,4 +81,4 @@ knitr::opts_chunk$set(fig.width = 4, fig.height = 4)
 p
 ```
 
-<img src="README_files/figure-gfm/example3-1.png" style="display: block; margin: auto;" />
+<img src="man/figures/example3-1.png" style="display: block; margin: auto;" />

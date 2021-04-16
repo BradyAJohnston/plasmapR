@@ -52,6 +52,3 @@ plasmid_gadget <- function(plasmid) {
                                                      width = 1000,
                                                      height = 1000))
 }
-#
-# plasmid_gadget(mtcars, "hp", "mpg")
-

@@ -18,9 +18,10 @@ render_plasmap(
   plasmid_name = "plasmid_name",
   name_size = 6,
   curve = 10,
-  labelNudge = 0.8,
-  labelSize = 10,
-  repelBox = 0.2
+  label_nudge = 0.8,
+  label_size = 10,
+  repel_box = 0.2,
+  bp_count = TRUE
 )
 }
 \arguments{
@@ -30,11 +31,14 @@ plasmid length.}
 \item{arrowhead_size}{Size (in degrees) of the arrowheads. Sets how much of
 the circle they will take up (total of circle being 360 degrees).}
 
-\item{spacing_scale}{Scalar for the spacing between the curved text on the arrows.}
+\item{spacing_scale}{Scalar for the spacing between the curved text on the
+arrows.}
 
-\item{label_hjust}{Adjusts justification of the curved labels towards the start (0) or end (1) of the arrow.}
+\item{label_hjust}{Adjusts justification of the curved labels towards the
+start (0) or end (1) of the arrow.}
 
-\item{label_length_cutoff}{Proportion of the arrow the text is allowed to take up before becoming a rep}
+\item{label_length_cutoff}{Proportion of the arrow the text is allowed to
+take up before becoming a rep}
 }
 \description{
 Render Plasmap

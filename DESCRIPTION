@@ -22,6 +22,7 @@ Imports:
     magrittr,
     stringr,
     ggrepel, 
+    shiny,
     miniUI
 Suggests:
     knitr,

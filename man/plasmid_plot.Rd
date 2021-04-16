@@ -9,13 +9,14 @@ plasmid_plot(
   labels,
   angle_adjustment,
   zoom_y,
-  plasmidName,
+  plasmid_name,
   font_family = "mono",
-  nameSize,
+  name_size,
+  bp_count = TRUE,
   curve,
-  labelNudge,
-  labelSize,
-  repelBox,
+  label_nudge,
+  label_size,
+  repel_box,
   plasmid_length,
   plasmid_y = 2,
   plasmid_width = 0.1
@@ -34,20 +35,20 @@ map by.}
 \item{zoom_y}{Zoom level for the resulting plasmid map. Sets
 \code{ylim(0,zoom_y)} and can be overriden.}
 
-\item{plasmidName}{String name for the plasmid map.}
+\item{plasmid_name}{String name for the plasmid map.}
 
 \item{font_family}{Font family to use in all of the text on the plot.}
 
-\item{nameSize}{Size of the plasmid name annotation.}
+\item{name_size}{Size of the plasmid name annotation.}
 
 \item{curve}{Curvature of the repelled text labels.}
 
-\item{labelNudge}{Amount to nudge the labels away from the plasmid arrows to
+\item{label_nudge}{Amount to nudge the labels away from the plasmid arrows to
 allow for neater packing.}
 
-\item{labelSize}{Size of the repelled labels.}
+\item{label_size}{Size of the repelled labels.}
 
-\item{repelBox}{Distance to repel between the labels.}
+\item{repel_box}{Distance to repel between the labels.}
 
 \item{plasmid_length}{Total length of the plasmid.}
 

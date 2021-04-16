@@ -1,0 +1,12 @@
+url: https://bradyajohnston.github.io/plasmapr
+
+authors:
+  Brady Johnston:
+    href: https://bradyajohnston.github.io
+
+template:
+  params:
+    bootswatch: flatly
+    ganalytics: G-Z2J58R6DJC
+    docsearch:
+      index_name: plasmapr

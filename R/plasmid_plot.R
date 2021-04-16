@@ -33,6 +33,7 @@ plasmid_plot <-
            plasmid_name,
            font_family = "mono",
            name_size,
+           bp_count = TRUE,
            curve,
            label_nudge,
            label_size,
@@ -43,8 +44,7 @@ plasmid_plot <-
 
 
     # The actual ggplot call for plotting
-
-    ggplot2::ggplot() +
+plt <- ggplot2::ggplot() +
 
       # Add line that becomes the central plasmid line
       ggplot2::geom_hline(yintercept = plasmid_y) +
@@ -128,4 +128,20 @@ plasmid_plot <-
         ),
         family = font_family
       )
+
+  if (bp_count) {
+    plt +
+      ggplot2::annotate(
+        geom = "text",
+        x = 0,
+        y = 0,
+        label = paste("\n\n", plasmid_length, "bp"),
+        size = name_size*0.8,
+        family = font_family
+      )
+  } else {
+      plt
+    }
   }
+
+

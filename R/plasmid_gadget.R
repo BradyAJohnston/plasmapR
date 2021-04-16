@@ -45,7 +45,7 @@ plasmid_gadget <- function(plasmid) {
     output$plot <- shiny::renderPlot({
       plasmapR::render_plasmap(plasmid,
         rotation = input$rotation,
-        labelNudge = input$nudge
+        label_nudge = input$nudge
       )
     })
 

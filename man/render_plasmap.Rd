@@ -16,7 +16,7 @@ render_plasmap(
   label_curve = 0,
   zoom_y = 3,
   plasmid_name = "plasmid_name",
-  nameSize = 6,
+  name_size = 6,
   curve = 10,
   labelNudge = 0.8,
   labelSize = 10,

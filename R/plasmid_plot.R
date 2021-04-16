@@ -10,14 +10,14 @@
 #'   map by.
 #' @param zoom_y Zoom level for the resulting plasmid map. Sets
 #'   \code{ylim(0,zoom_y)} and can be overriden.
-#' @param plasmidName String name for the plasmid map.
+#' @param plasmid_name String name for the plasmid map.
 #' @param font_family Font family to use in all of the text on the plot.
-#' @param nameSize Size of the plasmid name annotation.
+#' @param name_size Size of the plasmid name annotation.
 #' @param curve Curvature of the repelled text labels.
-#' @param labelNudge Amount to nudge the labels away from the plasmid arrows to
+#' @param label_nudge Amount to nudge the labels away from the plasmid arrows to
 #'   allow for neater packing.
-#' @param labelSize Size of the repelled labels.
-#' @param repelBox Distance to repel between the labels.
+#' @param label_size Size of the repelled labels.
+#' @param repel_box Distance to repel between the labels.
 #' @param plasmid_length Total length of the plasmid.
 #' @param plasmid_y Position on the y axis of the original plasmid.
 #' @param plasmid_width Width of the arrows of the plasmid.
@@ -30,13 +30,13 @@ plasmid_plot <-
            labels,
            angle_adjustment,
            zoom_y,
-           plasmidName,
+           plasmid_name,
            font_family = "mono",
-           nameSize,
+           name_size,
            curve,
-           labelNudge,
-           labelSize,
-           repelBox,
+           label_nudge,
+           label_size,
+           repel_box,
            plasmid_length,
            plasmid_y = 2,
            plasmid_width = 0.1) {
@@ -73,8 +73,8 @@ plasmid_plot <-
         geom = "text",
         x = 0,
         y = 0,
-        label = plasmidName,
-        size = nameSize,
+        label = plasmid_name,
+        size = name_size,
         family = font_family
       ) +
 
@@ -91,10 +91,10 @@ plasmid_plot <-
         family = font_family,
         colour = "black",
         segment.color = "black",
-        size = labelSize / ggplot2::.pt,
-        nudge_y = labelNudge,
+        size = label_size / ggplot2::.pt,
+        nudge_y = label_nudge,
         ylim = c(2.2, 5),
-        box.padding = repelBox,
+        box.padding = repel_box,
         max.overlaps = 20,
         segment.curvature = 1 * 10^(-curve),
         segment.inflect = FALSE,

@@ -9,7 +9,7 @@ create_arrow_plotting_df <-
            arrowhead_size = 8) {
     arrow_list <- list()
 
-    for (i in 1:nrow(df)) {
+    for (i in seq(nrow(df))) {
       start <- df[i, "start"]
       end <- df[i, "end"]
       direction <- df[i, "direction"]

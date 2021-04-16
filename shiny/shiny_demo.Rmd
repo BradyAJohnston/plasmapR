@@ -50,14 +50,14 @@ inputPanel(
   #   step = 1
   # ), 
   sliderInput(
-    inputId = "repelBox", 
+    inputId = "repel_box", 
     label = "Label Spacing Size", 
     min = 0, 
     max = 1, 
     value = 0.3
   ), 
   sliderInput(
-    inputId = "labelNudge", 
+    inputId = "label_nudge", 
     label = "Nudge Label Distance", 
     min = 0, 
     max = 2, 
@@ -107,12 +107,12 @@ inputPanel(
   #   multiple = TRUE
   # ), 
   textInput(
-    inputId = "plasmidName", 
+    inputId = "plasmid_name", 
     label = "Plasmid Name", 
     value = "Plasmid Name Here"
   ), 
   sliderInput(
-    inputId = "nameSize", 
+    inputId = "name_size", 
     label = "Plasmid Name Size", 
     min = 1, 
     max = 10, 
@@ -158,13 +158,13 @@ renderPlot({
     feat_df,
     features = input$features,
     zoom_y = input$zoom,
-    plasmidName = input$plasmidName,
-    nameSize = input$nameSize,
+    plasmid_name = input$plasmid_name,
+    name_size = input$name_size,
     curve = input$curve,
     rotation = input$rotation,
-    labelNudge = input$labelNudge,
-    labelSize = input$textSize,
-    repelBox = input$repelBox,
+    label_nuge = input$label_nuge,
+    label_size = input$textSize,
+    repel_box = input$repel_box,
     plasmid_length = nchar(sequence)
     
   )

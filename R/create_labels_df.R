@@ -22,7 +22,7 @@ create_labels <-
     curved_text_list <- list()
 
 
-    for (i in 1:nrow(df)) {
+    for (i in seq(nrow(df))) {
       label_length <- nchar(df[i, "name"])
 
       feat_length <- df[i, "end"] - df[i, "start"]
@@ -30,7 +30,6 @@ create_labels <-
       feat_middle <- df[i, "start"] + feat_length / 2
 
       circle_pos <- feat_middle / plasmid_length
-      # ratio_of_map <- feat_length / plasmid_length * label_length
 
       char_spacing <- plasmid_length * spacing_scale
 

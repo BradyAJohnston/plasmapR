@@ -4,9 +4,12 @@
 #'   plasmid length.
 #' @param arrowhead_size Size (in degrees) of the arrowheads. Sets how much of
 #'   the circle they will take up (total of circle being 360 degrees).
-#' @param spacing_scale Scalar for the spacing between the curved text on the arrows.
-#' @param label_hjust Adjusts justification of the curved labels towards the start (0) or end (1) of the arrow.
-#' @param label_length_cutoff Proportion of the arrow the text is allowed to take up before becoming a rep
+#' @param spacing_scale Scalar for the spacing between the curved text on the
+#'   arrows.
+#' @param label_hjust Adjusts justification of the curved labels towards the
+#'   start (0) or end (1) of the arrow.
+#' @param label_length_cutoff Proportion of the arrow the text is allowed to
+#'   take up before becoming a rep
 #'
 #' @export
 
@@ -21,11 +24,11 @@ render_plasmap <- function(plasmid,
                            label_curve = 0,
                            zoom_y = 3,
                            plasmid_name = "plasmid_name",
-                           nameSize = 6,
+                           name_size = 6,
                            curve = 10,
-                           labelNudge = 0.8,
-                           labelSize = 10,
-                           repelBox = 0.2) {
+                           label_nudge = 0.8,
+                           label_size = 10,
+                           repel_box = 0.2) {
   arrow_df <-
     create_arrow_plotting_df(
       df = plasmid$features,
@@ -52,12 +55,12 @@ render_plasmap <- function(plasmid,
     labels = labels,
     angle_adjustment = angle_adjustment,
     zoom_y = zoom_y,
-    plasmidName = plasmid_name,
-    nameSize = nameSize,
+    plasmid_name = plasmid_name,
+    name_size = name_size,
     curve = curve,
-    labelNudge = labelNudge,
-    labelSize = labelSize,
-    repelBox = repelBox,
+    label_nudge = label_nudge,
+    label_size = label_size,
+    repel_box = repel_box,
     plasmid_length = plasmid$length
   )
 

@@ -35,8 +35,9 @@ plasmid_gadget <- function(plasmid) {
     output$plot <- shiny::renderPlot({
       # Plot the data with x/y vars indicated by the caller.
       plasmapR::render_plasmap(plasmid,
-                               rotation = input$rotation,
-                               labelNudge = input$nudge)
+        rotation = input$rotation,
+        labelNudge = input$nudge
+      )
     })
 
     # Handle the Done button being pressed.
@@ -49,6 +50,7 @@ plasmid_gadget <- function(plasmid) {
   }
 
   shiny::runGadget(ui, server, viewer = dialogViewer("plasmap",
-                                                     width = 1000,
-                                                     height = 1000))
+    width = 1000,
+    height = 1000
+  ))
 }

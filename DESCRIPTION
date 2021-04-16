@@ -21,7 +21,8 @@ Imports:
     ggplot2, 
     magrittr,
     stringr,
-    ggrepel
+    ggrepel, 
+    miniUI
 Suggests:
     knitr,
     rmarkdown,

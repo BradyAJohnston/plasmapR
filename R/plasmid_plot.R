@@ -1,29 +1,45 @@
 #' Plasmid Plotting Function
 #'
+#' Plotting function to create the final plasmid map from properly file.
+#'
+#' @param arrow_df Dataframe of points from the
+#'   \code{create_arrow_plotting_df()} function to draw arrows.
+#' @param labels List resulting from \code{create_labels()} function containing
+#'   curved text dataframe and labels for annotation.
+#' @param angle_adjustment Angle (in degrees) to rotate the resulting plasmid
+#'   map by.
+#' @param zoom_y Zoom level for the resulting plasmid map. Sets
+#'   \code{ylim(0,zoom_y)} and can be overriden.
+#' @param plasmidName String name for the plasmid map.
+#' @param font_family Font family to use in all of the text on the plot.
+#' @param nameSize Size of the plasmid name annotation.
+#' @param curve Curvature of the repelled text labels.
+#' @param labelNudge Amount to nudge the labels away from the plasmid arrows to
+#'   allow for neater packing.
+#' @param labelSize Size of the repelled labels.
+#' @param repelBox Distance to repel between the labels.
+#' @param plasmid_length Total length of the plasmid.
+#' @param plasmid_y Position on the y axis of the original plasmid.
+#' @param plasmid_width Width of the arrows of the plasmid.
+
+#'
 #' @export
 
 plasmid_plot <-
-  function(feature_df,
-           arrow_df,
+  function(arrow_df,
            labels,
            angle_adjustment,
-           features = NULL,
            zoom_y,
            plasmidName,
            font_family = "mono",
            nameSize,
            curve,
-           rotation,
            labelNudge,
            labelSize,
            repelBox,
            plasmid_length,
            plasmid_y = 2,
-           plasmid_width = 0.1,
-           arrowhead_size = 4,
-           spacing_scale = 0.006,
-           label_hjust = 0.4,
-           label_length_cutoff = 0.85) {
+           plasmid_width = 0.1) {
 
 
     # The actual ggplot call for plotting
@@ -99,6 +115,7 @@ plasmid_plot <-
         ),
         colour = "black"
       ) +
+      ggplot2::labs(fill = "Feature Type") +
 
       # Add the curved labels to the features
       ggplot2::geom_text(

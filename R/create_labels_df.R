@@ -1,4 +1,15 @@
 #' Create Labels DF
+#'
+#' @param df Dataframe of features that includes start, end and name.
+#' @param plasmid_length Total plasmid length in bp.
+#' @param label_hjust Adjusts justification of the curved labels towards the
+#'   start (0) or end (1) of the arrow.
+#' @param label_length_cutoff Proportion of the arrow the text is allowed to
+#'   take up before becoming a rep
+#' @param rotation Angular rotation of the resulting plasmid map (in degrees).
+#' @param spacing_scale Scalar for the spacing between the curved text on the
+#'   arrows.
+#'
 #' @export
 create_labels <-
   function(df,
@@ -23,7 +34,8 @@ create_labels <-
 
       char_spacing <- plasmid_length * spacing_scale
 
-      text_overflow <- ((label_length + 1) * char_spacing) > (label_length_cutoff * feat_length)
+      text_overflow <-
+        ((label_length + 1) * char_spacing) > (label_length_cutoff * feat_length)
 
 
       if (text_overflow) {
@@ -55,7 +67,8 @@ create_labels <-
 
         num_letters <- nrow(curved_text)
 
-        curved_text$pos <- curved_text$pos - num_letters * (0.5 / label_hjust) / 2 * char_spacing
+        curved_text$pos <-
+          curved_text$pos - num_letters * (0.5 / label_hjust) / 2 * char_spacing
 
         curved_text$angle <- -curved_text$pos / plasmid_length * 360
 

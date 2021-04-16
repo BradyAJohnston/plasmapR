@@ -1,16 +1,16 @@
 #' Extract Lines that Contain Feature Information
 #'
+#' @param plasmid Result of \code{readLines()}. Parses the file to get features
+#'   from the read .gb file.
+#'
 #' @export
 get_features <- function(plasmid) {
   is_feature <- FALSE
   feature_list <- c()
 
-  # sapply(plasmid, function(i) {
   for (i in seq_along(plasmid)) {
     line <- plasmid[i]
-    # print()
-    # line <- i
-    # print(i)
+
 
     if (stringr::str_detect(substr(line, 1, 10), "ORIGIN")) {
       is_feature <- FALSE
@@ -29,8 +29,6 @@ get_features <- function(plasmid) {
       is_feature <- TRUE
     }
   }
-
-  # }, simplify = TRUE)
 
 
   feature_list

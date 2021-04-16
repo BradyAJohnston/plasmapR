@@ -6,6 +6,11 @@
 \usage{
 extract_sequence(plasmid)
 }
+\arguments{
+\item{plasmid}{Takes result of \code{readLines()} and parses it to extract
+the final plasmid sequence. Currently only used to final the plasmid
+length.}
+}
 \description{
 Extract sequence from readlines(plasmid)
 }

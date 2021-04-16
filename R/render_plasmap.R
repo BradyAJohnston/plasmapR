@@ -2,6 +2,11 @@
 #'
 #' @param plasmid A list containing at least a dataframe of features and the
 #'   plasmid length.
+#' @param arrowhead_size Size (in degrees) of the arrowheads. Sets how much of
+#'   the circle they will take up (total of circle being 360 degrees).
+#' @param spacing_scale Scalar for the spacing between the curved text on the arrows.
+#' @param label_hjust Adjusts justification of the curved labels towards the start (0) or end (1) of the arrow.
+#' @param label_length_cutoff Proportion of the arrow the text is allowed to take up before becoming a rep
 #'
 #' @export
 
@@ -43,16 +48,13 @@ render_plasmap <- function(plasmid,
   )
 
   p <- plasmid_plot(
-    plasmid$features,
     arrow_df = arrow_df,
     labels = labels,
     angle_adjustment = angle_adjustment,
-    features = NULL,
     zoom_y = zoom_y,
     plasmidName = plasmid_name,
     nameSize = nameSize,
     curve = curve,
-    rotation = rotation,
     labelNudge = labelNudge,
     labelSize = labelSize,
     repelBox = repelBox,

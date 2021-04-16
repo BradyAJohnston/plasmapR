@@ -21,8 +21,6 @@ library(dplyr)
 library(plasmapR)
 library(shinyWidgets)
 
-`%>%` <- magrittr::`%>%`
-
 plasmid <- readLines("../data/petm20.gb")
 
 sequence <- extract_sequence(plasmid)

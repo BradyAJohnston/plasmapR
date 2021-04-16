@@ -27,7 +27,7 @@ create_arrow_plotting_df <-
       temp_arrow_df$name <- df[i, "name"]
       temp_arrow_df$index <- df[i, "index"]
 
-      if (stringr::str_detect(direction, "RIGHT")) {
+      if (grepl("RIGHT", direction)) {
         temp_arrow_df$x <- -temp_arrow_df$x + start + end
       }
 

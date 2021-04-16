@@ -6,6 +6,11 @@
 \usage{
 create_feature_df(input)
 }
+\arguments{
+\item{input}{\code{readlines()} of a \code{.gb} file.}
+}
 \description{
-Extract features into a dataframe.
+Parses lines of text from a .gb format plasmid sequence file. Detects
+features and details for the features from the file and returns it in a data
+frame to for use in creating arrows.
 }

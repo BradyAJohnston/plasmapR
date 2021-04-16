@@ -6,6 +6,10 @@
 \usage{
 get_features(plasmid)
 }
+\arguments{
+\item{plasmid}{Result of \code{readLines()}. Parses the file to get features
+from the read .gb file.}
+}
 \description{
 Extract Lines that Contain Feature Information
 }

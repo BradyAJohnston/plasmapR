@@ -5,29 +5,56 @@
 \title{Plasmid Plotting Function}
 \usage{
 plasmid_plot(
-  feature_df,
   arrow_df,
   labels,
   angle_adjustment,
-  features = NULL,
   zoom_y,
   plasmidName,
   font_family = "mono",
   nameSize,
   curve,
-  rotation,
   labelNudge,
   labelSize,
   repelBox,
   plasmid_length,
   plasmid_y = 2,
-  plasmid_width = 0.1,
-  arrowhead_size = 4,
-  spacing_scale = 0.006,
-  label_hjust = 0.4,
-  label_length_cutoff = 0.85
+  plasmid_width = 0.1
 )
 }
+\arguments{
+\item{arrow_df}{Dataframe of points from the
+\code{create_arrow_plotting_df()} function to draw arrows.}
+
+\item{labels}{List resulting from \code{create_labels()} function containing
+curved text dataframe and labels for annotation.}
+
+\item{angle_adjustment}{Angle (in degrees) to rotate the resulting plasmid
+map by.}
+
+\item{zoom_y}{Zoom level for the resulting plasmid map. Sets
+\code{ylim(0,zoom_y)} and can be overriden.}
+
+\item{plasmidName}{String name for the plasmid map.}
+
+\item{font_family}{Font family to use in all of the text on the plot.}
+
+\item{nameSize}{Size of the plasmid name annotation.}
+
+\item{curve}{Curvature of the repelled text labels.}
+
+\item{labelNudge}{Amount to nudge the labels away from the plasmid arrows to
+allow for neater packing.}
+
+\item{labelSize}{Size of the repelled labels.}
+
+\item{repelBox}{Distance to repel between the labels.}
+
+\item{plasmid_length}{Total length of the plasmid.}
+
+\item{plasmid_y}{Position on the y axis of the original plasmid.}
+
+\item{plasmid_width}{Width of the arrows of the plasmid.}
+}
 \description{
-Plasmid Plotting Function
+Plotting function to create the final plasmid map from properly file.
 }

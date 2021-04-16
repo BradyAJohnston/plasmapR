@@ -6,6 +6,19 @@
 \usage{
 split_text_df(feat_length, feat_middle, name, char_spacing, reverse = FALSE)
 }
+\arguments{
+\item{feat_length}{Length of the feature in bp.}
+
+\item{feat_middle}{Mid-point of the feature in bp.}
+
+\item{name}{String name of the feature.}
+
+\item{char_spacing}{Spacing to place in between the individual letters.}
+
+\item{reverse}{Logical, whether to reverse the arrangement of the letters for
+what woudld otherwise be an upside down label.}
+}
 \description{
-Create dataframe containing split and spaced text.
+Takes a feature name and splits it into individual letters for rotation and
+position.
 }

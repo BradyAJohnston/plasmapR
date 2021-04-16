@@ -13,6 +13,22 @@ create_labels(
   spacing_scale
 )
 }
+\arguments{
+\item{df}{Dataframe of features that includes start, end and name.}
+
+\item{plasmid_length}{Total plasmid length in bp.}
+
+\item{label_hjust}{Adjusts justification of the curved labels towards the
+start (0) or end (1) of the arrow.}
+
+\item{label_length_cutoff}{Proportion of the arrow the text is allowed to
+take up before becoming a rep}
+
+\item{rotation}{Angular rotation of the resulting plasmid map (in degrees).}
+
+\item{spacing_scale}{Scalar for the spacing between the curved text on the
+arrows.}
+}
 \description{
 Create Labels DF
 }

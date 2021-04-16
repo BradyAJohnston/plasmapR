@@ -1,5 +1,11 @@
 #' Gadget Function
 #'
+#' Creates interactive shiny gadget to easily adjust easthetic parameters of the
+#' final plot. The app will return the code required to re-create the currently
+#' viewed plot.
+#'
+#' @param plasmid Object created by the \code{parse_plasmid()} function.
+#'
 #' @export
 plasmid_gadget <- function(plasmid) {
   ui <- miniUI::miniPage(
@@ -54,7 +60,7 @@ plasmid_gadget <- function(plasmid) {
   }
 
   # run gadget as popup, as specified size.
-  shiny::runGadget(ui, server, viewer = dialogViewer("plasmap",
+  shiny::runGadget(ui, server, viewer = shiny::dialogViewer("plasmap",
     width = 1000,
     height = 1000
   ))

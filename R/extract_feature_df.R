@@ -1,5 +1,11 @@
 #' Extract features into a dataframe.
 #'
+#' Parses lines of text from a .gb format plasmid sequence file. Detects
+#' features and details for the features from the file and returns it in a data
+#' frame to for use in creating arrows.
+#'
+#' @param input \code{readlines()} of a \code{.gb} file.
+#'
 #' @export
 create_feature_df <- function(input) {
   counter <- 0
@@ -13,7 +19,7 @@ create_feature_df <- function(input) {
   for (i in seq_along(input)) {
     line <- input[i]
 
-    if (stringr::str_detect(substr(line, 1, 10), "\\w")) {
+    if (grepl("\\w", substr(line, 1, 10))) {
       new_feature <- TRUE
       direction <- "LEFT"
     } else {
@@ -23,18 +29,21 @@ create_feature_df <- function(input) {
     if (new_feature) {
       counter <- counter + 1
 
-      feature_type <-
-        stringr::str_trim(substr(line, 1, 15), side = "both")
+      feature_type <- trimws(substr(line, 1, 15))
 
 
-      feat_pos <-
-        stringr::str_trim(substr(line, 19, 50), side = "both")
-      feat_pos <- stringr::str_split(line, pattern = "\\.\\.")[[1]]
+      feat_pos <- trimws(substr(line, 19, 50))
+      feat_pos <- strsplit(line, "\\.\\.")[[1]]
 
       feat_pos[1] <-
         paste0(stringr::str_extract_all(feat_pos, "\\d")[[1]], collapse = "")
       feat_pos[2] <-
         paste0(stringr::str_extract_all(feat_pos, "\\d")[[2]], collapse = "")
+
+
+      if (stringr::str_detect(line, "complement")) {
+        direction <- "RIGHT"
+      }
 
       features[counter, ] <- features[counter, 1]
       features$type[counter] <- feature_type

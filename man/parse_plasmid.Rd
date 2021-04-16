@@ -6,6 +6,13 @@
 \usage{
 parse_plasmid(file)
 }
+\arguments{
+\item{file}{A file containing a \code{.gb} Genbank formatted plasmid
+sequence. File should contain list of features in standard Genbank
+notation.}
+}
 \description{
-Parse Plasmid
+Parses a \code{.gb} Genbank file. Returns a list containing a dataframe of
+features, the sequence, and the length of the plasmid for use in the
+\code{render_plasmid()} function.
 }

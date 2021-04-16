@@ -2,7 +2,7 @@
 % Please edit documentation in R/create_arrow_positions.R
 \name{create_arrow_positions}
 \alias{create_arrow_positions}
-\title{Create single arrow points df}
+\title{Create Arrow Points}
 \usage{
 create_arrow_positions(
   start,
@@ -13,6 +13,21 @@ create_arrow_positions(
   arrowhead_size = 8
 )
 }
+\arguments{
+\item{start}{Start position in bp.}
+
+\item{end}{End position in bp.}
+
+\item{middle}{Middle of the plasmid arrows (y position).}
+
+\item{width}{Width of the plasmid arrows.}
+
+\item{plasmid_length}{Total length of the plasmid in bp.}
+
+\item{arrowhead_size}{Size (in degrees) of the arrowheads. Sets how much of
+the circle they will take up (total of circle being 360 degrees).}
+}
 \description{
-Create single arrow points df
+Calculates arrow vertices based on parameters for width, size of arrowhead
+and the overall plasmid size.
 }

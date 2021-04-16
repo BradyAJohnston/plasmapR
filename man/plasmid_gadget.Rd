@@ -6,6 +6,11 @@
 \usage{
 plasmid_gadget(plasmid)
 }
+\arguments{
+\item{plasmid}{Object created by the \code{parse_plasmid()} function.}
+}
 \description{
-Gadget Function
+Creates interactive shiny gadget to easily adjust easthetic parameters of the
+final plot. The app will return the code required to re-create the currently
+viewed plot.
 }

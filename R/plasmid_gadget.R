@@ -3,7 +3,10 @@
 #' @export
 plasmid_gadget <- function(plasmid) {
   ui <- miniUI::miniPage(
+    # Define the gadget title
     miniUI::gadgetTitleBar("Drag to select points"),
+
+    # define the user-interface
     miniUI::miniButtonBlock(
       shiny::sliderInput(
         inputId = "rotation",
@@ -22,18 +25,18 @@ plasmid_gadget <- function(plasmid) {
         step = 0.1
       )
     ),
+
+    # output the content
     miniUI::miniContentPanel(
-      # The brush="brush" argument means we can listen for
-      # brush events on the plot using input$brush.
       shiny::plotOutput("plot", height = "100%")
     )
   )
 
   server <- function(input, output, session) {
+    options(shiny.useragg = TRUE)
 
     # Render the plot
     output$plot <- shiny::renderPlot({
-      # Plot the data with x/y vars indicated by the caller.
       plasmapR::render_plasmap(plasmid,
         rotation = input$rotation,
         labelNudge = input$nudge
@@ -42,13 +45,15 @@ plasmid_gadget <- function(plasmid) {
 
     # Handle the Done button being pressed.
     shiny::observeEvent(input$done, {
-      # Return the brushed points. See ?shiny::brushedPoints.
+
+      # return the same plot with the same options
       shiny::stopApp(
         plasmapR::render_plasmap(plasmid, rotation = input$rotation)
       )
     })
   }
 
+  # run gadget as popup, as specified size.
   shiny::runGadget(ui, server, viewer = dialogViewer("plasmap",
     width = 1000,
     height = 1000

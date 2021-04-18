@@ -30,7 +30,8 @@ plasmid <- parse_plasmid("data/petm20.gb")
 
 p <- render_plasmap(plasmid,
                     rotation = 45,
-                    plasmid_name = "pETM20-avi-dsnPPR10-C2")
+                    plasmid_name = "pETM20-avi-dsnPPR10-C2", 
+                    curved_scaling = 1.2)
 
 p
 ```
@@ -82,3 +83,46 @@ p
 ```
 
 <img src="man/figures/example3-1.png" style="display: block; margin: auto;" />
+
+### Scale it back
+
+To overcome this, you must manually specify a scaling factor to reduce
+the size and width of the text (which will scale proportionally).
+
+Currently the scaling factors are curved\_scaling (which scales the size
+of the text and also the scale between the letters) and size\_scale
+which additionally scales the distance between the letters.
+
+Currently it’s a bad system where for a smaller image, the actual arrow
+is smaller and thus the distance between each individual plotted letter
+needs to be increased.
+
+I haven’t figured out the way to do that well yet - so currently they
+are both just hacky parameters to fiddle with.
+
+Will return to in the morning when I am less tired.
+
+This howwerver *must* be specified in the original `render_plasmap()`
+call, and cannot be applied afterwards in any kind of `ggplot::ggsave()`
+call or in rendering.
+
+> I have an idea of how to overcome this, but it’ll be a while before
+> anything is implemented or tested to see if it will even work.
+
+``` r
+p <- render_plasmap(plasmid,
+                    rotation = 60,
+                    name_size = 3,
+                    plasmid_name = "pETM20-avi-dsnPPR10-C2", 
+                    curved_scaling = 0.5,
+                    size_scale = 1.5
+                    )
+
+p
+```
+
+<img src="man/figures/current-fix-1.png" style="display: block; margin: auto;" />
+
+``` r
+# ggplot2::ggsave(file = "~/../Desktop/testing.pdf", plot = p)
+```

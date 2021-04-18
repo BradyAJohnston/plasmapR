@@ -18,7 +18,10 @@ render_plasmap <- function(plasmid,
                            width = 0.1,
                            arrowhead_size = 4,
                            rotation = 0,
+                           # scales text size and how far apart
                            curved_scaling = 1,
+                           # additional scaling for apart-ness
+                           size_scale = 1,
                            # spacing_scale = 0.006,
                            label_hjust = 0.4,
                            label_length_cutoff = 0.85,
@@ -43,7 +46,7 @@ render_plasmap <- function(plasmid,
   angle_adjustment <-
     ifelse(rotation < 180, rotation, - (360 - rotation))
 
-  spacing_scale <- curved_scaling * 0.01
+  spacing_scale <- curved_scaling * 0.01 * size_scale
 
   labels <- create_labels(
     df = plasmid$features,

@@ -91,3 +91,30 @@ knitr::opts_chunk$set(fig.width = 4, fig.height = 4)
 p
 
 ```
+
+### Scale it back
+To overcome this, you must manually specify a scaling factor to reduce the size and width of the text (which will scale proportionally).
+
+This howwerver _must_ be specified in the original `render_plasmap()` call, 
+and cannot be applied afterwards in any kind of `ggplot::ggsave()` call or in
+rendering. 
+
+> I have an idea of how to overcome this, but it'll be a while before anything
+is implemented or tested to see if it will even work.
+
+```{r current-fix, echo = TRUE, warning=FALSE, error=FALSE, message=FALSE, fig.align='center', fig.env='agg_png', dpi = 1200}
+p <- render_plasmap(plasmid,
+                    rotation = 60,
+                    name_size = 3,
+                    plasmid_name = "pETM20-avi-dsnPPR10-C2", 
+                    curved_scaling = 0.5)
+
+p
+
+# ggplot2::ggsave(file = "~/../Desktop/testing.pdf", plot = p)
+```
+
+```{r}
+
+```
+

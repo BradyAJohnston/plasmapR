@@ -23,7 +23,7 @@ create_labels <-
 
 
     for (i in seq(nrow(df))) {
-      label_length <- nchar(df[i, "name"])
+      label_length <- nchar(df$name[i])
 
       feat_length <- df[i, "end"] - df[i, "start"]
 
@@ -59,7 +59,7 @@ create_labels <-
         curved_text <- split_text_df(
           feat_length = feat_length,
           feat_middle = feat_middle,
-          name = df[i, "name"],
+          name = df$name[i],
           char_spacing = char_spacing,
           reverse = reverse
         )
@@ -69,7 +69,7 @@ create_labels <-
         curved_text$pos <-
           curved_text$pos - num_letters * (0.5 / label_hjust) / 2 * char_spacing
 
-        curved_text$angle <- -curved_text$pos / plasmid_length * 360
+        curved_text$angle <- (-curved_text$pos) / plasmid_length * 360
 
         curved_text$angle <- curved_text$angle + angle_adjustment
 

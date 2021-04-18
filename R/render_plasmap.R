@@ -18,7 +18,8 @@ render_plasmap <- function(plasmid,
                            width = 0.1,
                            arrowhead_size = 4,
                            rotation = 0,
-                           spacing_scale = 0.006,
+                           curved_scaling = 1,
+                           # spacing_scale = 0.006,
                            label_hjust = 0.4,
                            label_length_cutoff = 0.85,
                            label_curve = 0,
@@ -27,7 +28,7 @@ render_plasmap <- function(plasmid,
                            name_size = 6,
                            curve = 10,
                            label_nudge = 0.8,
-                           label_size = 10,
+                           # label_size = 10,
                            repel_box = 0.2,
                            bp_count = TRUE) {
   arrow_df <-
@@ -40,7 +41,9 @@ render_plasmap <- function(plasmid,
     )
 
   angle_adjustment <-
-    ifelse(rotation < 180, rotation, -(360 - rotation))
+    ifelse(rotation < 180, rotation, - (360 - rotation))
+
+  spacing_scale <- curved_scaling * 0.01
 
   labels <- create_labels(
     df = plasmid$features,
@@ -51,6 +54,9 @@ render_plasmap <- function(plasmid,
     label_length_cutoff = label_length_cutoff
   )
 
+  curved_size <- curved_scaling * 12
+  repel_text_size <- curved_scaling * 12
+
   p <- plasmid_plot(
     arrow_df = arrow_df,
     labels = labels,
@@ -59,8 +65,9 @@ render_plasmap <- function(plasmid,
     plasmid_name = plasmid_name,
     name_size = name_size,
     curve = curve,
+    curved_size = curved_size,
     label_nudge = label_nudge,
-    label_size = label_size,
+    label_size = repel_text_size,
     repel_box = repel_box,
     plasmid_length = plasmid$length,
     bp_count = bp_count

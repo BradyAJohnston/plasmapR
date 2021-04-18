@@ -13,6 +13,7 @@ plasmid_plot(
   font_family = "mono",
   name_size,
   bp_count = TRUE,
+  curved_size,
   curve,
   label_nudge,
   label_size,
@@ -40,6 +41,8 @@ map by.}
 \item{font_family}{Font family to use in all of the text on the plot.}
 
 \item{name_size}{Size of the plasmid name annotation.}
+
+\item{curved_size}{Font size of the curved labels (in .pt).}
 
 \item{curve}{Curvature of the repelled text labels.}
 

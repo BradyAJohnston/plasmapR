@@ -21,7 +21,7 @@
 #' @param plasmid_length Total length of the plasmid.
 #' @param plasmid_y Position on the y axis of the original plasmid.
 #' @param plasmid_width Width of the arrows of the plasmid.
-
+#' @param curved_size Font size of the curved labels (in .pt).
 #'
 #' @export
 
@@ -34,6 +34,7 @@ plasmid_plot <-
            font_family = "mono",
            name_size,
            bp_count = TRUE,
+           curved_size,
            curve,
            label_nudge,
            label_size,
@@ -44,7 +45,7 @@ plasmid_plot <-
 
 
     # The actual ggplot call for plotting
-plt <- ggplot2::ggplot() +
+    plt <- ggplot2::ggplot() +
 
       # Add line that becomes the central plasmid line
       ggplot2::geom_hline(yintercept = plasmid_y) +
@@ -96,7 +97,7 @@ plt <- ggplot2::ggplot() +
         ylim = c(2.2, 5),
         box.padding = repel_box,
         max.overlaps = 20,
-        segment.curvature = 1 * 10^(-curve),
+        segment.curvature = 1 * 10 ^ (-curve),
         segment.inflect = FALSE,
         segment.square = TRUE,
         # direction = "y",
@@ -126,22 +127,21 @@ plt <- ggplot2::ggplot() +
           angle = angle - angle_adjustment,
           label = char
         ),
+        size = curved_size / ggplot2::.pt,
         family = font_family
       )
 
-  if (bp_count) {
-    plt +
-      ggplot2::annotate(
-        geom = "text",
-        x = 0,
-        y = 0,
-        label = paste("\n\n", plasmid_length, "bp"),
-        size = name_size*0.8,
-        family = font_family
-      )
-  } else {
+    if (bp_count) {
+      plt +
+        ggplot2::annotate(
+          geom = "text",
+          x = 0,
+          y = 0,
+          label = paste("\n\n", plasmid_length, "bp"),
+          size = name_size * 0.8,
+          family = font_family
+        )
+    } else {
       plt
     }
   }
-
-

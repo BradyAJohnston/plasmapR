@@ -119,17 +119,18 @@ plasmid_plot <-
       ggplot2::labs(fill = "Feature Type") +
 
       # Add the curved labels to the features
-      ggplot2::geom_text(
-        data = labels$curved,
-        mapping = ggplot2::aes(
-          x = pos,
-          y = 2,
-          angle = angle - angle_adjustment,
-          label = char
-        ),
-        size = curved_size / ggplot2::.pt,
-        family = font_family
-      )
+      # ggplot2::geom_text(
+      #   data = labels$curved,
+      #   mapping = ggplot2::aes(
+      #     x = pos,
+      #     y = 2,
+      #     angle = angle - angle_adjustment,
+      #     label = char
+      #   ),
+      #   size = curved_size / ggplot2::.pt,
+      #   family = font_family
+      # ) +
+      NULL
 
     if (bp_count) {
       plt +

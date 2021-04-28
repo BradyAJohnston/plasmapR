@@ -14,6 +14,15 @@ This is an R package for making plasmid maps using `{ggplot2}`.
 devtools::install_github("bradyajohnston/plasmapr")
 ```
 
+This package utilises the fantastic functions from a number of other packages to quickly
+create beautiful `ggplot` figures from Genbank files to render plasmids.
+
+THe pacakges doing most of the heavy lifting are: 
+
+ - ggplot2
+ - ggrepel
+ - ggfittext
+
 ## Example
 
 `plasmapR` provides functions for parsing and plotting .gb plasmid

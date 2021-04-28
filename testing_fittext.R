@@ -90,11 +90,17 @@ p <- plasmid_plot(
 p + geom_fit_text(
   data = plasmid$features,
   mapping = aes(
-  ymin = 1.9,
-  ymax = 2.1,
-  xmin = start,
-  xmax = end,
-  label = name,
-  fill = type
-),
-fullheight = TRUE, grow = TRUE, )
+    ymin = 1.9,
+    ymax = 2.1,
+    xmin = start,
+    xmax = end,
+    label = name,
+    fill = type
+  ),
+  fullheight = FALSE,
+  grow = TRUE,
+  family = "mono",
+  padding.y = grid::unit(1.4, "mm"),
+  padding.x = grid::unit(2, "mm")
+
+)

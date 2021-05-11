@@ -36,17 +36,10 @@ create_labels <-
       text_overflow <-
         ((label_length + 1) * char_spacing) > (label_length_cutoff * feat_length)
 
+      # calculate rotations and new positions
 
-      if (text_overflow) {
-        temp_annotation <- df[i, ]
-        temp_annotation$middle <- feat_middle
-
-        annotation_list[[i]] <- temp_annotation
-      } else {
         rotation_ratio <- rotation / 360
         circle_pos <- circle_pos + rotation_ratio
-
-
 
         if (circle_pos > 0.25 && circle_pos < 0.75) {
           reverse <- TRUE
@@ -56,23 +49,52 @@ create_labels <-
           angle_adjustment <- 0
         }
 
-        curved_text <- split_text_df(
+
+      if (text_overflow) {
+        temp_annotation <- df[i, ]
+        temp_annotation$middle <- feat_middle
+
+        # temp_annotation$rotation <- angle_adjustment
+
+        annotation_list[[i]] <- temp_annotation
+      } else {
+
+
+
+
+
+        # if (reverse) {
+        #   name = sapply(lapply(strsplit(df$name[i], NULL), rev), paste0, collapse = "")
+        # } else {
+        #   name = df$name[i]
+        # }
+
+        name <- df$name[i]
+
+        curved_text <- data.frame(
+          pos = feat_middle,
+          name = name,
           feat_length = feat_length,
-          feat_middle = feat_middle,
-          name = df$name[i],
-          char_spacing = char_spacing,
-          reverse = reverse
+          rotation = angle_adjustment
         )
 
-        num_letters <- nrow(curved_text)
-
-        curved_text$pos <-
-          curved_text$pos - num_letters * (0.5 / label_hjust) / 2 * char_spacing
-
-        curved_text$angle <- (-curved_text$pos) / plasmid_length * 360
-
-        curved_text$angle <- curved_text$angle + angle_adjustment
-
+        # curved_text <- split_text_df(
+        #   feat_length = feat_length,
+        #   feat_middle = feat_middle,
+        #   name = df$name[i],
+        #   char_spacing = char_spacing,
+        #   reverse = reverse
+        # )
+        #
+        # num_letters <- nrow(curved_text)
+        #
+        # curved_text$pos <-
+        #   curved_text$pos - num_letters * (0.5 / label_hjust) / 2 * char_spacing
+        #
+        # curved_text$angle <- (-curved_text$pos) / plasmid_length * 360
+        #
+        # curved_text$angle <- curved_text$angle + angle_adjustment
+        #
         curved_text_list[[i]] <- curved_text
       }
     }

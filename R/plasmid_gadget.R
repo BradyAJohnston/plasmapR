@@ -29,6 +29,17 @@ plasmid_gadget <- function(plasmid) {
         max = 3,
         value = 0.4,
         step = 0.1
+      ),
+      shiny::checkboxInput(
+        inputId = "flip",
+        label = "FLip Labels",
+        value = TRUE
+      ),
+      shiny:::selectInput(
+        inputId = "family",
+        label = "Font Family",
+        selected = "mono",
+        choices = c("sans", "mono", "new")
       )
     ),
 
@@ -45,7 +56,9 @@ plasmid_gadget <- function(plasmid) {
     output$plot <- shiny::renderPlot({
       plasmapR::render_plasmap(plasmid,
         rotation = input$rotation,
-        label_nudge = input$nudge
+        label_nudge = input$nudge,
+        flip = input$flip,
+        font_family = input$family
       )
     })
 
@@ -54,7 +67,7 @@ plasmid_gadget <- function(plasmid) {
 
       # return the same plot with the same options
       shiny::stopApp(
-        plasmapR::render_plasmap(plasmid, rotation = input$rotation)
+        print(plasmapR::render_plasmap(plasmid, rotation = input$rotation))
       )
     })
   }

@@ -18,6 +18,7 @@ render_plasmap <- function(plasmid,
                            width = 0.1,
                            arrowhead_size = 4,
                            rotation = 0,
+                           font_family = "mono",
                            # scales text size and how far apart
                            curved_scaling = 1,
                            # additional scaling for apart-ness
@@ -31,6 +32,7 @@ render_plasmap <- function(plasmid,
                            name_size = 6,
                            curve = 10,
                            label_nudge = 0.8,
+                           flip = FALSE,
                            # label_size = 10,
                            repel_box = 0.2,
                            bp_count = TRUE) {
@@ -65,6 +67,7 @@ render_plasmap <- function(plasmid,
     labels = labels,
     angle_adjustment = angle_adjustment,
     zoom_y = zoom_y,
+    font_family = font_family,
     plasmid_name = plasmid_name,
     name_size = name_size,
     curve = curve,
@@ -73,6 +76,7 @@ render_plasmap <- function(plasmid,
     label_size = repel_text_size,
     repel_box = repel_box,
     plasmid_length = plasmid$length,
+    flip = flip,
     bp_count = bp_count
   )
 

@@ -41,6 +41,7 @@ plasmid_plot <-
            repel_box,
            plasmid_length,
            plasmid_y = 2,
+           flip = FALSE,
            plasmid_width = 0.1) {
 
 
@@ -117,6 +118,19 @@ plasmid_plot <-
         colour = "black"
       ) +
       ggplot2::labs(fill = "Feature Type") +
+
+      geom_fit_text(
+        data = labels$curved,
+        mapping = ggplot2::aes(
+          xmin = pos - feat_length / 2,
+          xmax = pos + feat_length / 2,
+          ymax = plasmid_y + plasmid_width,
+          ymin = plasmid_y - plasmid_width,
+          label = name
+        ),
+        flip = flip,
+        family = font_family
+      ) +
 
       # Add the curved labels to the features
       # ggplot2::geom_text(

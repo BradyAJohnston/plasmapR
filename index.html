@@ -82,6 +82,8 @@
 
       </header><div class="row">
   <div class="contents col-md-9">
+
+<p>&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD</p>
 <div id="plasmapr" class="section level1">
 <div class="page-header"><h1 class="hasAnchor">
 <a href="#plasmapr" class="anchor"></a>plasmapR</h1></div>
@@ -95,13 +97,6 @@
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># install.packages("devtools")</span>
 <span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"bradyajohnston/plasmapr"</span><span class="op">)</span></code></pre></div>
-<p>This package utilises the fantastic functions from a number of other packages to quickly create beautiful <code>ggplot</code> figures from Genbank files to render plasmids.</p>
-<p>THe pacakges doing most of the heavy lifting are:</p>
-<ul>
-<li>ggplot2</li>
-<li>ggrepel</li>
-<li>ggfittext</li>
-</ul>
 </div>
 <div id="example" class="section level2">
 <h2 class="hasAnchor">
@@ -173,9 +168,120 @@
 <p><img src="reference/figures/current-fix-1.png" style="display: block; margin: auto;"></p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># ggplot2::ggsave(file = "~/../Desktop/testing.pdf", plot = p)</span></code></pre></div>
+<p>=======</p>
 </div>
 </div>
 </div>
+<div id="plasmapr-1" class="section level1">
+<h1 class="hasAnchor">
+<a href="#plasmapr-1" class="anchor"></a>plasmapR</h1>
+<p>This is an R package for making plasmid maps using <a href="https://ggplot2.tidyverse.org">ggplot2</a>.</p>
+<div id="installation-1" class="section level2">
+<h2 class="hasAnchor">
+<a href="#installation-1" class="anchor"></a>Installation</h2>
+<blockquote>
+<p>This package is still very early in development and the API may change. The parser for <code>.gb</code> files works most of the time but has not been tested extensively.</p>
+</blockquote>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># install.packages("devtools")</span>
+<span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"bradyajohnston/plasmapr"</span><span class="op">)</span></code></pre></div>
+<p>This package utilises the fantastic functions from a number of other packages to quickly create beautiful <code>ggplot</code> figures from Genbank files to render plasmids.</p>
+<p>THe pacakges doing most of the heavy lifting are:</p>
+<ul>
+<li>ggplot2</li>
+<li>ggrepel</li>
+<li>ggfittext</li>
+</ul>
+</div>
+<div id="example-1" class="section level2">
+<h2 class="hasAnchor">
+<a href="#example-1" class="anchor"></a>Example</h2>
+<p><code>plasmapR</code> provides functions for parsing and plotting .gb plasmid files.</p>
+<p>Once a plasmid has been exported in Genbank format it can be parsed and plotted.</p>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co">#devtools::install_github("bradyajohnston/plasmapR")</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https::/github.com/bradyajohnston/plasmapr">plasmapR</a></span><span class="op">)</span>
+
+<span class="va">plasmid</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/parse_plasmid.html">parse_plasmid</a></span><span class="op">(</span><span class="st">"data/petm20.gb"</span><span class="op">)</span>
+
+<span class="va">p</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/render_plasmap.html">render_plasmap</a></span><span class="op">(</span><span class="va">plasmid</span>,
+                    rotation <span class="op">=</span> <span class="fl">45</span>,
+                    plasmid_name <span class="op">=</span> <span class="st">"pETM20-avi-dsnPPR10-C2"</span>, 
+                    curved_scaling <span class="op">=</span> <span class="fl">1.2</span><span class="op">)</span>
+
+<span class="va">p</span></code></pre></div>
+<p><img src="reference/figures/example-1.png" style="display: block; margin: auto;"></p>
+</div>
+<div id="under-the-hood-1" class="section level2">
+<h2 class="hasAnchor">
+<a href="#under-the-hood-1" class="anchor"></a>Under the Hood</h2>
+<p>The result of the <code>render_plasmid()</code> function is just a <code>ggplot</code> object, so you can add themes and treat it as you would any other <code>ggplot</code> object.</p>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">p</span> <span class="op">&lt;-</span> <span class="va">p</span> <span class="op">+</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_brewer.html">scale_fill_brewer</a></span><span class="op">(</span>palette <span class="op">=</span> <span class="fl">8</span>, type <span class="op">=</span> <span class="st">"qual"</span><span class="op">)</span>
+
+<span class="va">p</span></code></pre></div>
+<p><img src="reference/figures/colouring-1.png"><!-- --></p>
+<p>Coordinates have been transformed with <code>coord_polar()</code> but everything else remains the same.</p>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">p</span> <span class="op">+</span> 
+  <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_dark</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> 
+  <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span>legend.position <span class="op">=</span> <span class="st">"top"</span><span class="op">)</span></code></pre></div>
+<p><img src="reference/figures/example2-1.png" style="display: block; margin: auto;"></p>
+</div>
+<div id="major-limitations-1" class="section level2">
+<h2 class="hasAnchor">
+<a href="#major-limitations-1" class="anchor"></a>Major Limitations</h2>
+<p>Currently the method for curving the text results in the problem of resizing. The individual characters are spaced based on the underlying base pair counts, not plot coordinates. If you scale the plot, things start to break down pretty quickly.</p>
+<p>I’m working on an fix that will allow resizing and scaling of the whole plot, but currently defaults are set up for a plot width and height of 8 inches each.</p>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">knitr</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/knitr/man/opts_chunk.html">opts_chunk</a></span><span class="op">$</span><span class="fu">set</span><span class="op">(</span>fig.width <span class="op">=</span> <span class="fl">4</span>, fig.height <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">p</span></code></pre></div>
+<p><img src="reference/figures/example3-1.png" style="display: block; margin: auto;"></p>
+<div id="scale-it-back-1" class="section level3">
+<h3 class="hasAnchor">
+<a href="#scale-it-back-1" class="anchor"></a>Scale it back</h3>
+<p>To overcome this, you must manually specify a scaling factor to reduce the size and width of the text (which will scale proportionally).</p>
+<p>Currently the scaling factors are curved_scaling (which scales the size of the text and also the scale between the letters) and size_scale which additionally scales the distance between the letters.</p>
+<p>Currently it’s a bad system where for a smaller image, the actual arrow is smaller and thus the distance between each individual plotted letter needs to be increased.</p>
+<p>I haven’t figured out the way to do that well yet - so currently they are both just hacky parameters to fiddle with.</p>
+<p>Will return to in the morning when I am less tired.</p>
+<p>This howwerver <em>must</em> be specified in the original <code><a href="reference/render_plasmap.html">render_plasmap()</a></code> call, and cannot be applied afterwards in any kind of <code>ggplot::ggsave()</code> call or in rendering.</p>
+<blockquote>
+<p>I have an idea of how to overcome this, but it’ll be a while before anything is implemented or tested to see if it will even work.</p>
+</blockquote>
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">p</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/render_plasmap.html">render_plasmap</a></span><span class="op">(</span><span class="va">plasmid</span>,
+                    rotation <span class="op">=</span> <span class="fl">60</span>,
+                    name_size <span class="op">=</span> <span class="fl">3</span>,
+                    plasmid_name <span class="op">=</span> <span class="st">"pETM20-avi-dsnPPR10-C2"</span>, 
+                    curved_scaling <span class="op">=</span> <span class="fl">0.5</span>,
+                    size_scale <span class="op">=</span> <span class="fl">1.5</span>
+                    <span class="op">)</span>
+
+<span class="va">p</span></code></pre></div>
+<p><img src="reference/figures/current-fix-1.png" style="display: block; margin: auto;"></p>
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># ggplot2::ggsave(file = "~/../Desktop/testing.pdf", plot = p)</span></code></pre></div>
+<blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<p>630613637cf10255eac58a3a79a5201747fa30b9</p>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+</div>
+</div>
+</div>
+
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

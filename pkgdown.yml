@@ -2,7 +2,7 @@ pandoc: 2.7.3
 pkgdown: 1.6.1
 pkgdown_sha: ~
 articles: {}
-last_built: 2021-05-11T01:32Z
+last_built: 2021-05-19T08:10Z
 urls:
   reference: https://bradyajohnston.github.io/plasmapr/reference
   article: https://bradyajohnston.github.io/plasmapr/articles

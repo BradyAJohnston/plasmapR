@@ -14,26 +14,20 @@
 #' @export
 
 render_plasmap <- function(plasmid,
+                           label_size = 8,
+                           arrowhead_size = 4,
+                           font_family = "mono",
+                           plasmid_name = "plasmid_name",
                            middle = 2,
                            width = 0.1,
-                           arrowhead_size = 4,
                            rotation = 0,
-                           font_family = "mono",
-                           # scales text size and how far apart
-                           curved_scaling = 1,
-                           # additional scaling for apart-ness
-                           size_scale = 1,
-                           # spacing_scale = 0.006,
-                           label_hjust = 0.4,
                            label_length_cutoff = 0.85,
                            label_curve = 0,
                            zoom_y = 3,
-                           plasmid_name = "plasmid_name",
                            name_size = 6,
                            curve = 10,
                            label_nudge = 0.8,
                            flip = FALSE,
-                           # label_size = 10,
                            repel_box = 0.2,
                            bp_count = TRUE) {
   arrow_df <-
@@ -48,19 +42,14 @@ render_plasmap <- function(plasmid,
   angle_adjustment <-
     ifelse(rotation < 180, rotation, - (360 - rotation))
 
-  spacing_scale <- curved_scaling * 0.01 * size_scale
 
   labels <- create_labels(
     df = plasmid$features,
     plasmid_length = plasmid$length,
-    spacing_scale = spacing_scale,
-    label_hjust = label_hjust,
     rotation = angle_adjustment,
     label_length_cutoff = label_length_cutoff
   )
 
-  curved_size <- curved_scaling * 12
-  repel_text_size <- curved_scaling * 12
 
   p <- plasmid_plot(
     arrow_df = arrow_df,
@@ -73,7 +62,7 @@ render_plasmap <- function(plasmid,
     curve = curve,
     curved_size = curved_size,
     label_nudge = label_nudge,
-    label_size = repel_text_size,
+    label_size = label_size,
     repel_box = repel_box,
     plasmid_length = plasmid$length,
     flip = flip,

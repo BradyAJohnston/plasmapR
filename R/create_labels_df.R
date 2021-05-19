@@ -2,22 +2,16 @@
 #'
 #' @param df Dataframe of features that includes start, end and name.
 #' @param plasmid_length Total plasmid length in bp.
-#' @param label_hjust Adjusts justification of the curved labels towards the
-#'   start (0) or end (1) of the arrow.
 #' @param label_length_cutoff Proportion of the arrow the text is allowed to
 #'   take up before becoming a rep
 #' @param rotation Angular rotation of the resulting plasmid map (in degrees).
-#' @param spacing_scale Scalar for the spacing between the curved text on the
-#'   arrows.
 #'
 #' @export
 create_labels <-
   function(df,
            plasmid_length,
-           label_hjust = 0.5,
            label_length_cutoff = 0.9,
-           rotation = 0,
-           spacing_scale) {
+           rotation = 0) {
     annotation_list <- list()
     curved_text_list <- list()
 
@@ -31,7 +25,7 @@ create_labels <-
 
       circle_pos <- feat_middle / plasmid_length
 
-      char_spacing <- plasmid_length * spacing_scale
+      char_spacing <- plasmid_length / 400
 
       text_overflow <-
         ((label_length + 1) * char_spacing) > (label_length_cutoff * feat_length)
@@ -60,15 +54,6 @@ create_labels <-
       } else {
 
 
-
-
-
-        # if (reverse) {
-        #   name = sapply(lapply(strsplit(df$name[i], NULL), rev), paste0, collapse = "")
-        # } else {
-        #   name = df$name[i]
-        # }
-
         name <- df$name[i]
 
         curved_text <- data.frame(
@@ -78,23 +63,6 @@ create_labels <-
           rotation = angle_adjustment
         )
 
-        # curved_text <- split_text_df(
-        #   feat_length = feat_length,
-        #   feat_middle = feat_middle,
-        #   name = df$name[i],
-        #   char_spacing = char_spacing,
-        #   reverse = reverse
-        # )
-        #
-        # num_letters <- nrow(curved_text)
-        #
-        # curved_text$pos <-
-        #   curved_text$pos - num_letters * (0.5 / label_hjust) / 2 * char_spacing
-        #
-        # curved_text$angle <- (-curved_text$pos) / plasmid_length * 360
-        #
-        # curved_text$angle <- curved_text$angle + angle_adjustment
-        #
         curved_text_list[[i]] <- curved_text
       }
     }

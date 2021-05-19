@@ -119,7 +119,7 @@ plasmid_plot <-
       ) +
       ggplot2::labs(fill = "Feature Type") +
 
-      geom_fit_text(
+      ggfittext::geom_fit_text(
         data = labels$curved,
         mapping = ggplot2::aes(
           xmin = pos - feat_length / 2,
@@ -132,18 +132,6 @@ plasmid_plot <-
         family = font_family
       ) +
 
-      # Add the curved labels to the features
-      # ggplot2::geom_text(
-      #   data = labels$curved,
-      #   mapping = ggplot2::aes(
-      #     x = pos,
-      #     y = 2,
-      #     angle = angle - angle_adjustment,
-      #     label = char
-      #   ),
-      #   size = curved_size / ggplot2::.pt,
-      #   family = font_family
-      # ) +
       NULL
 
     if (bp_count) {

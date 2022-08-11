@@ -40,8 +40,7 @@ plasmid <- parse_plasmid("data/petm20.gb")
 
 p <- render_plasmap(plasmid,
                     rotation = 45,
-                    plasmid_name = "pETM20-avi-dsnPPR10-C2", 
-                    curved_scaling = 1.2)
+                    plasmid_name = "pETM20-avi-dsnPPR10-C2")
 
 p
 ```
@@ -119,17 +118,9 @@ is implemented or tested to see if it will even work.
 p <- render_plasmap(plasmid,
                     rotation = 60,
                     name_size = 3,
-                    plasmid_name = "pETM20-avi-dsnPPR10-C2", 
-                    curved_scaling = 0.5,
-                    size_scale = 1.5
+                    plasmid_name = "pETM20-avi-dsnPPR10-C2"
                     )
 
 p
-
-# ggplot2::ggsave(file = "~/../Desktop/testing.pdf", plot = p)
-```
-
-```{r}
-
 ```
 

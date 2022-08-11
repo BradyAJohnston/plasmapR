@@ -1,0 +1,107 @@
+LOCUS       MW463917                1902 bp    DNA     circular SYN 03-AUG-2022
+DEFINITION  Cloning vector pIDMv5, complete sequence.
+ACCESSION   MW463917
+VERSION     MW463917.1
+KEYWORDS    .
+SOURCE      Cloning vector pIDMv5
+  ORGANISM  Cloning vector pIDMv5
+            other sequences; artificial sequences; vectors.
+REFERENCE   1  (bases 1 to 1902)
+  AUTHORS   Cocioba,S.S. and Lim,S.W.
+  TITLE     Direct Submission
+  JOURNAL   Submitted (09-JAN-2021) R&D, Binomica Labs, 4301 22nd St., 3rd Fl.,
+            Studio 342, Long Island City, NY 11101-5029, USA
+FEATURES             Location/Qualifiers
+     source          1..1902
+                     /organism="Cloning vector pIDMv5"
+                     /mol_type="other DNA"
+                     /db_xref="taxon:2968833"
+     primer_bind     1..17
+                     /note="M13 forward primer binding site"
+     regulatory      24..58
+                     /regulatory_class="promoter"
+                     /note="promoter J23100; strong constitutive promoter"
+     regulatory      70..81
+                     /regulatory_class="ribosome_binding_site"
+                     /note="RBS B0030 strong bacterial ribosome binding site
+                     (Elowitz and Leibler, 2000)"
+     protein_bind    82..86
+                     /note="MlyI restriction site"
+                     /bound_moiety="MlyI"
+     CDS             89..115
+                     /note="result of IDM process; contains HIS tag"
+                     /codon_start=1
+                     /transl_table=11
+                     /product="IDM"
+                     /protein_id="UUC11651.1"
+                     /translation="MDHHHHHL"
+     regulatory      125..163
+                     /regulatory_class="terminator"
+                     /note="efficient rho-independent terminator B1006"
+     primer_bind     complement(170..186)
+                     /note="M13 reverse primer binding site"
+     regulatory      199..303
+                     /regulatory_class="promoter"
+                     /note="AmpR Promoter"
+     gene            304..1164
+                     /gene="ampR"
+     CDS             304..1164
+                     /gene="ampR"
+                     /codon_start=1
+                     /transl_table=11
+                     /product="ampicillin resistance protein"
+                     /protein_id="UUC11650.1"
+                     /translation="MSIQHFRVALIPFFAAFCLPVFAHPETLVKVKDAEDQLGARVGY
+                     IELDLNSGKILESFRPEERFPMMSTFKVLLCGAVLSRIDAGQEQLGRRIHYSQNDLVE
+                     YSPVTEKHLTDGMTVRELCSAAITMSDNTAANLLLTTIGGPKELTAFLHNMGDHVTRL
+                     DRWEPELNEAIPNDERDTTMPVAMATTLRKLLTGELLTLASRQQLIDWMEADKVAGPL
+                     LRSALPAGWFIADKSGAGERGSRGIIAALGPDGKPSRIVVIYTTGSQATMDERNRQIA
+                     EIGASLIKHW"
+     misc_difference 1020
+                     /gene="ampR"
+                     /note="disrupts extraneous MlyI site"
+                     /replace="c"
+     regulatory      1165..1259
+                     /regulatory_class="terminator"
+     misc_feature    1266..1276
+                     /note="Binomica Labs Spacer Sequence for barcoding
+                     purposes"
+     rep_origin      1283..1902
+     misc_difference 1576
+                     /note="disrupts extraneous MlyI site"
+                     /replace="t"
+ORIGIN      
+        1 gtaaaacgac ggccagtgaa ttcttgacgg ctagctcagt cctaggtaca gtgctagcta
+       61 ctagagatta aagaggagaa agagtcccat ggatcaccat caccatcact tataataaga
+      121 gctcaaaaaa aaaccccgcc cctgacaggg cggggttttt tttggtaccg tcatagctgt
+      181 ttcctgcccg ggtctagacg cggaacccct atttgtttat ttttctaaat acattcaaat
+      241 atgtatccgc tcatgagaca ataaccctga taaatgcttc aataatattg aaaaaggaag
+      301 agtatgagta ttcaacattt ccgtgtcgcc cttattccct tttttgcggc attttgcctt
+      361 cctgtttttg ctcacccaga aacgctggtg aaagtaaaag atgctgaaga tcagttgggt
+      421 gcacgagtgg gttacatcga actggatctc aacagcggta agatccttga gagttttcgc
+      481 cccgaagaac gttttccaat gatgagcact tttaaagttc tgctatgtgg cgcggtatta
+      541 tcccgtattg acgccgggca agagcaactc ggtcgccgca tacactattc tcagaatgac
+      601 ttggttgagt actcaccagt cacagaaaag catcttacgg atggcatgac agtaagagaa
+      661 ttatgcagtg ctgccataac catgagtgat aacactgcgg ccaacttact tctgacaacg
+      721 atcggaggac cgaaggagct aaccgctttt ttgcacaaca tgggggatca tgtaactcgc
+      781 cttgatcgtt gggaaccgga gctgaatgaa gccataccaa acgacgagcg tgacaccacg
+      841 atgcctgtag caatggcaac aacgttgcgc aaactattaa ctggcgaact acttactcta
+      901 gcttcccggc aacaattaat agactggatg gaggcggata aagttgcagg accacttctg
+      961 cgctcggccc ttccggctgg ctggtttatt gctgataaat ctggagccgg tgagcgtggg
+     1021 tctcgcggta tcattgcagc actggggcca gatggtaagc cctcccgtat cgtagttatc
+     1081 tacacgacgg ggagccaggc aactatggat gaacgaaata gacagatcgc tgagataggt
+     1141 gcctcactga ttaagcattg gtaatagtcc tgttgataga tccagtaatg acctcagaac
+     1201 tccatctgga tttgttcaga acgctcggtt gccgccgggc gttttttatt ggtgagaata
+     1261 agctttatag attacagtcg acagatcaaa ggatcttctt gagatccttt ttttctgcgc
+     1321 gtaatctgct gcttgcaaac aaaaaaacca ccgctaccag cggtggtttg tttgccggat
+     1381 caagagctac caactctttt tccgaaggta actggcttca gcagagcgca gataccaaat
+     1441 actgttcttc tagtgtagcc gtagttaggc caccacttca agaactctgt agcaccgcct
+     1501 acatacctcg ctctgctaat cctgttacca gtggctgctg ccagtggcga taagtcgtgt
+     1561 cttaccgggt tggacccaag acgatagtta ccggataagg cgcagcggtc gggctgaacg
+     1621 gggggttcgt gcacacagcc cagcttggag cgaacgacct acaccgaact gagataccta
+     1681 cagcgtgagc tatgagaaag cgccacgctt cccgaaggga gaaaggcgga caggtatccg
+     1741 gtaagcggca gggtcggaac aggagagcgc acgagggagc ttccaggggg aaacgcctgg
+     1801 tatctttata gtcctgtcgg gtttcgccac ctctgacttg agcgtcgatt tttgtgatgc
+     1861 tcgtcagggg ggcggagcct atggaaaaac gccagcaacg cg
+//
+

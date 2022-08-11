@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://bradyajohnston.github.io/plasmapr/404.html</loc>
+  </url>
+  <url>
+    <loc>https://bradyajohnston.github.io/plasmapr/authors.html</loc>
+  </url>
+  <url>
     <loc>https://bradyajohnston.github.io/plasmapr/index.html</loc>
   </url>
   <url>
@@ -20,6 +26,9 @@
   </url>
   <url>
     <loc>https://bradyajohnston.github.io/plasmapr/reference/get_features.html</loc>
+  </url>
+  <url>
+    <loc>https://bradyajohnston.github.io/plasmapr/reference/index.html</loc>
   </url>
   <url>
     <loc>https://bradyajohnston.github.io/plasmapr/reference/parse_plasmid.html</loc>

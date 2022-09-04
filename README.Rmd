@@ -33,7 +33,6 @@ devtools::install_github("bradyajohnston/plasmapr")
 Once a plasmid has been exported in Genbank format it can be parsed and plotted.
 
 ```{r example, echo = TRUE, warning=FALSE, error=FALSE, message=FALSE, fig.width=8, fig.height=8, fig.align='center', fig.env='ragg', dpi = 300}
-#devtools::install_github("bradyajohnston/plasmapR")
 library(plasmapR)
 
 plasmid <- parse_plasmid("data/petm20.gb")

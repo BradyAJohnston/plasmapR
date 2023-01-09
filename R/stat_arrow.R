@@ -7,62 +7,31 @@ plas <- plasmapR::parse_plasmid("data/petm20.gb")
 
 plas$features$direction <- ifelse(plas$features$direction == "LEFT", 1, -1)
 
-
+plas$features
 .create_arrow <- function(start,
                           end,
-                          direction = 1,
+                          phlange,
                           middle,
                           width,
+                          direction = 1,
                           plasmid_length,
                           arrowhead_width = 5,
                           arrowhead_size = 8) {
-  if (start > end) {
+
+
+  if (direction == -1) {
     end_temp <- end
     end <- start
     start <- end_temp
     direction <- direction * -1
   }
 
-  length <- end - start
 
-  arrow_width <- plasmid_length / 360 * arrowhead_size
-
-  if (direction == -1) {
-    end_temp <- end
-    end <- start
-    start <- end_temp
-  }
-
-  phlange <- end - direction * plasmid_length / 100
-
-
-  if (abs(length) < abs(arrow_width)) {
-    phlange <- start
-  }
-
-  phlange_outer <- middle + width
-  phlange_inner <- middle - width
-
-  data.frame(
-    x = c(start,
-          start,
-          phlange,
-          phlange,
-          end,
-          phlange,
-          phlange,
-          start),
-    y = c(
-      phlange_outer,
-      phlange_inner,
-      phlange_inner,
-      phlange_inner - width * arrowhead_width,
-      middle,
-      phlange_outer + width * arrowhead_width,
-      phlange_outer,
-      phlange_outer
-    )
-  )
+  # convert to 'arrow' nomenclature to make it more clear what is going on
+  base <- start
+  tip <- end
+  midpoint <- middle
+  .arrow_points(base, tip, midpoint, phlange, arrowhead_width, width)
 }
 
 
@@ -123,23 +92,36 @@ StatArrow <- ggproto(
     data$arrowhead_width <- 0.5
     data$arrowhead_width[overlap] <- 0.5
 
+    points <- .feature_get_dim(
+      start = data$start,
+      end = data$end,
+      direction = data$direction,
+      phlange_angle = 8,
+      bp = 6000
+    )
+
+    # data$start   <- points$start
+    # data$end     <- points$end
+    data$direction <- points$direction
+    data$phlange <- points$phlange
+
     data
   },
   compute_group = function(data,
                            scales,
-                           # start = 1,
-                           # end = 800,
-                           # middle = 4,
-                           width = 0.2,
+                           width = 0.15,
                            bp = 6000,
                            arrowhead_size = 8){
+
+
     arrows <-
       .create_arrow(
         start = data$start,
         end = data$end,
         middle = data$middle,
+        phlange = data$phlange,
         direction = data$direction,
-        arrowhead_width = data$arrowhead_width,
+        arrowhead_width = 0.5,
         width = width,
         plasmid_length = bp,
         arrowhead_size = arrowhead_size
@@ -162,18 +144,23 @@ StatArrowLabel <- ggproto(
                            invert = TRUE) {
     # data$length <- data$end - data$start
 
+
   df <- data.frame(
       x = mean(c(data$start, data$end)),
-      y = data$middle
+      y = data$middle,
+      ymin = 3.5,
+      ymax = 4.5,
+      xmin = data$start,
+      xmax = data$end
     )
 
   fil <- data$length / bp > nchar(data$label) / bp * 60
 
   if (invert) fil <- !fil
-
+  # if (! invert) df <- df[, c("y", "xmin", "xmax")]
   df[fil]
-  },
-  required_aes = c('start', 'end')
+  }#,
+  # required_aes = c('start', 'end')
 )
 
 
@@ -216,8 +203,9 @@ stat_arrow <-
 # data.frame(
 #   start = c(10, 700, 2300, 2500, 3000, 3300),
 #   end = c(150, 200, 2100, 2000, 4000, 3900),
-#   dir = c(1, -1, -1, -1, 1, 1)
-#   )
+#   direction = c(1, -1, -1, -1, 1, 1),
+#   name = 1:6
+#   ) |>
 
 plas$features |>
 
@@ -226,14 +214,14 @@ plas$features |>
     end = end,
     direction = direction,
     fill = type,
-    group = factor(index)
+    group = index
   )) +
   geom_hline(yintercept = 4) +
   coord_polar(start = pi / 4) +
 
 
   ggrepel::geom_label_repel(
-    aes(label = name),
+    aes(label = stringr::str_wrap(name, 10)),
     stat = "arrowLabel",
     box.padding = 0.6,
     size = 3,
@@ -247,8 +235,10 @@ plas$features |>
     bp = plas$length
     ) +
   ggfittext::geom_fit_text(
-    aes(label = name, ymin = 3.5, ymax = 4.5, xmin = start, xmax = end - 50),
+    aes(label = name, ymin = 3.8, ymax = 4.2),
     stat = "arrowLabel",
+    grow = FALSE,
+    size = 10,
     position = position_dodge2(),
     min.size = 1,
     invert = FALSE,
@@ -256,9 +246,8 @@ plas$features |>
 
   ) +
   ylim(c(0, NA)) +
-  # facet_wrap(vars(end)) +
   xlim(c(0, bp = plas$length)) +
-  theme_void() +
+  # theme_void() +
   annotate(
     geom = "text",
     x = 0,

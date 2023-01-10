@@ -1,7 +1,7 @@
 Package: plasmapR
-Title: Render DNA plasmid Maps as {ggplot} Objects and Plots.
+Title: Create Plasmid Maps in R
 Type: Package
-Version: 0.1.1
+Version: 0.1.2
 Authors@R:
     person(given = "Brady", 
            family = "Johnston", 

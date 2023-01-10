@@ -18,7 +18,7 @@ This is an R package for making plasmid maps using `{ggplot2}`.
 
 ``` r
 # install.packages("devtools")
-devtools::install_github("bradyajohnston/plasmapr")
+devtools::install_github("bradyajohnston/plasmapR")
 ```
 
 ## Example

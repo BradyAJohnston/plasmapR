@@ -59,6 +59,14 @@
     )
   }
 
+#' Plot a Plasmid
+#'
+#' @param plasmid
+#'
+#' @return
+#' @export
+#'
+#' @examples
 plot_plasmid <- function(plasmid) {
   features <- as.data.frame(plasmid)
   .plot_plasmid(features)

@@ -32,6 +32,13 @@
   dat[!is.na(dat$start), ]
 }
 
-as.data.frame.plasmid <- function(x) {
-  .feature_list_to_df(x$features)
+
+#' Extract Features of a Plasmid as a DataFrame
+#'
+#' @param plasmid Plasmid
+#'
+#' @return a DataFrame
+#' @export
+as.data.frame.plasmid <- function(plasmid) {
+  .feature_list_to_df(plasmid$features)
 }

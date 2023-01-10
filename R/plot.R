@@ -29,11 +29,10 @@
       bp = bp,
       arrowhead_size = 1
       ) +
-    ggfittext::geom_fit_text(
+    geom_fit_text(
       ggplot2::aes(
         label = name,
-        ymin = 3.8,
-        ymax = 4.2
+        y = 4
       ),
       stat = "arrowLabel",
       grow = FALSE,
@@ -41,7 +40,7 @@
       position = ggplot2::position_dodge2(),
       min.size = 1,
       invert = FALSE,
-      flip = TRUE
+      flip = FALSE
 
     ) +
     ggplot2::ylim(c(0, NA)) +

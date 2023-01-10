@@ -3,6 +3,8 @@
 S3method(as.data.frame,plasmid)
 S3method(makeContent,fittexttree)
 S3method(makeContent,fittexttreepolar)
+export(StatArrow)
+export(StatArrowLabel)
 export(plot_plasmid)
 export(read_gb)
 importFrom(grid,makeContent)

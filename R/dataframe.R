@@ -6,12 +6,12 @@
     start = numeric(),
     end = numeric(),
     # note = character(),
-    direction = numeric()
+    direction = character()
   )
 
   i <- 1
   for (feat in x) {
-    if (stringr::str_detect(feat$type, "(CDS)")) next
+    # if (stringr::str_detect(feat$type, "(CDS)")) next
 
     dat[i, ] <- c(
       i,
@@ -27,7 +27,7 @@
 
   dat$start <- as.numeric(dat$start)
   dat$end <- as.numeric(dat$end)
-  dat$direction <- as.numeric(dat$direction)
+  dat$direction <- as.numeric(ifelse(dat$direction == "RIGHT", 1, dat$direction))
 
   dat[!is.na(dat$start), ]
 }

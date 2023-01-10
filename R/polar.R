@@ -16,6 +16,7 @@
 #' @importFrom grid makeContent
 #' @export
 makeContent.fittexttreepolar <- function(x) {
+  flip <- TRUE
 
   data <- x$data
 

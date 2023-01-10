@@ -25,7 +25,7 @@
   .arrow_points(base, tip, midpoint, phlange, arrowhead_width, width)
 }
 
-
+#' @export
 StatArrow <- ggplot2::ggproto(
   'StatArrow',
   ggplot2::Stat,
@@ -126,6 +126,7 @@ StatArrow <- ggplot2::ggproto(
   )
 )
 
+#' @export
 StatArrowLabel <- ggplot2::ggproto(
   'StatArrowLabel',
   StatArrow,

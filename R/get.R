@@ -74,6 +74,8 @@
 .add_feature_name <- function(x) {
   if (length(x) == 4) {
     x$name <- x$type
+  } else if ("label" %in% names(x)){
+    x$name <- x$label
   } else {
     x$name <- x[[5]]
   }

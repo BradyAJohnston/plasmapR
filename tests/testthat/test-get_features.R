@@ -56,7 +56,8 @@ test_that('expections', {
 })
 
 test_that("Extract Lines", {
-  lines <- readLines("../../inst/extdata/sequence.gb")
+  fl <- system.file("extdata", "sequence.gb", package = "plasmapR")
+  lines <- readLines(fl)
   expect_equal(
     sum(.get_line_types(lines) == "FEATURES"),
     59

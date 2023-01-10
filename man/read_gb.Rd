@@ -2,13 +2,24 @@
 % Please edit documentation in R/get.R
 \name{read_gb}
 \alias{read_gb}
-\title{Title}
+\title{Read a \code{.gb} GenBank File}
 \usage{
 read_gb(file)
 }
 \arguments{
-\item{file}{}
+\item{file}{File path or connection, that can be handled by readr::read_lines().}
+}
+\value{
+a list of class 'plasmid' which can be further coerced for plotting.
 }
 \description{
-Title
+Read a \code{.gb} GenBank File
+}
+\examples{
+
+fl <- system.file("extdata", "petm20.gb", package = "plasmapR")
+
+fl |>
+  read_gb() |>
+  as.data.frame()
 }

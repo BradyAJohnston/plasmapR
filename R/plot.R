@@ -1,20 +1,23 @@
+
+#' @importFrom rlang .data
+#' @noRd
 .plot_plasmid <- function(dat, bp, name = "Plasmid Name", label_wrap = 20) {
   dat <- dat[dat$type != "source", ]
 
   dat |>
     ggplot2::ggplot(ggplot2::aes(
-      start = start,
-      end = end,
-      direction = direction,
-      fill = type,
-      group = index
+      start = .data$start,
+      end = .data$end,
+      direction = .data$direction,
+      fill = .data$type,
+      group = .data$index
     )) +
     ggplot2::geom_hline(yintercept = 4) +
     ggplot2::coord_polar(start = pi / 4) +
 
 
     ggrepel::geom_label_repel(
-      ggplot2::aes(label = stringr::str_wrap(name, label_wrap)),
+      ggplot2::aes(label = stringr::str_wrap(.data$name, label_wrap)),
       stat = "arrowLabel",
       box.padding = 0.6,
       size = 3,
@@ -30,7 +33,7 @@
       ) +
     geom_fit_text(
       ggplot2::aes(
-        label = name,
+        label = .data$name,
         y = 4
       ),
       stat = "arrowLabel",
@@ -64,11 +67,11 @@
 #' that are added to the plot.
 #'
 #' @param plasmid A list of class 'plasmid' created through `read_gb()`.
+#' @param name Name of the plasmid, to be shown in the center.
+#' @param label_wrap Passed to `stringr::str_wrap()` to wrap the long labels.
 #'
 #' @return A ggplot object.
 #' @export
-#'
-#' @examples
 plot_plasmid <- function(plasmid, name = "Plasmid Name", label_wrap = 20) {
   features <- as.data.frame(plasmid)
 

@@ -24,7 +24,9 @@ rad2deg <- function(rad) { rad * (180 / pi) }
 
 #' Return a reversed string
 #'
-#' @nord
+#' @param string String to be reversed.
+#'
+#' @noRd
 strrev <- function(string) {
   sapply(lapply(strsplit(string, NULL), rev), paste0, collapse = "")
 }

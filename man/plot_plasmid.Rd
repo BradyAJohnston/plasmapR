@@ -4,11 +4,20 @@
 \alias{plot_plasmid}
 \title{Plot a Plasmid}
 \usage{
-plot_plasmid(plasmid)
+plot_plasmid(plasmid, name = "Plasmid Name", label_wrap = 20)
 }
 \arguments{
-\item{plasmid}{}
+\item{plasmid}{A list of class 'plasmid' created through \code{read_gb()}.}
+
+\item{name}{Name of the plasmid, to be shown in the center.}
+
+\item{label_wrap}{Passed to \code{stringr::str_wrap()} to wrap the long labels.}
+}
+\value{
+A ggplot object.
 }
 \description{
-Plot a Plasmid
+Create a \code{{ggplot2}} plot of a plasmid in polar coordinates. Extracts the
+features as a data.frame from the plasmid and uses these to construct arrows
+that are added to the plot.
 }

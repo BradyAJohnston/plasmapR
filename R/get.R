@@ -136,7 +136,7 @@
     stringr::str_c(collapse = "")
 }
 
-#' Read a .gb GenBank File
+#' Read a `.gb` GenBank File
 #'
 #' @param file File path or connection, that can be handled by readr::read_lines().
 #'
@@ -144,6 +144,13 @@
 #' @export
 #'
 #' @examples
+#'
+#' fl <- system.file("extdata", "petm20.gb", package = "plasmapR")
+#'
+#' fl |>
+#'   read_gb() |>
+#'   as.data.frame()
+
 read_gb <- function(file) {
   lines <- readr::read_lines(file)
   features <- .get_features_list(lines)

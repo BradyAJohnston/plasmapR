@@ -1,8 +1,7 @@
-.plot_plasmid <- function(df) {
-  bp <- df$end[df$type == "source"]
-  df <- df[df$type != "source", ]
+.plot_plasmid <- function(dat, bp, name = "Plasmid Name", label_wrap = 20) {
+  dat <- dat[dat$type != "source", ]
 
-  df |>
+  dat |>
     ggplot2::ggplot(ggplot2::aes(
       start = start,
       end = end,
@@ -15,7 +14,7 @@
 
 
     ggrepel::geom_label_repel(
-      ggplot2::aes(label = stringr::str_wrap(name, 10)),
+      ggplot2::aes(label = stringr::str_wrap(name, label_wrap)),
       stat = "arrowLabel",
       box.padding = 0.6,
       size = 3,
@@ -50,7 +49,7 @@
       geom = "text",
       x = 0,
       y = 0,
-      label = stringr::str_glue("Some Plasmid\n{bp} bp")
+      label = stringr::str_glue("{name}\n{bp} bp")
     ) +
     ggplot2::scale_fill_brewer(type = 'qual', palette = 5) +
     ggplot2::theme(
@@ -60,13 +59,27 @@
 
 #' Plot a Plasmid
 #'
-#' @param plasmid
+#' Create a `{ggplot2}` plot of a plasmid in polar coordinates. Extracts the
+#' features as a data.frame from the plasmid and uses these to construct arrows
+#' that are added to the plot.
 #'
-#' @return
+#' @param plasmid A list of class 'plasmid' created through `read_gb()`.
+#'
+#' @return A ggplot object.
 #' @export
 #'
 #' @examples
-plot_plasmid <- function(plasmid) {
+plot_plasmid <- function(plasmid, name = "Plasmid Name", label_wrap = 20) {
   features <- as.data.frame(plasmid)
-  .plot_plasmid(features)
+
+  # remove NA values for start and end, need better handling of this
+  fil <- is.na(features$start) | is.na(features$end) | features$type == "gene"
+  features <- features[!fil, ]
+
+  .plot_plasmid(
+    features,
+    bp  = plasmid$length,
+    name = name,
+    label_wrap = label_wrap
+    )
 }

@@ -1,35 +1,38 @@
 .feature_list_to_df <- function(x) {
-  dat <- data.frame(
-    index = numeric(),
-    name = character(),
-    type = character(),
-    start = numeric(),
-    end = numeric(),
-    # note = character(),
-    direction = character()
-  )
+  # dat <- data.frame(
+  #   index = numeric(),
+  #   name = character(),
+  #   type = character(),
+  #   start = numeric(),
+  #   end = numeric(),
+  #   direction = numeric()
+  # )
 
-  i <- 1
-  for (feat in x) {
-    # if (stringr::str_detect(feat$type, "(CDS)")) next
+  feats <- lapply(seq(length(x)), \(i) {
+    feat <- x[[i]]
 
-    dat[i, ] <- c(
-      i,
-      feat$name, # name
-      feat$type, # type
-      feat$start_end[1],
-      feat$start_end[2],
-      feat$direction
-
+    data.frame(
+      index = i,
+      name = feat$name,
+      type = feat$type,
+      start = feat$start_end[1],
+      end = feat$start_end[2],
+      direction = as.numeric(feat$direction)
     )
-    i <- i + 1
-  }
+  })
 
+  dat <- do.call(rbind, feats)
+  # }
+
+  # turn certain features in to numeric columns
   dat$start <- as.numeric(dat$start)
   dat$end <- as.numeric(dat$end)
-  dat$direction <- as.numeric(ifelse(dat$direction == "RIGHT", 1, dat$direction))
+  dat$direction <- as.numeric(dat$direction)
 
-  dat[!is.na(dat$start), ]
+
+# only return features where a start was successfully parsed
+  # dat[!is.na(dat$start), ]
+  dat
 }
 
 

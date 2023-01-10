@@ -100,7 +100,16 @@
         feature[['direction']] <- .get_direction(line)
       } else if (.is_label_start(line)) {
         current_label <- .get_label(line)
-        feature[[current_label]] <- .get_value(line)
+        value <- .get_value(line)
+
+        if (current_label == "direction") {
+          value <- c(
+            "RIGHT" = 1,
+            "LEFT" = -1
+          )[value]
+        }
+
+        feature[[current_label]] <- value
       } else {
 
         if (!exists("current_label")) current_label <- .get_label(line)
@@ -121,20 +130,27 @@
   seq
 }
 
-#' Title
+.collapse_sequence <- function(x) {
+  stringr::str_trim(x) |>
+    stringr::str_remove_all(" ") |>
+    stringr::str_c(collapse = "")
+}
+
+#' Read a .gb GenBank File
 #'
-#' @param file
+#' @param file File path or connection, that can be handled by readr::read_lines().
 #'
-#' @return
+#' @return a list of class 'plasmid' which can be further coerced for plotting.
 #' @export
 #'
 #' @examples
 read_gb <- function(file) {
   lines <- readr::read_lines(file)
   features <- .get_features_list(lines)
-  sequence <- .get_sequence(lines)
+  sequence <- .get_sequence(lines) |>
+    .collapse_sequence()
   plasmid <- list(
-    length = features[[1]]$start_end[2],
+    length = nchar(sequence),
     features = features,
     sequence = sequence
   )

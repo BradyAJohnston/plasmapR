@@ -40,6 +40,21 @@ test_that("get features", {
   )
 })
 
+test_that('expections', {
+  expect_true(
+    .is_label_start('                     /regulatory_class="ribosome_binding_site"')
+  )
+  expect_false(
+    .is_feature_start('                     /regulatory_class="ribosome_binding_site"')
+  )
+  expect_true(
+    .is_feature_start('     regulatory      70..81')
+  )
+  expect_false(
+    .is_label_start('     regulatory      70..81')
+  )
+})
+
 test_that("Extract Lines", {
   lines <- readLines("../../inst/extdata/sequence.gb")
   expect_equal(

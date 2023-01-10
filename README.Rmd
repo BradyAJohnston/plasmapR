@@ -35,13 +35,35 @@ devtools::install_github("bradyajohnston/plasmapr")
 
 Once a plasmid has been exported in Genbank format it can be parsed and plotted.
 
-```{r example-plasmid}
+```{r example-plasmid, dev='ragg_png'}
 library(plasmapR)
 
-plasmid <- read_gb("data/petm20.gb")
+fl <- system.file('extdata', 'petm20.gb', package = "plasmapR")
 
-p <- plot_plasmid(plasmid)
+fl |> 
+  read_gb() |> 
+  plot_plasmid(name = "pETM-20")
+```
 
-p
+
+Access the features by turning the plasmid into a data.frame.
+```{r}
+fl |> 
+  read_gb() |> 
+  as.data.frame()
+```
+
+## A {ggplot2} Object
+
+The result of the call is just a {ggplot2} plot, which you can further customise 
+to your liking with themes, etc.
+```{r example-theme, dev='ragg_png'}
+fl <- system.file('extdata', '20.gb', package = "plasmapR")
+
+plt <- fl |> 
+  read_gb() |> 
+  plot_plasmid()
+
+plt + ggplot2::theme_bw()
 ```
 

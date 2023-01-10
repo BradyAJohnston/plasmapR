@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Render DNA plasmid Maps as {ggplot} Objects and Plots. • plasmapR</title>
+<title>Create Plasmid Maps in R • plasmapR</title>
 <!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/flatly/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script><!-- bootstrap-toc --><link rel="stylesheet" href="bootstrap-toc.css">
 <script src="bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
@@ -13,7 +13,7 @@
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
 <script src="pkgdown.js"></script><!-- docsearch --><script src="docsearch.js"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/docsearch.js/2.6.3/docsearch.min.css" integrity="sha256-QOSRU/ra9ActyXkIBbiIB144aDBdtvXBcNc3OTNuX/Q=" crossorigin="anonymous">
 <link href="docsearch.css" rel="stylesheet">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script><meta property="og:title" content="Render DNA plasmid Maps as {ggplot} Objects and Plots.">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script><meta property="og:title" content="Create Plasmid Maps in R">
 <meta property="og:description" content="Create circular plasmid maps as ggplot objects. Allows for parsing
     of .gb files and the creation of plasmid maps. Features allowing for 
     customisation of aesthetics, like regular ggplot plots.">
@@ -43,7 +43,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">plasmapR</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.2</span>
       </span>
     </div>
 
@@ -81,11 +81,15 @@
 <div class="section level1">
 <div class="page-header"><h1 id="plasmapr">plasmapR<a class="anchor" aria-label="anchor" href="#plasmapr"></a>
 </h1></div>
+<!-- badges: start -->
+
 <p>This is an R package for making plasmid maps using <a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a>.</p>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
-<blockquote><p>This package is still very early in development and the API may change. The parser for <code>.gb</code> files works most of the time but has not been tested extensively.</p></blockquote>
+<blockquote>
+<p>This package is still very early in development and the API may change. The parser for <code>.gb</code> files works most of the time but has not been tested extensively.</p>
+</blockquote>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># install.packages("devtools")</span></span>
 <span><span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"bradyajohnston/plasmapr"</span><span class="op">)</span></span></code></pre></div>
@@ -96,64 +100,54 @@
 <p><code>plasmapR</code> provides functions for parsing and plotting .gb plasmid files.</p>
 <p>Once a plasmid has been exported in Genbank format it can be parsed and plotted.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co">#devtools::install_github("bradyajohnston/plasmapR")</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https::/github.com/bradyajohnston/plasmapr">plasmapR</a></span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https::/github.com/bradyajohnston/plasmapr">plasmapR</a></span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">plasmid</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/parse_plasmid.html">parse_plasmid</a></span><span class="op">(</span><span class="st">"data/petm20.gb"</span><span class="op">)</span></span>
+<span><span class="va">fl</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">'extdata'</span>, <span class="st">'petm20.gb'</span>, package <span class="op">=</span> <span class="st">"plasmapR"</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">p</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/render_plasmap.html">render_plasmap</a></span><span class="op">(</span><span class="va">plasmid</span>,</span>
-<span>                    rotation <span class="op">=</span> <span class="fl">45</span>,</span>
-<span>                    plasmid_name <span class="op">=</span> <span class="st">"pETM20-avi-dsnPPR10-C2"</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">p</span></span></code></pre></div>
-<p><img src="reference/figures/example-1.png" style="display: block; margin: auto;"></p>
-</div>
-<div class="section level2">
-<h2 id="under-the-hood">Under the Hood<a class="anchor" aria-label="anchor" href="#under-the-hood"></a>
-</h2>
-<p>The result of the <code>render_plasmid()</code> function is just a <code>ggplot</code> object, so you can add themes and treat it as you would any other <code>ggplot</code> object.</p>
+<span><span class="va">fl</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="reference/read_gb.html">read_gb</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="reference/plot_plasmid.html">plot_plasmid</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"pETM-20"</span><span class="op">)</span></span></code></pre></div>
+<p><img src="reference/figures/example-plasmid-1.png"><!-- --></p>
+<p>Access the features by turning the plasmid into a data.frame.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">p</span> <span class="op">&lt;-</span> <span class="va">p</span> <span class="op">+</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_brewer.html" class="external-link">scale_fill_brewer</a></span><span class="op">(</span>palette <span class="op">=</span> <span class="fl">8</span>, type <span class="op">=</span> <span class="st">"qual"</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">p</span></span></code></pre></div>
-<p><img src="reference/figures/colouring-1.png"><!-- --></p>
-<p>Coordinates have been transformed with <code>coord_polar()</code> but everything else remains the same.</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">p</span> <span class="op">+</span> </span>
-<span>  <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_dark</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> </span>
-<span>  <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>legend.position <span class="op">=</span> <span class="st">"top"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="reference/figures/example2-1.png" style="display: block; margin: auto;"></p>
+<code class="sourceCode R"><span><span class="va">fl</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="reference/read_gb.html">read_gb</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="do">##    index                    name         type start  end direction</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="do">## 1      1 synthetic DNA construct       source     1 7700         1</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="do">## 2      2                 f1 orim   rep_origin    12  467         1</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="do">## 3      3           AmpR promoter     promoter   494  598         1</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="do">## 4      4                    AmpR          CDS   599 1459         1</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="do">## 5      5                     ori   rep_origin  1630 2218         1</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="do">## 6      6                     bom misc_feature  2404 2546         1</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="do">## 7      7                     rop          CDS  2648 2839        -1</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="do">## 8      8                    lacI          CDS  3648 4730         1</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="do">## 9      9           lacI promoter     promoter  4731 4808         1</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="do">## 10    10             T7 promoter     promoter  5121 5139         1</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a><span class="do">## 11    11            lac operator protein_bind  5140 5164         1</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a><span class="do">## 12    12                    TrxA          CDS  5209 5535         1</span></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a><span class="do">## 13    13                   6xHis          CDS  5557 5574         1</span></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a><span class="do">## 14    14         AviTag Insert R  primer_bind  5578 5628        -1</span></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a><span class="do">## 15    15                TEV Site          CDS  5584 5604         1</span></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a><span class="do">## 16    16              AviTag(TM)          CDS  5611 5655         1</span></span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a><span class="do">## 17    17         AviTag Insert F  primer_bind  5629 5673         1</span></span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a><span class="do">## 18    18             dsnPPR10-C2          CDS  5659 7503         1</span></span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a><span class="do">## 19    19                   6xHis          CDS  7544 7561         1</span></span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a><span class="do">## 20    20           T7 terminator   terminator  7628 7675         1</span></span></code></pre></div>
 </div>
 <div class="section level2">
-<h2 id="major-limitations">Major Limitations<a class="anchor" aria-label="anchor" href="#major-limitations"></a>
+<h2 id="a-ggplot2-object">A {ggplot2} Object<a class="anchor" aria-label="anchor" href="#a-ggplot2-object"></a>
 </h2>
-<p>Currently the method for curving the text results in the problem of resizing. The individual characters are spaced based on the underlying base pair counts, not plot coordinates. If you scale the plot, things start to break down pretty quickly.</p>
-<p>I’m working on an fix that will allow resizing and scaling of the whole plot, but currently defaults are set up for a plot width and height of 8 inches each.</p>
+<p>The result of the call is just a {ggplot2} plot, which you can further customise to your liking with themes, etc.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">knitr</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/knitr/man/opts_chunk.html" class="external-link">opts_chunk</a></span><span class="op">$</span><span class="fu">set</span><span class="op">(</span>fig.width <span class="op">=</span> <span class="fl">4</span>, fig.height <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">p</span></span></code></pre></div>
-<p><img src="reference/figures/example3-1.png" style="display: block; margin: auto;"></p>
-<div class="section level3">
-<h3 id="scale-it-back">Scale it back<a class="anchor" aria-label="anchor" href="#scale-it-back"></a>
-</h3>
-<p>To overcome this, you must manually specify a scaling factor to reduce the size and width of the text (which will scale proportionally).</p>
-<p>Currently the scaling factors are curved_scaling (which scales the size of the text and also the scale between the letters) and size_scale which additionally scales the distance between the letters.</p>
-<p>Currently it’s a bad system where for a smaller image, the actual arrow is smaller and thus the distance between each individual plotted letter needs to be increased.</p>
-<p>I haven’t figured out the way to do that well yet - so currently they are both just hacky parameters to fiddle with.</p>
-<p>Will return to in the morning when I am less tired.</p>
-<p>This howwerver <em>must</em> be specified in the original <code><a href="reference/render_plasmap.html">render_plasmap()</a></code> call, and cannot be applied afterwards in any kind of <code>ggplot::ggsave()</code> call or in rendering.</p>
-<blockquote><p>I have an idea of how to overcome this, but it’ll be a while before anything is implemented or tested to see if it will even work.</p></blockquote>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">p</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/render_plasmap.html">render_plasmap</a></span><span class="op">(</span><span class="va">plasmid</span>,</span>
-<span>                    rotation <span class="op">=</span> <span class="fl">60</span>,</span>
-<span>                    name_size <span class="op">=</span> <span class="fl">3</span>,</span>
-<span>                    plasmid_name <span class="op">=</span> <span class="st">"pETM20-avi-dsnPPR10-C2"</span></span>
-<span>                    <span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">fl</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">'extdata'</span>, <span class="st">'20.gb'</span>, package <span class="op">=</span> <span class="st">"plasmapR"</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">p</span></span></code></pre></div>
-<p><img src="reference/figures/current-fix-1.png" style="display: block; margin: auto;"></p>
-</div>
+<span><span class="va">plt</span> <span class="op">&lt;-</span> <span class="va">fl</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="reference/read_gb.html">read_gb</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="reference/plot_plasmid.html">plot_plasmid</a></span><span class="op">(</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">plt</span> <span class="op">+</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_bw</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<p><img src="reference/figures/example-theme-1.png"><!-- --></p>
 </div>
 </div>
   </div>
@@ -170,7 +164,8 @@
 <div class="license">
 <h2 data-toc-skip>License</h2>
 <ul class="list-unstyled">
-<li>What license is it under?</li>
+<li><a href="LICENSE.html">Full license</a></li>
+<li><small><a href="https://opensource.org/licenses/mit-license.php" class="external-link">MIT</a> + file <a href="LICENSE-text.html">LICENSE</a></small></li>
 </ul>
 </div>
 
@@ -190,7 +185,13 @@
 </ul>
 </div>
 
-
+<div class="dev-status">
+<h2 data-toc-skip>Dev status</h2>
+<ul class="list-unstyled">
+<li><a href="https://app.codecov.io/gh/bradyajohnston/plasmapR?branch=main" class="external-link"><img src="https://codecov.io/gh/bradyajohnston/plasmapR/branch/main/graph/badge.svg" alt="Codecov test coverage"></a></li>
+<li><a href="https://github.com/bradyajohnston/plasmapR/actions/workflows/R-CMD-check.yaml" class="external-link"><img src="https://github.com/bradyajohnston/plasmapR/actions/workflows/R-CMD-check.yaml/badge.svg" alt="R-CMD-check"></a></li>
+</ul>
+</div>
 
   </div>
 </div>
@@ -203,7 +204,7 @@
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer>

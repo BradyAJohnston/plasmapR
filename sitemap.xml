@@ -4,45 +4,27 @@
     <loc>https://bradyajohnston.github.io/plasmapr/404.html</loc>
   </url>
   <url>
+    <loc>https://bradyajohnston.github.io/plasmapr/LICENSE-text.html</loc>
+  </url>
+  <url>
+    <loc>https://bradyajohnston.github.io/plasmapr/LICENSE.html</loc>
+  </url>
+  <url>
     <loc>https://bradyajohnston.github.io/plasmapr/authors.html</loc>
   </url>
   <url>
     <loc>https://bradyajohnston.github.io/plasmapr/index.html</loc>
   </url>
   <url>
-    <loc>https://bradyajohnston.github.io/plasmapr/reference/create_arrow_plotting_df.html</loc>
-  </url>
-  <url>
-    <loc>https://bradyajohnston.github.io/plasmapr/reference/create_arrow_positions.html</loc>
-  </url>
-  <url>
-    <loc>https://bradyajohnston.github.io/plasmapr/reference/create_feature_df.html</loc>
-  </url>
-  <url>
-    <loc>https://bradyajohnston.github.io/plasmapr/reference/create_labels.html</loc>
-  </url>
-  <url>
-    <loc>https://bradyajohnston.github.io/plasmapr/reference/extract_sequence.html</loc>
-  </url>
-  <url>
-    <loc>https://bradyajohnston.github.io/plasmapr/reference/get_features.html</loc>
+    <loc>https://bradyajohnston.github.io/plasmapr/reference/as.data.frame.plasmid.html</loc>
   </url>
   <url>
     <loc>https://bradyajohnston.github.io/plasmapr/reference/index.html</loc>
   </url>
   <url>
-    <loc>https://bradyajohnston.github.io/plasmapr/reference/parse_plasmid.html</loc>
+    <loc>https://bradyajohnston.github.io/plasmapr/reference/plot_plasmid.html</loc>
   </url>
   <url>
-    <loc>https://bradyajohnston.github.io/plasmapr/reference/plasmid_gadget.html</loc>
-  </url>
-  <url>
-    <loc>https://bradyajohnston.github.io/plasmapr/reference/plasmid_plot.html</loc>
-  </url>
-  <url>
-    <loc>https://bradyajohnston.github.io/plasmapr/reference/render_plasmap.html</loc>
-  </url>
-  <url>
-    <loc>https://bradyajohnston.github.io/plasmapr/reference/split_text_df.html</loc>
+    <loc>https://bradyajohnston.github.io/plasmapr/reference/read_gb.html</loc>
   </url>
 </urlset>

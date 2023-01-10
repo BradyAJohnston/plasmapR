@@ -169,7 +169,7 @@ stat_arrow <-
            inherit.aes = TRUE,
            ...,
            bp = 6000,
-           middle = 4,
+           # middle = 4,
            arrowhead_size = 8
            ) {
     ggplot2::layer(
@@ -183,7 +183,7 @@ stat_arrow <-
       params = list(
         na.rm = na.rm,
         bp = bp,
-        middle = middle,
+        # middle = middle,
         arrowhead_size = arrowhead_size,
         # start = start,
         # end = end,

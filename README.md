@@ -28,12 +28,7 @@ library(plasmapR)
 plasmid <- read_gb("data/petm20.gb")
 
 p <- plot_plasmid(plasmid)
-```
 
-    ## Warning in stat_arrow(colour = "black", bp = bp, arrowhead_size = 1): Ignoring
-    ## unknown parameters: `middle`
-
-``` r
 p
 ```
 

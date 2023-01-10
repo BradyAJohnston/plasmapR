@@ -1,13 +1,4 @@
-library(ggplot2)
 
-plas <- plasmapR::parse_plasmid("data/petm20.gb")
-# plas <- plasmapR::parse_plasmid(
-#   "~/../Documents/GitHub/thesis/figures/plasmids/pETM20-dsnPPR10-C2-AviTag.gb"
-#   )
-
-plas$features$direction <- ifelse(plas$features$direction == "LEFT", 1, -1)
-
-plas$features
 .create_arrow <- function(start,
                           end,
                           phlange,
@@ -35,9 +26,9 @@ plas$features
 }
 
 
-StatArrow <- ggproto(
+StatArrow <- ggplot2::ggproto(
   'StatArrow',
-  Stat,
+  ggplot2::Stat,
   setup_data = function(data, params) {
     wrong_orientation <- data$end < data$start
     end_temp <- data$end
@@ -130,12 +121,12 @@ StatArrow <- ggproto(
     arrows
   },
   required_aes = c('start', 'end'),
-  default_aes = aes(
+  default_aes = ggplot2::aes(
     direction = 1
   )
 )
 
-StatArrowLabel <- ggproto(
+StatArrowLabel <- ggplot2::ggproto(
   'StatArrowLabel',
   StatArrow,
   compute_group = function(data,
@@ -177,11 +168,9 @@ stat_arrow <-
            inherit.aes = TRUE,
            ...,
            bp = 6000,
-           middle = 4
+           middle = 4,
+           arrowhead_size = 8
            ) {
-
-
-
     ggplot2::layer(
       stat = "arrow",
       data = data,
@@ -194,68 +183,9 @@ stat_arrow <-
         na.rm = na.rm,
         bp = bp,
         middle = middle,
+        arrowhead_size = arrowhead_size,
         # start = start,
         # end = end,
         ...)
     )
   }
-
-# data.frame(
-#   start = c(10, 700, 2300, 2500, 3000, 3300),
-#   end = c(150, 200, 2100, 2000, 4000, 3900),
-#   direction = c(1, -1, -1, -1, 1, 1),
-#   name = 1:6
-#   ) |>
-
-plas$features |>
-
-  ggplot(aes(
-    start = start,
-    end = end,
-    direction = direction,
-    fill = type,
-    group = index
-  )) +
-  geom_hline(yintercept = 4) +
-  coord_polar(start = pi / 4) +
-
-
-  ggrepel::geom_label_repel(
-    aes(label = stringr::str_wrap(name, 10)),
-    stat = "arrowLabel",
-    box.padding = 0.6,
-    size = 3,
-    nudge_y = 1,
-    segment.curvature = 0.01,
-    label.r = 0,
-    bp = 400
-    ) +
-  stat_arrow(
-    colour = "black",
-    bp = plas$length
-    ) +
-  ggfittext::geom_fit_text(
-    aes(label = name, ymin = 3.8, ymax = 4.2),
-    stat = "arrowLabel",
-    grow = FALSE,
-    size = 10,
-    position = position_dodge2(),
-    min.size = 1,
-    invert = FALSE,
-    flip = TRUE
-
-  ) +
-  ylim(c(0, NA)) +
-  xlim(c(0, bp = plas$length)) +
-  # theme_void() +
-  annotate(
-    geom = "text",
-    x = 0,
-    y =0,
-    label = "Some Plasmid\n4800 bp"
-  ) +
-  scale_fill_brewer(type = 'qual', palette = 5) +
-  theme(
-    legend.position = "",
-    # panel.background = element_rect(colour = 'black', fill = 'transparent')
-  )

@@ -1,6 +1,13 @@
 
 # plasmapR
 
+<!-- badges: start -->
+
+[![Codecov test
+coverage](https://codecov.io/gh/bradyajohnston/plasmapR/branch/main/graph/badge.svg)](https://app.codecov.io/gh/bradyajohnston/plasmapR?branch=main)
+[![R-CMD-check](https://github.com/bradyajohnston/plasmapR/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/bradyajohnston/plasmapR/actions/workflows/R-CMD-check.yaml)
+<!-- badges: end -->
+
 This is an R package for making plasmid maps using `{ggplot2}`.
 
 ## Installation
@@ -23,99 +30,60 @@ Once a plasmid has been exported in Genbank format it can be parsed and
 plotted.
 
 ``` r
-#devtools::install_github("bradyajohnston/plasmapR")
 library(plasmapR)
 
-plasmid <- parse_plasmid("data/petm20.gb")
+fl <- system.file('extdata', 'petm20.gb', package = "plasmapR")
 
-p <- render_plasmap(plasmid,
-                    rotation = 45,
-                    plasmid_name = "pETM20-avi-dsnPPR10-C2")
-
-p
+fl |> 
+  read_gb() |> 
+  plot_plasmid(name = "pETM-20")
 ```
 
-<img src="man/figures/example-1.png" style="display: block; margin: auto;" />
+![](man/figures/example-plasmid-1.png)<!-- -->
 
-## Under the Hood
-
-The result of the `render_plasmid()` function is just a `ggplot` object,
-so you can add themes and treat it as you would any other `ggplot`
-object.
+Access the features by turning the plasmid into a data.frame.
 
 ``` r
-p <- p + ggplot2::scale_fill_brewer(palette = 8, type = "qual")
-
-p
+fl |> 
+  read_gb() |> 
+  as.data.frame()
 ```
 
-![](man/figures/colouring-1.png)<!-- -->
+    ##    index                    name         type start  end direction
+    ## 1      1 synthetic DNA construct       source     1 7700         1
+    ## 2      2                 f1 orim   rep_origin    12  467         1
+    ## 3      3           AmpR promoter     promoter   494  598         1
+    ## 4      4                    AmpR          CDS   599 1459         1
+    ## 5      5                     ori   rep_origin  1630 2218         1
+    ## 6      6                     bom misc_feature  2404 2546         1
+    ## 7      7                     rop          CDS  2648 2839        -1
+    ## 8      8                    lacI          CDS  3648 4730         1
+    ## 9      9           lacI promoter     promoter  4731 4808         1
+    ## 10    10             T7 promoter     promoter  5121 5139         1
+    ## 11    11            lac operator protein_bind  5140 5164         1
+    ## 12    12                    TrxA          CDS  5209 5535         1
+    ## 13    13                   6xHis          CDS  5557 5574         1
+    ## 14    14         AviTag Insert R  primer_bind  5578 5628        -1
+    ## 15    15                TEV Site          CDS  5584 5604         1
+    ## 16    16              AviTag(TM)          CDS  5611 5655         1
+    ## 17    17         AviTag Insert F  primer_bind  5629 5673         1
+    ## 18    18             dsnPPR10-C2          CDS  5659 7503         1
+    ## 19    19                   6xHis          CDS  7544 7561         1
+    ## 20    20           T7 terminator   terminator  7628 7675         1
 
-Coordinates have been transformed with `coord_polar()` but everything
-else remains the same.
+## A {ggplot2} Object
+
+The result of the call is just a {ggplot2} plot, which you can further
+customise to your liking with themes, etc.
 
 ``` r
-p + 
-  ggplot2::theme_dark() + 
-  ggplot2::theme(legend.position = "top")
+fl <- system.file('extdata', '20.gb', package = "plasmapR")
+
+plt <- fl |> 
+  read_gb() |> 
+  plot_plasmid()
+
+plt + ggplot2::theme_bw()
 ```
 
-<img src="man/figures/example2-1.png" style="display: block; margin: auto;" />
-
-## Major Limitations
-
-Currently the method for curving the text results in the problem of
-resizing. The individual characters are spaced based on the underlying
-base pair counts, not plot coordinates. If you scale the plot, things
-start to break down pretty quickly.
-
-I’m working on an fix that will allow resizing and scaling of the whole
-plot, but currently defaults are set up for a plot width and height of 8
-inches each.
-
-``` r
-knitr::opts_chunk$set(fig.width = 4, fig.height = 4)
-```
-
-``` r
-p
-```
-
-<img src="man/figures/example3-1.png" style="display: block; margin: auto;" />
-
-### Scale it back
-
-To overcome this, you must manually specify a scaling factor to reduce
-the size and width of the text (which will scale proportionally).
-
-Currently the scaling factors are curved_scaling (which scales the size
-of the text and also the scale between the letters) and size_scale which
-additionally scales the distance between the letters.
-
-Currently it’s a bad system where for a smaller image, the actual arrow
-is smaller and thus the distance between each individual plotted letter
-needs to be increased.
-
-I haven’t figured out the way to do that well yet - so currently they
-are both just hacky parameters to fiddle with.
-
-Will return to in the morning when I am less tired.
-
-This howwerver *must* be specified in the original `render_plasmap()`
-call, and cannot be applied afterwards in any kind of `ggplot::ggsave()`
-call or in rendering.
-
-> I have an idea of how to overcome this, but it’ll be a while before
-> anything is implemented or tested to see if it will even work.
-
-``` r
-p <- render_plasmap(plasmid,
-                    rotation = 60,
-                    name_size = 3,
-                    plasmid_name = "pETM20-avi-dsnPPR10-C2"
-                    )
-
-p
-```
-
-<img src="man/figures/current-fix-1.png" style="display: block; margin: auto;" />
+![](man/figures/example-theme-1.png)<!-- -->

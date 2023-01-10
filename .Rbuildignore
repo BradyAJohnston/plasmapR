@@ -6,3 +6,6 @@
 ^docs$
 ^pkgdown$
 ^\.github$
+^codecov\.yml$
+^README\.Rmd$
+^LICENSE\.md$

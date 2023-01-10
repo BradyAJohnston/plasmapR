@@ -1,7 +1,7 @@
 Package: plasmapR
-Title: Render DNA plasmid Maps as {ggplot} Objects and Plots.
+Title: Create Plasmid Maps in R
 Type: Package
-Version: 0.1.1
+Version: 0.1.2
 Authors@R:
     person(given = "Brady", 
            family = "Johnston", 
@@ -12,24 +12,27 @@ Maintainer: Brady Johnston <brady.johnston@research.uwa.edu.au>
 Description: Create circular plasmid maps as ggplot objects. Allows for parsing
     of .gb files and the creation of plasmid maps. Features allowing for 
     customisation of aesthetics, like regular ggplot plots.
-License: What license is it under?
+License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.1.1
+RoxygenNote: 7.2.3
 Imports:
-    ggplot2, 
-    magrittr,
+    ggplot2,
     stringr,
-    ggrepel, 
-    shiny,
-    miniUI
+    ggrepel,
+    cli,
+    stringi,
+    readr,
+    shades,
+    rlang
 Suggests:
     knitr,
     rmarkdown,
     covr,
-    testthat
+    testthat (>= 3.0.0)
 VignetteBuilder: knitr
 Depends: R (>= 2.10)
 URL: https::/github.com/bradyajohnston/plasmapr
-BugReports:https://github.com/bradyajohnston/plasmapr/issues
+BugReports: https://github.com/bradyajohnston/plasmapr/issues
+Config/testthat/edition: 3

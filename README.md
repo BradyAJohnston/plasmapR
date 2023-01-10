@@ -1,6 +1,13 @@
 
 # plasmapR
 
+<!-- badges: start -->
+
+[![Codecov test
+coverage](https://codecov.io/gh/bradyajohnston/plasmapR/branch/main/graph/badge.svg)](https://app.codecov.io/gh/bradyajohnston/plasmapR?branch=main)
+[![R-CMD-check](https://github.com/bradyajohnston/plasmapR/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/bradyajohnston/plasmapR/actions/workflows/R-CMD-check.yaml)
+<!-- badges: end -->
+
 This is an R package for making plasmid maps using `{ggplot2}`.
 
 ## Installation

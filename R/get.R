@@ -119,6 +119,14 @@
   seq
 }
 
+#' Title
+#'
+#' @param file
+#'
+#' @return
+#' @export
+#'
+#' @examples
 read_gb <- function(file) {
   lines <- readr::read_lines(file)
   features <- .get_features_list(lines)

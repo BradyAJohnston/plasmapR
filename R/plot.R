@@ -15,7 +15,7 @@
 
 
     ggrepel::geom_label_repel(
-      ggplot2::aes(label = stringr::str_wrap(type, 10)),
+      ggplot2::aes(label = stringr::str_wrap(name, 10)),
       stat = "arrowLabel",
       box.padding = 0.6,
       size = 3,
@@ -24,12 +24,14 @@
       label.r = 0,
       bp = 400
     ) +
-    stat_arrow(colour = "black",
-               bp = bp,
-               arrowhead_size = 1) +
+    stat_arrow(
+      colour = "black",
+      bp = bp,
+      arrowhead_size = 1
+      ) +
     ggfittext::geom_fit_text(
       ggplot2::aes(
-        label = type,
+        label = name,
         ymin = 3.8,
         ymax = 4.2
       ),
@@ -44,16 +46,20 @@
     ) +
     ggplot2::ylim(c(0, NA)) +
     ggplot2::xlim(c(0, bp)) +
-    # theme_void() +
+    ggplot2::theme_void() +
     ggplot2::annotate(
       geom = "text",
       x = 0,
       y = 0,
-      label = "Some Plasmid\n4800 bp"
+      label = stringr::str_glue("Some Plasmid\n{bp} bp")
     ) +
     ggplot2::scale_fill_brewer(type = 'qual', palette = 5) +
-    ggplot2::theme(legend.position = "",
-                   # panel.background = element_rect(colour = 'black', fill = 'transparent')
-                   )
-                   }
+    ggplot2::theme(
+      legend.position = ""
+    )
+  }
 
+plot_plasmid <- function(plasmid) {
+  features <- as.data.frame(plasmid)
+  .plot_plasmid(features)
+}

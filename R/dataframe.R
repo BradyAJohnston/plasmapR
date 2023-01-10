@@ -15,7 +15,7 @@
 
     dat[i, ] <- c(
       i,
-      feat[[4]], # name
+      feat$name, # name
       feat$type, # type
       feat$start_end[1],
       feat$start_end[2],
@@ -30,4 +30,8 @@
   dat$direction <- as.numeric(dat$direction)
 
   dat[!is.na(dat$start), ]
+}
+
+as.data.frame.plasmid <- function(x) {
+  .feature_list_to_df(x$features)
 }

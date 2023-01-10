@@ -71,6 +71,15 @@
   cumsum(feature_start)
 }
 
+.add_feature_name <- function(x) {
+  if (length(x) == 4) {
+    x$name <- x$type
+  } else {
+    x$name <- x[[5]]
+  }
+  x
+}
+
 .get_features_list <- function(x) {
   x <- .get_lines_features(x)
   x <- stringr::str_subset(x, "^[^ ]", negate = TRUE)
@@ -97,7 +106,8 @@
         feature[[current_label]] <- paste0(feature[current_label], .get_value(line))
       }
     }
-      features[[i]] <- feature
+    feature <- .add_feature_name(feature)
+    features[[i]] <- feature
   }
   features
 }
@@ -110,7 +120,7 @@
 }
 
 read_gb <- function(file) {
-  lines <- readLines(file)
+  lines <- readr::read_lines(file)
   features <- .get_features_list(lines)
   sequence <- .get_sequence(lines)
   plasmid <- list(

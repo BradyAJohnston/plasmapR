@@ -73,7 +73,20 @@
 #' @return A ggplot object.
 #' @export
 plot_plasmid <- function(plasmid, name = "Plasmid Name", label_wrap = 20) {
-  features <- as.data.frame(plasmid)
+  if (is(plasmid, "plasmid")) {
+    features <- as.data.frame(plasmid)
+  } else if (is(plasmid, "data.frame")) {
+    features <- plasmid
+  } else {
+    cli::cli_abort("Must be either plasmid or data.frame")
+  }
+
+  if (is(plasmid, "data.frame")) {
+    bp <- max(c(features$start, features$end))
+  } else {
+    bp <- plasmid$length
+  }
+
 
   # remove NA values for start and end, need better handling of this
   fil <- is.na(features$start) | is.na(features$end) | features$type == "gene"
@@ -81,7 +94,7 @@ plot_plasmid <- function(plasmid, name = "Plasmid Name", label_wrap = 20) {
 
   .plot_plasmid(
     features,
-    bp  = plasmid$length,
+    bp  = bp,
     name = name,
     label_wrap = label_wrap
     )

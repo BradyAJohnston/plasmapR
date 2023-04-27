@@ -43,7 +43,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">plasmapR</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.2.0</span>
       </span>
     </div>
 
@@ -110,36 +110,32 @@
 <p><img src="reference/figures/example-plasmid-1.png"><!-- --></p>
 <p>Access the features by turning the plasmid into a data.frame.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">fl</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="reference/read_gb.html">read_gb</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb4"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="do">##    index                    name         type start  end direction</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="do">## 1      1 synthetic DNA construct       source     1 7700         1</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="do">## 2      2                 f1 orim   rep_origin    12  467         1</span></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="do">## 3      3           AmpR promoter     promoter   494  598         1</span></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="do">## 4      4                    AmpR          CDS   599 1459         1</span></span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="do">## 5      5                     ori   rep_origin  1630 2218         1</span></span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="do">## 6      6                     bom misc_feature  2404 2546         1</span></span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="do">## 7      7                     rop          CDS  2648 2839        -1</span></span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="do">## 8      8                    lacI          CDS  3648 4730         1</span></span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="do">## 9      9           lacI promoter     promoter  4731 4808         1</span></span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="do">## 10    10             T7 promoter     promoter  5121 5139         1</span></span>
-<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a><span class="do">## 11    11            lac operator protein_bind  5140 5164         1</span></span>
-<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a><span class="do">## 12    12                    TrxA          CDS  5209 5535         1</span></span>
-<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a><span class="do">## 13    13                   6xHis          CDS  5557 5574         1</span></span>
-<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a><span class="do">## 14    14         AviTag Insert R  primer_bind  5578 5628        -1</span></span>
-<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a><span class="do">## 15    15                TEV Site          CDS  5584 5604         1</span></span>
-<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a><span class="do">## 16    16              AviTag(TM)          CDS  5611 5655         1</span></span>
-<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a><span class="do">## 17    17         AviTag Insert F  primer_bind  5629 5673         1</span></span>
-<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a><span class="do">## 18    18             dsnPPR10-C2          CDS  5659 7503         1</span></span>
-<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a><span class="do">## 19    19                   6xHis          CDS  7544 7561         1</span></span>
-<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a><span class="do">## 20    20           T7 terminator   terminator  7628 7675         1</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">fl</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">'extdata'</span>, <span class="st">'petm20.gb'</span>, package <span class="op">=</span> <span class="st">"plasmapR"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">plasmid</span> <span class="op">&lt;-</span> <span class="va">fl</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="reference/read_gb.html">read_gb</a></span><span class="op">(</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">dat</span> <span class="op">&lt;-</span> <span class="va">plasmid</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">dat</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="do">##   index                    name         type start  end direction</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="do">## 1     1 synthetic DNA construct       source     1 7700         1</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="do">## 2     2                 f1 orim   rep_origin    12  467         1</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="do">## 3     3           AmpR promoter     promoter   494  598         1</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="do">## 4     4                    AmpR          CDS   599 1459         1</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="do">## 5     5                     ori   rep_origin  1630 2218         1</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="do">## 6     6                     bom misc_feature  2404 2546         1</span></span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">dat</span><span class="op">[</span><span class="va">dat</span><span class="op">$</span><span class="va">type</span> <span class="op">==</span> <span class="st">"CDS"</span>, <span class="op">]</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="reference/plot_plasmid.html">plot_plasmid</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"pETM-20"</span><span class="op">)</span></span></code></pre></div>
+<p><img src="reference/figures/unnamed-chunk-2-1.png"><!-- --></p>
 </div>
 <div class="section level2">
 <h2 id="a-ggplot2-object">A {ggplot2} Object<a class="anchor" aria-label="anchor" href="#a-ggplot2-object"></a>
 </h2>
 <p>The result of the call is just a {ggplot2} plot, which you can further customise to your liking with themes, etc.</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">fl</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">'extdata'</span>, <span class="st">'20.gb'</span>, package <span class="op">=</span> <span class="st">"plasmapR"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">plt</span> <span class="op">&lt;-</span> <span class="va">fl</span> <span class="op">|&gt;</span> </span>

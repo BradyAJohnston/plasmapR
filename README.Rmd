@@ -54,9 +54,19 @@ fl |>
 
 Access the features by turning the plasmid into a data.frame.
 ```{r}
-fl |> 
-  read_gb() |> 
+fl <- system.file('extdata', 'petm20.gb', package = "plasmapR")
+
+plasmid <- fl |> 
+  read_gb()
+
+dat <- plasmid |> 
   as.data.frame()
+
+head(dat)
+
+
+dat[dat$type == "CDS", ] |> 
+  plot_plasmid(name = "pETM-20")
 ```
 
 ## A {ggplot2} Object

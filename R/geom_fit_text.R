@@ -244,7 +244,10 @@ GeomFitText <- ggplot2::ggproto(
   }
 )
 
+#' Used Internally
 #' @importFrom grid makeContent
+#' @rdname makeContent.fittexttree
+#' @param ftt Fittexttree, used internally.
 #' @export
 makeContent.fittexttree <- function(ftt) {
 

@@ -1,7 +1,7 @@
 Package: plasmapR
 Title: Create Plasmid Maps in R
 Type: Package
-Version: 0.2.0
+Version: 0.2.1
 Authors@R:
     person(given = "Brady", 
            family = "Johnston", 

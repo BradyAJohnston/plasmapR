@@ -43,7 +43,8 @@
 #' @param ... Ignored.
 #'
 #' @return a DataFrame
-#' @method as.data.frame plasmid
+#' @rdname as.data.frame.plasmid
+#' @export
 as.data.frame.plasmid <- function(x, row.names, optional, ...) {
   .feature_list_to_df(x$features)
 }

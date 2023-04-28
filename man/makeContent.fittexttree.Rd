@@ -4,10 +4,10 @@
 \alias{makeContent.fittexttree}
 \title{Used Internally}
 \usage{
-\method{makeContent}{fittexttree}(ftt)
+\method{makeContent}{fittexttree}(x)
 }
 \arguments{
-\item{ftt}{Fittexttree, used internally.}
+\item{x}{Fittexttree, used internally.}
 }
 \description{
 Used Internally

@@ -35,13 +35,15 @@
   dat
 }
 
-
 #' Extract Features of a Plasmid as a DataFrame
 #'
-#' @param plasmid Plasmid
+#' @param x A list of class 'plasmid' from `read_gb()`
+#' @param row.names Ignored.
+#' @param optional Ignored.
+#' @param ... Ignored.
 #'
 #' @return a DataFrame
-#' @export
-as.data.frame.plasmid <- function(plasmid) {
-  .feature_list_to_df(plasmid$features)
+#' @method as.data.frame plasmid
+as.data.frame.plasmid <- function(x, row.names, optional, ...) {
+  .feature_list_to_df(x$features)
 }

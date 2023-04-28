@@ -73,15 +73,15 @@
 #' @return A ggplot object.
 #' @export
 plot_plasmid <- function(plasmid, name = "Plasmid Name", label_wrap = 20) {
-  if (is(plasmid, "plasmid")) {
+  if (methods::is(plasmid, "plasmid")) {
     features <- as.data.frame(plasmid)
-  } else if (is(plasmid, "data.frame")) {
+  } else if (methods::is(plasmid, "data.frame")) {
     features <- plasmid
   } else {
     cli::cli_abort("Must be either plasmid or data.frame")
   }
 
-  if (is(plasmid, "data.frame")) {
+  if (methods::is(plasmid, "data.frame")) {
     bp <- max(c(features$start, features$end))
   } else {
     bp <- plasmid$length

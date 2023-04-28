@@ -4,10 +4,16 @@
 \alias{as.data.frame.plasmid}
 \title{Extract Features of a Plasmid as a DataFrame}
 \usage{
-\method{as.data.frame}{plasmid}(plasmid)
+\method{as.data.frame}{plasmid}(x, row.names, optional, ...)
 }
 \arguments{
-\item{plasmid}{Plasmid}
+\item{x}{A list of class 'plasmid' from \code{read_gb()}}
+
+\item{row.names}{Ignored.}
+
+\item{optional}{Ignored.}
+
+\item{...}{Ignored.}
 }
 \value{
 a DataFrame

@@ -1,4 +1,5 @@
 
+#' @noRd
 .create_arrow <- function(start,
                           end,
                           phlange,
@@ -17,7 +18,6 @@
     direction <- direction * -1
   }
 
-
   # convert to 'arrow' nomenclature to make it more clear what is going on
   base <- start
   tip <- end
@@ -25,10 +25,10 @@
   .arrow_points(base, tip, midpoint, phlange, arrowhead_width, width)
 }
 
+#' Compute positions for an Arrow
 #' @export
-StatArrow <- ggplot2::ggproto(
-  'StatArrow',
-  ggplot2::Stat,
+
+StatArrow <- ggplot2::ggproto('StatArrow', ggplot2::Stat,
   setup_data = function(data, params) {
     wrong_orientation <- data$end < data$start
     end_temp <- data$end
@@ -126,10 +126,9 @@ StatArrow <- ggplot2::ggproto(
   )
 )
 
+#' Compute required values for labels
 #' @export
-StatArrowLabel <- ggplot2::ggproto(
-  'StatArrowLabel',
-  StatArrow,
+StatArrowLabel <- ggplot2::ggproto('StatArrowLabel', StatArrow,
   compute_group = function(data,
                            scales,
                            bp = 6000,
@@ -154,10 +153,6 @@ StatArrowLabel <- ggplot2::ggproto(
   }#,
   # required_aes = c('start', 'end')
 )
-
-
-
-
 
 stat_arrow <-
   function(mapping = NULL,

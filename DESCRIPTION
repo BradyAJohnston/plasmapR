@@ -25,7 +25,8 @@ Imports:
     stringi,
     readr,
     shades,
-    rlang
+    rlang,
+    methods
 Suggests:
     knitr,
     rmarkdown,

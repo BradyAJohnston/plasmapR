@@ -70,6 +70,19 @@ dat[dat$type == "CDS", ] |>
 
 ![](man/figures/unnamed-chunk-2-1.png)<!-- -->
 
+It’s not currently intended for linear display, but it can be used as
+such. I recommend checking out the
+[`gggenese`](https://wilkox.org/gggenes/) package.
+
+``` r
+dat[dat$type == "CDS", ] |> 
+  plot_plasmid(name = NULL) + 
+  ggplot2::coord_cartesian() + 
+  ggplot2::scale_y_continuous(limits = NULL)
+```
+
+![](man/figures/unnamed-chunk-3-1.png)<!-- -->
+
 ## A {ggplot2} Object
 
 The result of the call is just a {ggplot2} plot, which you can further

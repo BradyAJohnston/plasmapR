@@ -1,7 +1,7 @@
 Package: plasmapR
 Title: Create Plasmid Maps in R
 Type: Package
-Version: 0.2.1
+Version: 0.3.0
 Authors@R:
     person(given = "Brady", 
            family = "Johnston", 
@@ -22,11 +22,10 @@ Imports:
     stringr,
     ggrepel,
     cli,
-    stringi,
     readr,
-    shades,
     rlang,
-    methods
+    methods,
+    ggfittext (>= 0.10.0)
 Suggests:
     knitr,
     rmarkdown,

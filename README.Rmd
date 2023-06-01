@@ -69,6 +69,19 @@ dat[dat$type == "CDS", ] |>
   plot_plasmid(name = "pETM-20")
 ```
 
+It's not currently intended for linear display, but it can be used as such. I recommend checking out the [`gggenese`](https://wilkox.org/gggenes/) package.
+
+```{r}
+#| fig-height: 3
+#| message: false
+#| warning: false
+dat[dat$type == "CDS", ] |> 
+  plot_plasmid(name = NULL) + 
+  ggplot2::coord_cartesian() + 
+  ggplot2::scale_y_continuous(limits = NULL)
+```
+
+
 ## A {ggplot2} Object
 
 The result of the call is just a {ggplot2} plot, which you can further customise 

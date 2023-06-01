@@ -4,7 +4,15 @@
 .plot_plasmid <- function(dat, bp, name = "Plasmid Name", label_wrap = 20) {
   dat <- dat[dat$type != "source", ]
 
-  dat |>
+  name_supplied <- !is.null(name) & name != ""
+
+  if (name_supplied) {
+    yintercept = 4
+  } else {
+    yintercept = 0
+  }
+
+  plt <- dat |>
     ggplot2::ggplot(ggplot2::aes(
       start = .data$start,
       end = .data$end,
@@ -12,8 +20,10 @@
       fill = .data$type,
       group = .data$index
     )) +
-    ggplot2::geom_hline(yintercept = 4) +
-    ggplot2::coord_polar(start = pi / 4) +
+    ggplot2::geom_hline(yintercept = yintercept) +
+    ggplot2::coord_polar(
+      start = pi / 4
+      ) +
 
 
     ggrepel::geom_label_repel(
@@ -31,10 +41,10 @@
       bp = bp,
       arrowhead_size = 1
       ) +
-    geom_fit_text(
+    ggfittext::geom_fit_text(
       ggplot2::aes(
         label = .data$name,
-        y = 4
+        y = yintercept
       ),
       stat = "arrowLabel",
       grow = FALSE,
@@ -45,19 +55,26 @@
       flip = FALSE
 
     ) +
-    ggplot2::ylim(c(0, NA)) +
+    ggplot2::ylim(c(yintercept - 4, NA)) +
     ggplot2::xlim(c(0, bp)) +
     ggplot2::theme_void() +
-    ggplot2::annotate(
-      geom = "text",
-      x = 0,
-      y = 0,
-      label = stringr::str_glue("{name}\n{bp} bp")
-    ) +
     ggplot2::scale_fill_brewer(type = 'qual', palette = 5) +
     ggplot2::theme(
       legend.position = ""
     )
+
+  if (name_supplied) {
+    plt <- plt +
+      ggplot2::annotate(
+        geom = "text",
+        x = 0,
+        y = 0,
+        label = stringr::str_glue("{name}\n{bp} bp")
+      )
+  }
+
+  plt
+
   }
 
 #' Plot a Plasmid

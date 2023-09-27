@@ -63,3 +63,17 @@ test_that("Extract Lines", {
     59
   )
 })
+
+test_that("Extract over origin", {
+  line <- " CDS             join(4891..5096,1..751)"
+  values <- .get_start_end(line)
+  expect_equal(
+    values,
+    c(4891, 751)
+  )
+  direction <- .get_direction(line)
+  expect_equal(
+    direction,
+    1
+  )
+})

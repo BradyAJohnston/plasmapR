@@ -1,4 +1,6 @@
-url: https://bradyajohnston.github.io/plasmapr
+url: https://github.com/bradyajohnston/plasmapR, https://bradyajohnston.github.io/plasmapR/
+template:
+  bootstrap: 5
 
 authors:
   Brady Johnston:
@@ -9,4 +11,4 @@ template:
     bootswatch: flatly
     ganalytics: G-Z2J58R6DJC
     docsearch:
-      index_name: plasmapr
+      index_name plasmapr

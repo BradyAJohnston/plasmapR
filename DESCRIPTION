@@ -33,7 +33,7 @@ Suggests:
     testthat (>= 3.0.0)
 VignetteBuilder: knitr
 Depends: R (>= 2.10)
-URL: https::/github.com/bradyajohnston/plasmapr
-BugReports: https://github.com/bradyajohnston/plasmapr/issues
+URL: https://github.com/BradyAJohnston/plasmapr, https://bradyajohnston.github.io/plasmapR/
+BugReports: https://github.com/BradyAJohnston/plasmapR/issues
 Config/testthat/edition: 3
 Config/testthat/parallel: true

@@ -154,34 +154,58 @@ StatArrowLabel <- ggplot2::ggproto('StatArrowLabel', StatArrow,
   # required_aes = c('start', 'end')
 )
 
-stat_arrow <-
-  function(mapping = NULL,
-           data = NULL,
-           geom = "polygon",
-           position = "identity",
-           na.rm = FALSE,
-           show.legend = NA,
-           inherit.aes = TRUE,
-           ...,
-           bp = 6000,
-           # middle = 4,
-           arrowhead_size = 8
-           ) {
-    ggplot2::layer(
-      stat = "arrow",
-      data = data,
-      mapping = mapping,
-      geom = geom,
-      position = position,
-      show.legend = show.legend,
-      inherit.aes = inherit.aes,
-      params = list(
-        na.rm = na.rm,
-        bp = bp,
-        # middle = middle,
-        arrowhead_size = arrowhead_size,
-        # start = start,
-        # end = end,
-        ...)
+#' Custom Stat: Arrow
+#'
+#' This stat creates arrow shapes in a ggplot.
+#'
+#' @param mapping The aesthetic mapping, usually constructed with aes().
+#' @param data The dataset to be used in the layer.
+#' @param geom The geometric object to use for the layer, default is "polygon".
+#' @param position Position adjustment, default is "identity".
+#' @param na.rm Should missing values be removed?
+#' @param show.legend Logical. Should this layer be included in the legends?
+#' @param inherit.aes Should inherit aesthetics from the parent plot?
+#' @param ... Other arguments passed to layer().
+#' @param bp The base parameter for the arrow shape.
+#' @param arrowhead_size The size of the arrowhead.
+#' @return A ggplot layer with arrow shapes.
+#' @export
+#'
+#' @seealso \code{\link[ggplot2]{geom_segment}}
+#'
+#' @details
+#' Used for drawing features for a plasmid that work in both cartesian and
+#' polad coordinate systems.
+#'
+#' @note
+#' The `bp` parameter determines the base parameter of the arrow shape.
+#' The `arrowhead_size` parameter controls the size of the arrowhead.
+#'
+#' @keywords plotting
+stat_arrow <- function(mapping = NULL,
+                       data = NULL,
+                       geom = "polygon",
+                       position = "identity",
+                       na.rm = FALSE,
+                       show.legend = NA,
+                       inherit.aes = TRUE,
+                       ...,
+                       bp = 6000,
+                       arrowhead_size = 8
+) {
+  ggplot2::layer(
+    stat = "arrow",
+    data = data,
+    mapping = mapping,
+    geom = geom,
+    position = position,
+    show.legend = show.legend,
+    inherit.aes = inherit.aes,
+    params = list(
+      na.rm = na.rm,
+      bp = bp,
+      arrowhead_size = arrowhead_size,
+      ...
     )
-  }
+  )
+}

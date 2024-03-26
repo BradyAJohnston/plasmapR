@@ -1,13 +1,3 @@
-#' @noRd
-.rectangle_points <- function(start, end, middle, width) {
-  top <- middle + width
-  bottom <- middle - width
-  data.frame(
-    x = c(start, end, end, start, start),
-    y = c(top, top, bottom, bottom, top)
-  )
-}
-
 
 #' @noRd
 .create_arrow <- function(start,
@@ -20,7 +10,7 @@
                           arrowhead_width = 5,
                           arrowhead_size = 8) {
   if (direction == 0) {
-    points <- .rectangle_points(start, end, middle, width)
+    points <- .points_rectangle(start, end, middle, width)
   } else {
     if (direction == -1) {
       end_temp <- end
@@ -32,7 +22,7 @@
     base <- start
     tip <- end
     midpoint <- middle
-    points <- .arrow_points(base, tip, midpoint, phlange, arrowhead_width, width)
+    points <- .points_arrow(base, tip, midpoint, phlange, arrowhead_width, width)
   }
 
   points

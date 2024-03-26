@@ -1,4 +1,15 @@
-.arrow_points <- function(base,
+#' @noRd
+.points_rectangle <- function(start, end, middle, width) {
+  top <- middle + width
+  bottom <- middle - width
+  data.frame(
+    x = c(start, end, end, start, start),
+    y = c(top, top, bottom, bottom, top)
+  )
+}
+
+#' @noRd
+.points_arrow <- function(base,
                           tip,
                           midpoint,
                           phlange,

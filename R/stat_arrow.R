@@ -1,4 +1,39 @@
 
+
+#' @noRd
+.find_overlaps <- function(data) {
+  between <- function(x, y, z) {
+    x > y & x < z
+  }
+
+
+  data$id <- seq_len(nrow(data))
+  mat <- outer(
+    data$id,
+    data$id,
+    FUN = function(x, y) {
+      x_start <- data[x, "start"]
+      x_end   <- data[x, "end"]
+      y_start <- data[y, "start"]
+      y_end   <- data[y, "end"]
+
+      # check if either the start or the end of the feature lies within
+      # the other feature
+      (between(x_end, y_start, y_end) |
+          between(x_start, y_start, y_end)) &
+        data$length[x] < data$length[y] # only say it is overlapping if it's shorter than the other feature
+
+    }
+  )
+
+  vec <- apply(mat, 2, function(x)
+    data[x, "id"], simplify = TRUE)
+  vec <- unique(unlist(vec))
+  vec
+
+}
+
+
 #' @noRd
 .create_arrow <- function(start,
                           end,
@@ -22,7 +57,8 @@
     base <- start
     tip <- end
     midpoint <- middle
-    points <- .points_arrow(base, tip, midpoint, phlange, arrowhead_width, width)
+    points <-
+      .points_arrow(base, tip, midpoint, phlange, arrowhead_width, width)
   }
 
   points
@@ -31,7 +67,9 @@
 #' Compute positions for an Arrow
 #' @export
 
-StatArrow <- ggplot2::ggproto('StatArrow', ggplot2::Stat,
+StatArrow <- ggplot2::ggproto(
+  'StatArrow',
+  ggplot2::Stat,
   setup_data = function(data, params) {
     wrong_orientation <- data$end < data$start
     end_temp <- data$end
@@ -46,67 +84,32 @@ StatArrow <- ggplot2::ggproto('StatArrow', ggplot2::Stat,
     data$end[wrong_way] <- data$start[wrong_way]
     data$length <- data$end - data$start
 
-    .find_overlaps <- function(data) {
-
-
-      between <- function(x, y, z) {
-        x > y & x < z
-      }
-
-
-      data$id <- seq_len(nrow(data))
-      mat <- outer(data$id, data$id, FUN = function(x, y) {
-
-        x_start <- data[x, "start"]
-        x_end   <- data[x, "end"]
-        y_start <- data[y, "start"]
-        y_end   <- data[y, "end"]
-
-        # check if either the start or the end of the feature lies within
-        # the other feature
-        (
-          between(x_end, y_start, y_end) |
-          between(x_start, y_start, y_end)
-        ) & data$length[x] < data$length[y] # only say it is overlapping if it's shorter than the other feature
-
-      })
-
-      vec <- apply(mat, 2, function(x) data[x, "id"], simplify = TRUE)
-      vec <- unique(unlist(vec))
-      vec
-
-    }
-
+    # find the overlaps and offset the features on the y axis
+    # so that the smaller overlapping features are not on the primary x axis
     overlap <- .find_overlaps(data)
 
-
-    # overlap_end   <- sapply(data$end, function(i) TRUE %in% (i < data$end))
-    # overlap <- overlap_start & overlap_end
     data$middle[overlap] <- data$middle[overlap] + 0.6
     data$arrowhead_width <- 0.5
-    data$arrowhead_width[overlap] <- 0.5
 
-    points <- .feature_get_dim(
-      start = data$start,
-      end = data$end,
-      direction = data$direction,
-      phlange_angle = 8,
-      bp = 6000
-    )
-
-    # data$start   <- points$start
-    # data$end     <- points$end
-    data$direction <- points$direction
-    data$phlange <- points$phlange
 
     data
   },
   compute_group = function(data,
                            scales,
                            width = 0.15,
-                           bp = 6000,
-                           arrowhead_size = 8){
+                           bp = 10000,
+                           phlange_angle = 5,
+                           arrowhead_size = 8) {
+    points <- .feature_get_dim(
+      start = data$start,
+      end = data$end,
+      direction = data$direction,
+      phlange_angle = phlange_angle,
+      bp = bp
+    )
 
+    data$direction <- points$direction
+    data$phlange <- points$phlange
 
     arrows <-
       .create_arrow(
@@ -124,37 +127,41 @@ StatArrow <- ggplot2::ggproto('StatArrow', ggplot2::Stat,
     arrows
   },
   required_aes = c('start', 'end'),
-  default_aes = ggplot2::aes(
-    direction = 1
-  )
+  default_aes = ggplot2::aes(direction = 1)
 )
+
+#' Will a label for a feature fit in the drawable feature box?
+#' @keywords internal
+.will_label_fit <- function(label, feature_length_bp, plasmid_bp) {
+  (feature_length_bp / plasmid_bp) > (nchar(label) / plasmid_bp * 60)
+}
 
 #' Compute required values for labels
 #' @export
-StatArrowLabel <- ggplot2::ggproto('StatArrowLabel', StatArrow,
+StatArrowLabel <- ggplot2::ggproto(
+  'StatArrowLabel',
+  StatArrow,
   compute_group = function(data,
                            scales,
                            bp = 6000,
+                           width = 0.5,
                            invert = TRUE) {
-    # data$length <- data$end - data$start
-
-
-  df <- data.frame(
+    df <- data.frame(
       x = mean(c(data$start, data$end)),
       y = data$middle,
-      ymin = 3.5,
-      ymax = 4.5,
+      ymin = data$middle - width,
+      ymax = data$middle + width,
       xmin = data$start,
       xmax = data$end
     )
 
-  fil <- data$length / bp > nchar(data$label) / bp * 60
+    mask <- .will_label_fit(data$label, data$length, bp)
 
-  if (invert) fil <- !fil
-  # if (! invert) df <- df[, c("y", "xmin", "xmax")]
-  df[fil]
-  }#,
-  # required_aes = c('start', 'end')
+    if (invert) {
+      mask <- !mask
+    }
+    df[mask]
+  }
 )
 
 stat_arrow <-
@@ -167,9 +174,9 @@ stat_arrow <-
            inherit.aes = TRUE,
            ...,
            bp = 6000,
-           # middle = 4,
-           arrowhead_size = 8
-           ) {
+           arrowhead_size = 8,
+           linewidth = 1,
+           phlange_angle = 8) {
     ggplot2::layer(
       stat = "arrow",
       data = data,
@@ -181,10 +188,10 @@ stat_arrow <-
       params = list(
         na.rm = na.rm,
         bp = bp,
-        # middle = middle,
+        linewidth = linewidth,
+        phlange_angle = phlange_angle,
         arrowhead_size = arrowhead_size,
-        # start = start,
-        # end = end,
-        ...)
+        ...
+      )
     )
   }

@@ -25,7 +25,7 @@ Imports:
     readr,
     rlang,
     methods,
-    ggfittext (>= 0.10.0)
+    geomtextpath
 Suggests:
     knitr,
     rmarkdown,

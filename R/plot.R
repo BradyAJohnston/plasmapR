@@ -13,7 +13,10 @@
     ) {
   dat <- dat[dat$type != "source", ]
 
-  name_supplied <- !is.null(name) & name != ""
+  name_supplied <- !is.null(name)
+  if (name_supplied) {
+    name_supplied <- name != ''
+  }
 
   if (name_supplied) {
     yintercept = 4
@@ -43,13 +46,15 @@
       nudge_y = 1,
       segment.curvature = 0.01,
       label.r = 0,
+      middle = yintercept,
       bp = bp
     ) +
     stat_arrow(
       colour = "black",
       bp = bp,
       arrowhead_size = 1,
-      linewidth = feature_linewidth
+      linewidth = feature_linewidth,
+      middle = yintercept
       ) +
     geomtextpath::geom_textpath(
       ggplot2::aes(
@@ -58,7 +63,8 @@
       ),
       stat = "arrowLabel",
       size = label_size,
-      invert = FALSE
+      invert = FALSE,
+      middle = yintercept,
 
     ) +
     ggplot2::ylim(c(yintercept - 4, NA)) +
@@ -96,6 +102,8 @@
 #' @param label_size Size of the font for labels on features
 #' @param feature_linewidth Size of the lines for shapes drawn on features
 #' @param plasmid_linewidth Size of the underlying line of the plasmid
+#' @param name_size Size of the font for the name and basepair count in the
+#'  middle of the plasmid.
 #'
 #' @return A ggplot object.
 #' @export

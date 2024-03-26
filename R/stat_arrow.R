@@ -21,7 +21,9 @@
       # the other feature
       (between(x_end, y_start, y_end) |
           between(x_start, y_start, y_end)) &
-        data$length[x] < data$length[y] # only say it is overlapping if it's shorter than the other feature
+
+        # only say it is overlapping if it's shorter than the other feature
+        data$length[x] < data$length[y]
 
     }
   )
@@ -75,7 +77,6 @@ StatArrow <- ggplot2::ggproto(
     end_temp <- data$end
     data$end[wrong_orientation] <- data$start[wrong_orientation]
     data$start[wrong_orientation] <- end_temp[wrong_orientation]
-    data$middle <- 4
 
     vec_start <- data$start
     vec_end   <- data$end
@@ -88,7 +89,8 @@ StatArrow <- ggplot2::ggproto(
     # so that the smaller overlapping features are not on the primary x axis
     overlap <- .find_overlaps(data)
 
-    data$middle[overlap] <- data$middle[overlap] + 0.6
+    data$offset <- 0
+    data$offset[overlap] <- 1
     data$arrowhead_width <- 0.5
 
 
@@ -98,6 +100,7 @@ StatArrow <- ggplot2::ggproto(
                            scales,
                            width = 0.15,
                            bp = 10000,
+                           middle = 4,
                            phlange_angle = 5,
                            arrowhead_size = 8) {
     points <- .feature_get_dim(
@@ -115,7 +118,7 @@ StatArrow <- ggplot2::ggproto(
       .create_arrow(
         start = data$start,
         end = data$end,
-        middle = data$middle,
+        middle = middle + data$offset * width * 4,
         phlange = data$phlange,
         direction = data$direction,
         arrowhead_width = 0.5,
@@ -144,13 +147,12 @@ StatArrowLabel <- ggplot2::ggproto(
   compute_group = function(data,
                            scales,
                            bp = 6000,
-                           width = 0.5,
+                           width = 0.15,
+                           middle = 4,
                            invert = TRUE) {
     df <- data.frame(
       x = mean(c(data$start, data$end)),
-      y = data$middle,
-      ymin = data$middle - width,
-      ymax = data$middle + width,
+      y = middle + data$offset * width * 4,
       xmin = data$start,
       xmax = data$end
     )
@@ -174,6 +176,7 @@ stat_arrow <-
            inherit.aes = TRUE,
            ...,
            bp = 6000,
+           middle = 4,
            arrowhead_size = 8,
            linewidth = 1,
            phlange_angle = 8) {
@@ -188,6 +191,7 @@ stat_arrow <-
       params = list(
         na.rm = na.rm,
         bp = bp,
+        middle = middle,
         linewidth = linewidth,
         phlange_angle = phlange_angle,
         arrowhead_size = arrowhead_size,

@@ -72,7 +72,7 @@ dat[dat$type == "CDS", ] |>
 
 It’s not currently intended for linear display, but it can be used as
 such. I recommend checking out the
-[`gggenese`](https://wilkox.org/gggenes/) package.
+[`gggenes`](https://wilkox.org/gggenes/) package.
 
 ``` r
 dat[dat$type == "CDS", ] |> 

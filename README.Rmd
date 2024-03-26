@@ -69,7 +69,7 @@ dat[dat$type == "CDS", ] |>
   plot_plasmid(name = "pETM-20")
 ```
 
-It's not currently intended for linear display, but it can be used as such. I recommend checking out the [`gggenese`](https://wilkox.org/gggenes/) package.
+It's not currently intended for linear display, but it can be used as such. I recommend checking out the [`gggenes`](https://wilkox.org/gggenes/) package.
 
 ```{r}
 #| fig-height: 3

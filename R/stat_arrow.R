@@ -1,3 +1,13 @@
+#' @noRd
+.rectangle_points <- function(start, end, middle, width) {
+  top <- middle + width
+  bottom <- middle - width
+  data.frame(
+    x = c(start, end, end, start, start),
+    y = c(top, top, bottom, bottom, top)
+  )
+}
+
 
 #' @noRd
 .create_arrow <- function(start,
@@ -9,20 +19,23 @@
                           plasmid_length,
                           arrowhead_width = 5,
                           arrowhead_size = 8) {
-
-
-  if (direction == -1) {
-    end_temp <- end
-    end <- start
-    start <- end_temp
-    direction <- direction * -1
+  if (direction == 0) {
+    points <- .rectangle_points(start, end, middle, width)
+  } else {
+    if (direction == -1) {
+      end_temp <- end
+      end <- start
+      start <- end_temp
+      direction <- direction * -1
+    }
+    # convert to 'arrow' nomenclature to make it more clear what is going on
+    base <- start
+    tip <- end
+    midpoint <- middle
+    points <- .arrow_points(base, tip, midpoint, phlange, arrowhead_width, width)
   }
 
-  # convert to 'arrow' nomenclature to make it more clear what is going on
-  base <- start
-  tip <- end
-  midpoint <- middle
-  .arrow_points(base, tip, midpoint, phlange, arrowhead_width, width)
+  points
 }
 
 #' Compute positions for an Arrow

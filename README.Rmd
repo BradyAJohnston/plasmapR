@@ -46,15 +46,17 @@ Once a plasmid has been exported in Genbank format it can be parsed and plotted.
 library(ggplot2)
 fl <- system.file('extdata', 'petm20.gb', package = "plasmapR")
 
-fl |> 
-  read_gb() |> 
-  as.data.frame() -> dat
+plasmid <- read_gb(fl)
+dat <- as.data.frame(plasmid)
 
 dat[-1, ] |> 
   ggplot(aes(start=start, end = end, group = index, direction=direction), middle = 3) + 
+  geom_hline(yintercept = 4) +
   geom_feature_arrow(aes(fill = type), width = 0.2, head_size = 100) + 
+  scale_x_continuous(limits = c(0, plasmid$length)) +
   coord_polar() + 
-  scale_y_continuous(limits = c(0,5))
+  scale_y_continuous(limits = c(0,5)) + 
+  theme_minimal()
 ```
 
 

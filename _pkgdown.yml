@@ -9,4 +9,4 @@ template:
     bootswatch: flatly
     ganalytics: G-Z2J58R6DJC
     docsearch:
-      index_name plasmapr
+      index_name: plasmapr

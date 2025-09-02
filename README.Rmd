@@ -42,13 +42,21 @@ devtools::install_github("bradyajohnston/plasmapr")
 Once a plasmid has been exported in Genbank format it can be parsed and plotted.
 
 ```{r example-plasmid, dev='ragg_png'}
-library(plasmapR)
-
+# library(plasmapR)
+library(ggplot2)
 fl <- system.file('extdata', 'petm20.gb', package = "plasmapR")
 
-fl |> 
-  read_gb() |> 
-  plot_plasmid(name = "pETM-20")
+plasmid <- read_gb(fl)
+dat <- as.data.frame(plasmid)
+
+dat[-1, ] |> 
+  ggplot(aes(start=start, end = end, group = index, direction=direction), middle = 3) + 
+  geom_hline(yintercept = 4) +
+  geom_feature_arrow(aes(fill = type), width = 0.2, head_size = 100) + 
+  scale_x_continuous(limits = c(0, plasmid$length)) +
+  coord_polar() + 
+  scale_y_continuous(limits = c(0,5)) + 
+  theme_minimal()
 ```
 
 

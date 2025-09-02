@@ -1,4 +1,4 @@
-
+#'
 #' @noRd
 .create_arrow <- function(start,
                           end,
@@ -6,11 +6,7 @@
                           middle,
                           width,
                           direction = 1,
-                          plasmid_length,
-                          arrowhead_width = 5,
-                          arrowhead_size = 8) {
-
-
+                          arrowhead_width = 5) {
   if (direction == -1) {
     end_temp <- end
     end <- start

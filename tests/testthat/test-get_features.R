@@ -98,10 +98,7 @@ test_that("Origin-spanning feature detection and offset", {
   # Test with bp = 5096 (plasmid length)
   df <- .feature_list_to_df(test_features, bp = 5096)
   
-  # Check that origin-spanning feature is detected
-  expect_true(any(df$start > df$end))
-  
-  # After offset, no feature should have start > end
+  # After processing, no feature should have start > end (they should all be fixed)
   expect_true(all(df$start <= df$end))
   
   # Check that the TurboID feature spans correctly

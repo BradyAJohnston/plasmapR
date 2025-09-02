@@ -1,7 +1,13 @@
 
 #' @importFrom rlang .data
 #' @noRd
-.plot_plasmid <- function(dat, bp, name = "Plasmid Name", label_wrap = 20) {
+.plot_plasmid <- function(
+    dat,
+    bp,
+    name = "Plasmid Name",
+    rotation = 0,
+    label_wrap = 20
+    ) {
   dat <- dat[dat$type != "source", ]
 
   name_supplied <- !is.null(name) & name != ""
@@ -22,7 +28,7 @@
     )) +
     ggplot2::geom_hline(yintercept = yintercept) +
     ggplot2::coord_polar(
-      start = pi / 4
+      start = rotation
       ) +
 
 
@@ -91,7 +97,7 @@
 #' @export
 plot_plasmid <- function(plasmid, name = "Plasmid Name", label_wrap = 20) {
   if (methods::is(plasmid, "plasmid")) {
-    features <- as.data.frame(plasmid)
+    features <- as.data.frame(plasmid, bp = plasmid$length)
   } else if (methods::is(plasmid, "data.frame")) {
     features <- plasmid
   } else {

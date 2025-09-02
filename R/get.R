@@ -13,15 +13,14 @@
 }
 
 .get_start_end <- function(x) {
-  vector <- stringr::str_extract(x, "\\d+\\.\\.\\d+") |>
-    stringr::str_split("\\.\\.") |>
-    unlist() |>
-    as.numeric()
-  if (length(vector) == 1) {
-    c(vector, vector)
-  } else {
-    vector
-  }
+  start_stops <- stringr::str_extract_all(x, "\\d+\\.\\.\\d+")[[1]]
+  numbers <- unlist(stringr::str_extract_all(start_stops, "\\d+"))
+  numbers <- as.numeric(numbers)
+
+  # takes into account where there is a join(500..600, 1..100)
+  # where the feature goes over the origin
+  vector <- c(numbers[1], numbers[length(numbers)])
+  vector
 }
 
 .get_feature_type <- function(x) {

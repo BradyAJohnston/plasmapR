@@ -2,21 +2,21 @@
   "index_name": "plasmapr",
   "start_urls": [
     {
-      "url": "https://bradyajohnston.github.io/plasmapr/index.html",
+      "url": "https://github.com/bradyajohnston/plasmapR, https://bradyajohnston.github.io/plasmapR/index.html",
       "selectors_key": "homepage",
       "tags": [
         "homepage"
       ]
     },
     {
-      "url": "https://bradyajohnston.github.io/plasmapr/reference",
+      "url": "https://github.com/bradyajohnston/plasmapR, https://bradyajohnston.github.io/plasmapR/reference",
       "selectors_key": "reference",
       "tags": [
         "reference"
       ]
     },
     {
-      "url": "https://bradyajohnston.github.io/plasmapr/articles",
+      "url": "https://github.com/bradyajohnston/plasmapR, https://bradyajohnston.github.io/plasmapR/articles",
       "selectors_key": "articles",
       "tags": [
         "articles"
@@ -30,7 +30,7 @@
     "/articles/index.html"
   ],
   "sitemap_urls": [
-    "https://bradyajohnston.github.io/plasmapr/sitemap.xml"
+    "https://github.com/bradyajohnston/plasmapR, https://bradyajohnston.github.io/plasmapR/sitemap.xml"
   ],
   "selectors": {
     "homepage": {

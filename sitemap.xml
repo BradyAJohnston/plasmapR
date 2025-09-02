@@ -1,36 +1,15 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>https://bradyajohnston.github.io/plasmapr/404.html</loc>
-  </url>
-  <url>
-    <loc>https://bradyajohnston.github.io/plasmapr/LICENSE-text.html</loc>
-  </url>
-  <url>
-    <loc>https://bradyajohnston.github.io/plasmapr/LICENSE.html</loc>
-  </url>
-  <url>
-    <loc>https://bradyajohnston.github.io/plasmapr/authors.html</loc>
-  </url>
-  <url>
-    <loc>https://bradyajohnston.github.io/plasmapr/index.html</loc>
-  </url>
-  <url>
-    <loc>https://bradyajohnston.github.io/plasmapr/reference/StatArrow.html</loc>
-  </url>
-  <url>
-    <loc>https://bradyajohnston.github.io/plasmapr/reference/StatArrowLabel.html</loc>
-  </url>
-  <url>
-    <loc>https://bradyajohnston.github.io/plasmapr/reference/as.data.frame.plasmid.html</loc>
-  </url>
-  <url>
-    <loc>https://bradyajohnston.github.io/plasmapr/reference/index.html</loc>
-  </url>
-  <url>
-    <loc>https://bradyajohnston.github.io/plasmapr/reference/plot_plasmid.html</loc>
-  </url>
-  <url>
-    <loc>https://bradyajohnston.github.io/plasmapr/reference/read_gb.html</loc>
-  </url>
+<urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
+<url><loc>https://github.com/bradyajohnston/plasmapR, https://bradyajohnston.github.io/plasmapR/404.html</loc></url>
+<url><loc>https://github.com/bradyajohnston/plasmapR, https://bradyajohnston.github.io/plasmapR/LICENSE-text.html</loc></url>
+<url><loc>https://github.com/bradyajohnston/plasmapR, https://bradyajohnston.github.io/plasmapR/LICENSE.html</loc></url>
+<url><loc>https://github.com/bradyajohnston/plasmapR, https://bradyajohnston.github.io/plasmapR/authors.html</loc></url>
+<url><loc>https://github.com/bradyajohnston/plasmapR, https://bradyajohnston.github.io/plasmapR/index.html</loc></url>
+<url><loc>https://github.com/bradyajohnston/plasmapR, https://bradyajohnston.github.io/plasmapR/reference/StatArrow.html</loc></url>
+<url><loc>https://github.com/bradyajohnston/plasmapR, https://bradyajohnston.github.io/plasmapR/reference/StatArrowLabel.html</loc></url>
+<url><loc>https://github.com/bradyajohnston/plasmapR, https://bradyajohnston.github.io/plasmapR/reference/as.data.frame.plasmid.html</loc></url>
+<url><loc>https://github.com/bradyajohnston/plasmapR, https://bradyajohnston.github.io/plasmapR/reference/index.html</loc></url>
+<url><loc>https://github.com/bradyajohnston/plasmapR, https://bradyajohnston.github.io/plasmapR/reference/plot_plasmid.html</loc></url>
+<url><loc>https://github.com/bradyajohnston/plasmapR, https://bradyajohnston.github.io/plasmapR/reference/read_gb.html</loc></url>
+<url><loc>https://github.com/bradyajohnston/plasmapR, https://bradyajohnston.github.io/plasmapR/reference/stat_arrow.html</loc></url>
 </urlset>
+
